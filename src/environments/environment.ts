@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080/rims' 
+  baseUrl: 'http://localhost:8080/tbsm/' 
 };
