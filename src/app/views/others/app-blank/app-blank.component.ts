@@ -18,6 +18,7 @@ export class AppBlankComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   counters(){

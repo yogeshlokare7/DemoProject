@@ -20,7 +20,7 @@ export class SigninComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
+  roles: string;
   private loginInfo: AuthLoginInfo;
   loggedIn:boolean;
 
@@ -30,7 +30,7 @@ export class SigninComponent implements OnInit {
     private tokenStorage:TokenStorageService) { }
 
   ngOnInit() {
-    this.isValidUser();
+    //.isValidUser();
     this.signinForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -53,21 +53,20 @@ export class SigninComponent implements OnInit {
       signinData.username,
       signinData.password);
 
-    this.authService.attemptAuth(this.loginInfo).subscribe(
+    this.authService.signin(this.loginInfo).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.username);
-        this.tokenStorage.saveAuthorities(data.authorities);
-        this.tokenStorage.saveUserId(data.userid);
-        this.tokenStorage.saveCompanyId(data.company.companyId);
-        this.tokenStorage.saveCompany(data.company);
+        this.tokenStorage.saveRole(data.role.name);
+        this.tokenStorage.saveUserId(data.id);
+        //this.tokenStorage.saveCompanyId(data.societyid.id);
+        this.tokenStorage.saveSociety(data.societyid);
 
         this.submitButton.disabled =false;
         this.progressBar.mode = 'determinate';
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getAuthorities();
+        this.roles = this.tokenStorage.getRole();
         this.navigatePage();
       },
       error => {
@@ -79,8 +78,9 @@ export class SigninComponent implements OnInit {
   }
 
   navigatePage() {
-    this.roles = this.tokenStorage.getAuthorities();
-    if(this.roles.includes("ROLE_SUPER_ADMIN")){
+    this.roles = this.tokenStorage.getRole();
+    console.log("roles", this.roles);
+    if(this.roles.includes("Tejovat Admin")){
       this.router.navigateByUrl("/admin/dashboard");
     }else{
       this.router.navigateByUrl("/company/dashboard");

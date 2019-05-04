@@ -1,4 +1,5 @@
 import { Role } from './role';
+import { Society } from './society';
 
 export class UserModel{
     id: number;
@@ -24,7 +25,7 @@ export class UserModel{
     colone:string;
     coltwo: string;
     apartment: string;
-    societyid: string;
+    societyid: Society;
     role: Role;
 
     constructor(){

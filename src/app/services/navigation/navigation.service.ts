@@ -28,7 +28,7 @@ export class NavigationService {
       state: 'admin/dashboard'
     },
     {
-      name: 'MANAGE COMPANY',
+      name: 'MANAGE SOCIETY',
       type: 'link',
       tooltip: 'Manage Company',
       icon: 'inbox',
@@ -62,7 +62,7 @@ export class NavigationService {
       state: 'admin/dashboard'
     },
     {
-      name: 'MANAGE COMPANY',
+      name: 'MANAGE SOCIETY',
       type: 'link',
       tooltip: 'Inbox',
       icon: 'inbox',
@@ -92,7 +92,7 @@ export class NavigationService {
       state: 'admin/dashboard'
     },
     {
-      name: 'MANAGE COMPANY',
+      name: 'MANAGE SOCIETY',
       type: 'link',
       tooltip: 'Manage Company',
       icon: 'inbox',

@@ -6,6 +6,7 @@ import { CompanyService } from '../../../services/company.service';
 import { TokenStorageService } from '../../../services/token-storage/token-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Company } from 'src/app/models/company';
+import { Society } from 'src/app/models/society';
 
 @Component({
   selector: 'topbar',
@@ -13,9 +14,9 @@ import { Company } from 'src/app/models/company';
 })
 export class TopbarComponent implements OnInit {
   baseUrl = environment.baseUrl;
-  pictureUrl :string  = `${environment.baseUrl}/api/auth/others/files/company_default.png`;
+  pictureUrl :string  = `assets//images//account.jpg`;
   companyId :number;
-  company:Company;
+  company:Society;
 
   @Input() sidenav;
   @Input() notificPanel;
@@ -34,22 +35,22 @@ export class TopbarComponent implements OnInit {
         private tokenService:TokenStorageService,
     public companyService: CompanyService) {
       this.companyId = this.tokenService.getUserId();
-      this.company = this.tokenService.getCompany();
+      this.company = this.tokenService.getSociety();
       console.log("company", this.company);
-      if(this.companyId != null || this.companyId > 0){
-        this.companyService.checkCompanyLogo(this.companyId, "user").subscribe(data=>{
-          console.log("profile", data);
-          if(data.available){
-            this.pictureUrl = `${this.baseUrl}/api/auth/others/files/user_${this.companyId}.png`;
-          }else{
-            this.pictureUrl = `${this.baseUrl}/api/auth/others/files/user_default.png`;
-          }
-        }, (error:HttpErrorResponse)=>{
-          console.log("error", error);
-        })
-      }else{
-        this.pictureUrl = `${this.baseUrl}/api/auth/others/files/company_default.png`;
-      }
+      // if(this.companyId != null || this.companyId > 0){
+      //   this.companyService.checkCompanyLogo(this.companyId, "user").subscribe(data=>{
+      //     console.log("profile", data);
+      //     if(data.available){
+      //       this.pictureUrl = `${this.baseUrl}/api/auth/others/files/user_${this.companyId}.png`;
+      //     }else{
+      //       this.pictureUrl = `${this.baseUrl}/api/auth/others/files/user_default.png`;
+      //     }
+      //   }, (error:HttpErrorResponse)=>{
+      //     console.log("error", error);
+      //   })
+      // }else{
+      //   this.pictureUrl = `${this.baseUrl}/api/auth/others/files/company_default.png`;
+      // }
     }
   ngOnInit() {
     this.egretThemes = this.themeService.egretThemes;

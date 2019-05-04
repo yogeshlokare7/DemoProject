@@ -29,7 +29,7 @@ export class AdminLayoutComponent implements OnInit {
   moduleLoaderSub: Subscription;
   @ViewChild(MatSidenav) private sideNave: MatSidenav;
   baseUrl = environment.baseUrl;
-  pictureUrl :string  = `${environment.baseUrl}/api/auth/others/files/company_default.png`;
+  pictureUrl :string  = "assets//images//logotej.png";
   companyId :number;
 
   constructor(
@@ -40,7 +40,7 @@ export class AdminLayoutComponent implements OnInit {
     public companyService: CompanyService
   ) {
     this.companyId = this.tokenService.getCompanyId();
-    if(this.companyId != null || this.companyId > 0){
+    /*if(this.companyId != null || this.companyId > 0){
       this.companyService.checkCompanyLogo(this.companyId, "company").subscribe(data=>{
         if(data.available){
           this.pictureUrl = `${this.baseUrl}/api/auth/others/files/company_${this.companyId}.png`;
@@ -52,7 +52,7 @@ export class AdminLayoutComponent implements OnInit {
       })
     }else{
       this.pictureUrl = `${this.baseUrl}/api/auth/others/files/company_default.png`;
-    }
+    }*/
     // Close sidenav after route change in mobile
     router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((routeChange: NavigationEnd) => {
       if(this.isNavOver()) {

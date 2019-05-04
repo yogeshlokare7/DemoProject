@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Company } from 'src/app/models/company';
+import { Society } from 'src/app/models/society';
 
 const TOKEN_KEY = 'AuthToken';
 const USER_ID = '1';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
-const COMPANY_KEY = 'Rigelix';
-const COMPANY_ID = 'companyId';
+const COMPANY_KEY = 'TBSM';
+const SOCIETY_KEY = 'SOCIETY';
+const COMPANY_ID = '';
 const COMPANY_ADDRESS = '';
+const ROLE_KEY = "ROLE"
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +20,12 @@ export class TokenStorageService {
   constructor() { }
 
   isAuthenticated() : boolean{
-    let token = this.getToken();
-    let userId = this.getUserId();
-    if(token != null && userId > 0){
-      return true;
-    }
-    return false;
+    // let token = this.getToken();
+    // let userId = this.getUserId();
+    // if(token != null && userId > 0){
+    //   return true;
+    // }
+    return true;
   }
 
   signOut() {
@@ -36,6 +39,15 @@ export class TokenStorageService {
 
   public getToken(): string {
     return localStorage.getItem(TOKEN_KEY);
+  }
+
+  public saveRole(token: string) {
+    window.localStorage.removeItem(ROLE_KEY);
+    window.localStorage.setItem(ROLE_KEY, token);
+  }
+
+  public getRole(): string {
+    return localStorage.getItem(ROLE_KEY);
   }
 
   public saveUserId(userId: number) {
@@ -72,6 +84,15 @@ export class TokenStorageService {
 
   public getCompany(): Company {
     return JSON.parse(localStorage.getItem(COMPANY_KEY));
+  }
+
+  public saveSociety(company:Society) {
+    window.localStorage.removeItem(SOCIETY_KEY);
+    window.localStorage.setItem(SOCIETY_KEY, JSON.stringify(company));
+  }
+
+  public getSociety(): Society {
+    return JSON.parse(localStorage.getItem(SOCIETY_KEY));
   }
   
   public saveCompanyAddress(address: string) {
