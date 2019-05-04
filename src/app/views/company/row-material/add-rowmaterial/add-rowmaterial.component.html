@@ -1,0 +1,44 @@
+<mat-card-header>
+  <mat-card-title>{{title}} Material</mat-card-title>
+</mat-card-header>
+<mat-card-content class="mb-0 px-1">
+  <form ngClass.gt-xs="px-1" [formGroup]="materialForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="row" fxLayoutWrap="wrap">
+      <div fxFlex="100" fxFlex.gt-md="100" ngClass.gt-md="pr-1">
+        <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+          <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
+            <input matInput placeholder="Material Id" type="text" formControlName="materialid" required>
+          </mat-form-field>
+          <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
+            <input matInput placeholder="material Name" type="text" formControlName="materialname" required>
+          </mat-form-field>
+        </div>
+        <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+          <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+            <input matInput placeholder="Unit" type="text" formControlName="unit" required>
+          </mat-form-field>
+          <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+            <input matInput placeholder="Price" formControlName="price" type="text" required>
+          </mat-form-field>
+          <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+            <input matInput placeholder="Opening Stock" formControlName="openingStock" type="text" required>
+          </mat-form-field>
+          <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+            <input matInput placeholder="Reorder Level" formControlName="reorderLevel" type="text" required>
+          </mat-form-field>
+        </div>
+        <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+          <label class="mr-1 mat-body-3">Status:</label>
+          <mat-radio-group fxFlex="100" fxLayoutGap=".5rem" formControlName="status">
+            <mat-radio-button value="Y">Yes</mat-radio-button>
+            <mat-radio-button value="N">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div><br>
+    <div class="ptb-8 mb-2">
+      <button mat-raised-button color="primary" type="submit" class="mr-1" [disabled]="materialForm.invalid">Submit</button>
+      <button mat-raised-button color="accent" (click)="onNoClick()" type="button">Cancel</button>
+    </div>
+  </form>
+</mat-card-content>

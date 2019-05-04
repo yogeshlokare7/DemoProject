@@ -1,0 +1,35 @@
+<mat-sidenav-container class="app-side-nav-container mat-drawer-transition">
+  <!-- Main side navigation -->
+  <mat-sidenav #sidenav [opened]="!isNavOver()" [mode]="isNavOver() ? 'over' : 'side'" class="sidebar-panel">
+    <div id="scroll-area" class="navigation-hold" fxLayout="column">
+      <!-- Company Logo -->
+      <div class="branding default-bg">
+        <img [src]="pictureUrl" alt="" *ngIf="themeService.activatedThemeName.indexOf('dark') === -1">
+      </div>
+      <!-- Navigation -->
+      <app-company-navigation></app-company-navigation>
+    </div>
+  </mat-sidenav>
+
+  <!-- Top Bar -->
+  <!-- Listens language change event -->
+  <topbar [sidenav]="sidenav" [notificPanel]="notificationPanel" (onLangChange)="translate.use($event)"></topbar>
+  <app-breadcrumb #breadcrumb></app-breadcrumb>
+  <!-- App content -->
+  <div class="rightside-content-hold">
+    <div class="view-loader" *ngIf="isModuleLoading">
+      <div class="spinner">
+        <div class="double-bounce1 mat-bg-accent"></div>
+        <div class="double-bounce2 mat-bg-primary"></div>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+  
+  <!-- Notificaation bar -->
+  <mat-sidenav #notificationPanel mode="over" class="" position="end">
+    <div class="navigation-hold" fxLayout="column">
+      <app-notifications [notificPanel]="notificationPanel"></app-notifications>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>
