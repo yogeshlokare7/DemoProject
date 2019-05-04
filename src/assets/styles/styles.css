@@ -888,9 +888,9 @@ div.hopscotch-bubble .hopscotch-nav-button.prev:hover {
     text-align: center;
 }
 .branding .app-logo {
-    width: auto;
-    height: 100px;
-    margin-right: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
 }
 .branding .app-logo-text {
     width: auto;

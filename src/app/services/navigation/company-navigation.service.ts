@@ -31,7 +31,7 @@ export class CompanyNavigationService {
       state: 'company/dashboard'
     },
     {
-      name: 'Manage User',
+      name: 'Manage Security User',
       type: 'link',
       tooltip: 'Manage User',
       icon: 'chat',
@@ -51,74 +51,39 @@ export class CompanyNavigationService {
       state: 'company/dashboard'
     },
     {
-      name: 'Manage Users',
+      name: 'Manage Security Users',
       type: 'link',
       tooltip: 'Users',
       icon: 'person',
       state: 'company/users'
     },
     {
-      name: 'Manage Customers',
+      name: 'Manage Residents',
       type: 'link',
-      tooltip: 'Customers',
+      tooltip: 'Residents',
       icon: 'supervisor_account',
       state: 'company/customers'
     },
     {
-      name: 'Manage Vendors',
+      name: 'Manage Daily Staff',
       type: 'link',
       tooltip: 'Vendors',
       icon: 'people',
       state: 'company/vendors'
     },
     {
-      name: 'Manage Products',
+      name: 'Manage Admins',
       type: 'link',
       tooltip: 'Products',
       icon: 'view_module',
       state: 'company/products'
     },
     {
-      name: 'Manage Items',
+      name: 'Manage Bills',
       type: 'link',
-      tooltip: 'Items',
+      tooltip: 'Bills',
       icon: 'view_comfy',
       state: 'company/items'
-    },
-    {
-      name: 'Sales Orders',
-      type: 'link',
-      tooltip: 'Sales Orders',
-      icon: 'description',
-      state: 'company/sales'
-    },
-    {
-      name: 'Packages',
-      type: 'link',
-      tooltip: 'Packages',
-      icon: 'unarchive',
-      state: 'company/packages'
-    },
-    {
-      name: 'Invoices',
-      type: 'link',
-      tooltip: 'Invoices',
-      icon: 'receipt',
-      state: 'company/invoices'
-    },
-    {
-      name: 'Raw Material',
-      type: 'link',
-      tooltip: 'Raw Material',
-      icon: 'description',
-      state: 'company/raw-material'
-    },
-    {
-      name: 'Purchase Orders',
-      type: 'link',
-      tooltip: 'Purchase Orders',
-      icon: 'description',
-      state: 'company/purchase'
     }
   ]
 
@@ -131,74 +96,39 @@ export class CompanyNavigationService {
       state: 'company/dashboard'
     },
     {
-      name: 'Manage Users',
+      name: 'Manage Security Users',
       type: 'link',
       tooltip: 'Users',
       icon: 'person',
       state: 'company/users'
     },
     {
-      name: 'Manage Customers',
+      name: 'Manage Residents',
       type: 'link',
-      tooltip: 'Customers',
+      tooltip: 'Residents',
       icon: 'supervisor_account',
       state: 'company/customers'
     },
     {
-      name: 'Manage Vendors',
+      name: 'Manage Daily Staff',
       type: 'link',
       tooltip: 'Vendors',
       icon: 'people',
       state: 'company/vendors'
     },
     {
-      name: 'Manage Products',
+      name: 'Manage Admins',
       type: 'link',
       tooltip: 'Products',
       icon: 'view_module',
       state: 'company/products'
     },
     {
-      name: 'Manage Items',
+      name: 'Manage Bills',
       type: 'link',
-      tooltip: 'Items',
+      tooltip: 'Bills',
       icon: 'view_comfy',
       state: 'company/items'
-    },
-    {
-      name: 'Sales Orders',
-      type: 'link',
-      tooltip: 'Sales Orders',
-      icon: 'description',
-      state: 'company/sales'
-    },
-    {
-      name: 'Packages',
-      type: 'link',
-      tooltip: 'Packages',
-      icon: 'unarchive',
-      state: 'company/packages'
-    },
-    {
-      name: 'Invoices',
-      type: 'link',
-      tooltip: 'Invoices',
-      icon: 'receipt',
-      state: 'company/invoices'
-    },
-    {
-      name: 'Raw Material',
-      type: 'link',
-      tooltip: 'Raw Material',
-      icon: 'description',
-      state: 'company/raw-material'
-    },
-    {
-      name: 'Purchase Orders',
-      type: 'link',
-      tooltip: 'Purchase Orders',
-      icon: 'description',
-      state: 'company/purchase'
     }
   ]
 

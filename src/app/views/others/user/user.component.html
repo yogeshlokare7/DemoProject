@@ -26,9 +26,9 @@
       <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDisableClear
         matSortDirection="desc">
 
-        <ng-container matColumnDef="name">
+        <ng-container matColumnDef="firstname">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+          <mat-cell *matCellDef="let row">{{row.firstname}} {{row.lastname}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="email">
@@ -41,9 +41,9 @@
           <mat-cell *matCellDef="let row"> {{row.streetno}} {{row.streetname}} {{row.city}} {{row.postalcode}}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="company">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.company.companyName}}</mat-cell>
+        <ng-container matColumnDef="societyid">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Society</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.societyid.societyName}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="status">

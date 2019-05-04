@@ -15,7 +15,7 @@ import { User } from '../../../models/user';
 })
 export class UserComponent implements OnInit {
 
-  displayedColumns = ['name','email', 'streetno', 'company', 'status', 'actions'];
+  displayedColumns = ['firstname','email', 'streetno', 'societyid', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: User[] = [];
 

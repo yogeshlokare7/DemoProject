@@ -63,7 +63,6 @@ import { AddInvoiceComponent } from './invoices/add-invoice/add-invoice.componen
     AddUserComponent,
     AddRowMaterialComponent,
     AddItemComponent
-
   ]
 })
 export class CompanyModule { }
