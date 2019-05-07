@@ -11,6 +11,8 @@ import { CountryStateService } from 'src/app/services/country-state.service';
 import { GenericTerm } from 'src/app/models/generic/generic-term';
 import { RoleService } from 'src/app/services/role.service';
 import { Role } from 'src/app/models/role';
+import { Society } from 'src/app/models/society';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-company',
@@ -20,12 +22,11 @@ import { Role } from 'src/app/models/role';
 export class AddCompanyComponent implements OnInit {
 
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
   title: string = "Add";
   countries: string[];
   states: State[];
   userstates: State[];
-  company:Company;
+  society:Society;
   user: User;
   selectedFile: File = null;
   maxSize: number = 2097152;
@@ -42,13 +43,16 @@ export class AddCompanyComponent implements OnInit {
     private _dataService: CountryStateService,
     private companyService: CompanyService,
     private roleService:RoleService,
+    private route: ActivatedRoute,
     private userService: UserService) { }
 
   ngOnInit() {
     this.countries = this._dataService.getCountries();
-    this.getRoles();
+    let id = this.route.queryParams['id'];
+    console.log("id", id);
+   // this.getRoles();
     this.firstFormGroup = this.fb.group({
-      companyName: ['', Validators.required],
+      societyName: ['', Validators.required],
       email: ['', Validators.required],
       fax: [''],
       contactNo: ['', Validators.required],
@@ -60,24 +64,7 @@ export class AddCompanyComponent implements OnInit {
       state: [''],
       country: [''],
       status: ['Y'],
-      companyCode: ['', Validators.required],
-    });
-
-    this.secondFormGroup = this.fb.group({
-      name: ['', Validators.required],
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      contact: ['', Validators.required],
-      alternatecontact: [''],
-      password: ['12345678'],
-      company:[''],
-      streetno: [''],
-      streetname: [''],
-      city: [''],
-      postalcode: [''],
-      state: [''],
-      country: [''],
-      status:['Y']
+      apartments: ['', Validators.required],
     });
     this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
     this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
@@ -92,8 +79,8 @@ export class AddCompanyComponent implements OnInit {
     });
   }
 
-  get companyName(){
-    return this.firstFormGroup.get('companyName');
+  get societyName(){
+    return this.firstFormGroup.get('societyName');
   }
   get email(){ return this.firstFormGroup.get('email'); }
   get contactNo(){ return this.firstFormGroup.get('contactNo'); }
@@ -102,38 +89,17 @@ export class AddCompanyComponent implements OnInit {
   get postalcode(){ return this.firstFormGroup.get('postalcode'); }
   //get status(){ return this.firstFormGroup.get('status'); }
 
-  get name(){
-    return this.secondFormGroup.get('name');
-  }
-  get useremail(){ return this.secondFormGroup.get('email'); }
-  get username(){
-    return this.secondFormGroup.get('username');
-  }
-  get contact(){ return this.secondFormGroup.get('contact'); }
-
   onSelect(country:string) {
     this.states = this._dataService.getStates().filter((item)=> item.country == country);
    }
-
-   onUserSelect(country:string) {
-    this.userstates = this._dataService.getStates().filter((item)=> item.country == country);
-   }
   
-  submit() {
-    this.company = this.firstFormGroup.value;
-    this.user = this.secondFormGroup.value;
+   onSubmit() {
+    this.society = this.firstFormGroup.value;
     this.isLoadingResults = true;
-    this.user.roles = this.userRoles;
-    this.companyService.saveCompany(this.company).subscribe(data => {
-      this.company = data;
-      this.user.company = data;
-      this.userService.saveUser(this.user).subscribe(result => {
-        this.isLoadingResults = false;
-        this.user = result;
-      }, error => {
-        this.isLoadingResults = false;
-        console.log("user err", error);
-      })
+    this.companyService.saveSociety(this.society).subscribe(data => {
+      this.society = data;
+      this.isLoadingResults =false;
+      this.goBack();
     }, (err:HttpErrorResponse)=>{
       this.isLoadingResults = false;
       console.log("company err", err);
@@ -221,18 +187,6 @@ uploadUserLogo(event, file: ElementRef) {
 
 goBack(){
   this.location.back();
-}
-
-finalSubmit(){
-  this.isLoadingResults = true;
-  if(this.selectedFile !=null && this.company.companyId != null){
-    this.companyService.saveCompLogo(this.company.companyId, this.selectedFile);
-  }
-  if(this.selectedFile2 !=null && this.user.id != null){
-    this.userService.saveUserLogo(this.user.id , this.selectedFile2);
-  }
-  this.isLoadingResults =false;
-  this.goBack();
 }
 
 }

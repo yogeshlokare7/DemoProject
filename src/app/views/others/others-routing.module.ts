@@ -12,14 +12,19 @@ const routes: Routes = [
     pathMatch : 'full'
   },
   {
-    path: 'companies',
+    path: 'society',
     component: CompanyComponent,
-    data: { title: 'Company', breadcrumb: 'Companies' }
+    data: { title: 'Society', breadcrumb: 'Society' }
   },
   {
-    path: 'companies/add',
+    path: 'society/add',
     component: AddCompanyComponent,
-    data: { title: 'Company Save', breadcrumb: 'Save Company' }
+    data: { title: 'Society Save', breadcrumb: 'Save Society' }
+  },
+  {
+    path: 'society/edit',
+    component: AddCompanyComponent,
+    data: { title: 'Society Update', breadcrumb: 'Save Society' }
   },
   {
     path: 'users',

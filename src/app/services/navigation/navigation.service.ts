@@ -32,7 +32,7 @@ export class NavigationService {
       type: 'link',
       tooltip: 'Manage Company',
       icon: 'inbox',
-      state: 'admin/companies'
+      state: 'admin/society'
     },
     {
       name: 'MANAGE USER',
@@ -66,7 +66,7 @@ export class NavigationService {
       type: 'link',
       tooltip: 'Inbox',
       icon: 'inbox',
-      state: 'admin/companies'
+      state: 'admin/society'
     },
     {
       name: 'MANAGE USER',
@@ -96,7 +96,7 @@ export class NavigationService {
       type: 'link',
       tooltip: 'Manage Company',
       icon: 'inbox',
-      state: 'admin/companies'
+      state: 'admin/society'
     },
     {
       name: 'MANAGE USER',

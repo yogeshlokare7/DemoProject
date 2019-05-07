@@ -8,6 +8,7 @@ import { Company } from '../../../models/company';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CompanyService } from '../../../services/company.service';
+import { Society } from 'src/app/models/society';
 
 
 
@@ -18,9 +19,9 @@ import { CompanyService } from '../../../services/company.service';
 })
 export class CompanyComponent implements OnInit {
 
-  displayedColumns = ['companyName', 'contactNo', 'email', 'addressOne', 'status', 'companyCode', 'actions'];
+  displayedColumns = ['societyName', 'contactNo', 'email', 'addressOne', 'status', 'societyCode', 'actions'];
   exampleDatabase: PaginationDao | null;
-  data: Company[] = [];
+  data: Society[] = [];
 
   dataSource:any;
   api = environment.baseUrl;
@@ -57,7 +58,7 @@ export class CompanyComponent implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getList(`${this.api}/api/company/list`,
+          return this.exampleDatabase!.getListByCompanyId(`${this.api}/api/society`,
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

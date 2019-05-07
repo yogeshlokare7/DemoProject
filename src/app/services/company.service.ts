@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Company } from '../models/company';
+import { Society } from '../models/society';
+import { RestApi } from '../models/api/rest-api';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ export class CompanyService {
 
   baseUrl = environment.baseUrl;
   companyApi :string;
+  api = new RestApi();
   constructor(private httpClient:HttpClient) {
     this.companyApi = `${this.baseUrl}/api/company`;
   }
@@ -23,6 +26,10 @@ export class CompanyService {
 
   saveCompany(company:Company):Observable<Company>{
     return this.httpClient.post<Company>(this.companyApi, company);
+  }
+
+  saveSociety(society:Society):Observable<Society>{
+    return this.httpClient.post<Society>(this.api.SOCIETY_URL, society);
   }
 
   getCompany(id:number):Observable<Company>{

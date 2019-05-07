@@ -3,12 +3,15 @@ import { environment } from 'src/environments/environment';
 export class RestApi {
 
     baseurl = environment.baseUrl;
-    public readonly API_URL = "http://13.232.28.59:8080/rimsrest";
+    public readonly API_URL = environment.baseUrl;
 
     //LOGIN MODULE API
     public readonly LOGIN_URL = this.API_URL + '/login';
     public readonly UPDATEPWD_URL = this.API_URL + '/update';
     public readonly FORGOT_URL = this.API_URL + '/forgot';
+
+    //
+    public readonly SOCIETY_URL = this.API_URL + '/api/society';
 
     //Dashboard Counterss
     public readonly DASHBOARD_URL = this.API_URL + '/dashboard';
