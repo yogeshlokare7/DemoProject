@@ -32,6 +32,11 @@ const routes: Routes = [
     data: { title: 'Users', breadcrumb: 'Users'}
   },
   {
+    path: 'users/add',
+    component: AddCompanyComponent,
+    data: { title: 'add Save', breadcrumb: 'Save users' }
+  },
+  {
     path: 'dashboard',
     component: AppBlankComponent,
     data: { title: 'Home', breadcrumb: 'Home'}
