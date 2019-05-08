@@ -11,14 +11,14 @@
       <ng-template matStepLabel>Society information</ng-template>
       <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
         <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-          <input matInput placeholder="Society Name" type="text" minlength="3" maxlength="30" formControlName="societyName"
+          <input matInput placeholder="Society Name" type="text" minlength="4" maxlength="30" formControlName="societyName"
             required>
           <mat-error *ngIf="societyName.invalid && (societyName.dirty || societyName.touched)" class="alert alert-danger">
             <mat-error *ngIf="societyName.errors.required">
               Society name is required.
             </mat-error>
             <mat-error *ngIf="societyName.errors.minlength">
-              Company name must be at least 3 characters long.
+              Society name must be at least 4 characters long.
             </mat-error>
           </mat-error>
         </mat-form-field>
