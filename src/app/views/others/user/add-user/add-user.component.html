@@ -1,3 +1,97 @@
-<p>
-  add-user works!
-</p>
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text">{{title}} Society</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Society information</ng-template>
+      <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
+          <input matInput placeholder="Society Name" type="text" minlength="4" maxlength="30" formControlName="societyName"
+            required>
+          <mat-error *ngIf="societyName.invalid && (societyName.dirty || societyName.touched)" class="alert alert-danger">
+            <mat-error *ngIf="societyName.errors.required">
+              Society name is required.
+            </mat-error>
+            <mat-error *ngIf="societyName.errors.minlength">
+              Society name must be at least 4 characters long.
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
+          <input matInput placeholder="Email Id" type="text" minlength="5" maxlength="40" formControlName="email"
+            required>
+          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+            <mat-error *ngIf="email.errors.required">
+              Email id is required.
+            </mat-error>
+            <!-- <mat-error *ngIf="email.errors.email">
+                  Please enter valid mail.
+                </mat-error> -->
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+          <input matInput placeholder="Contact No" type="text" minlength="3" maxlength="15" formControlName="contactNo"
+            required>
+          <mat-error *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)" class="alert alert-danger">
+            <mat-error *ngIf="contactNo.errors.required">
+              Contact number is required.
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+          <input matInput placeholder="Alternate contact no" maxlength="15" type="text" formControlName="phoneNo">
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+          <input matInput placeholder="Fax" type="text" maxlength="30" formControlName="fax">
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+          <input matInput placeholder="Total Apartments" type="text" maxlength="30" formControlName="apartments"
+            required>
+        </mat-form-field>
+      </div>
+      <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
+          <input matInput placeholder="Address Line 1" type="text" maxlength="80" formControlName="addressOne">
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
+          <input matInput placeholder="Address Line 2" type="text" maxlength="80" formControlName="addressTwo">
+        </mat-form-field>
+      </div>
+      <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+          <input matInput placeholder="City" type="text" maxlength="30" formControlName="city">
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="22">
+          <input matInput placeholder="Postal code" type="text" maxlength="10" formControlName="postalCode">
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+          <mat-select placeholder="Select Country" name="country" formControlName="country" (selectionChange)="onSelect($event.value)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let obj of countries" [value]="obj">
+              {{ obj }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="22">
+          <mat-select placeholder="Select State" name="province" formControlName="state">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let obj of states" [value]="obj.name">
+              {{ obj.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button color="accent"  type="button" (click)="goBack()" class="mr-1">Back</button>
+        <button mat-raised-button color="primary" [disabled]="firstFormGroup.invalid" (click)="onSubmit()">Submit</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
