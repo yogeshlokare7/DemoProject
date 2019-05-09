@@ -1,14 +1,14 @@
 <mat-card class="p-0">
   <mat-card-title class="">
-    <div class="card-title-text">{{title}} Society</div>
+    <div class="card-title-text">{{title}} User</div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
     <div class="example-loading-shade" *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Society information</ng-template>
+    <form [formGroup]="userForm">
+      <ng-template matStepLabel>User information</ng-template>
       <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
         <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
           <input matInput placeholder="Society Name" type="text" minlength="4" maxlength="30" formControlName="societyName"

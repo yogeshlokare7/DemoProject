@@ -26,7 +26,7 @@ export class RestApi {
     public readonly VENDOR_URL = this.baseurl + '/api/vendor';
 
     //USER URL
-    public readonly USER_URL = this.API_URL + '/users';
+    public readonly USER_URL = this.API_URL + '/api/user';
     public readonly USER_IMAGE_URL = this.USER_URL + '/uploadImage';
     public readonly CHECKUSERBYUSERNAME_URL = this.USER_URL + '/checkUserByUsername';
     public readonly CHECKUSERBYEMAIL_URL = this.USER_URL + '/checkUserByEmail';

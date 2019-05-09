@@ -83,7 +83,7 @@ export class SigninComponent implements OnInit {
     if(this.roles.includes("Tejovat Admin")){
       this.router.navigateByUrl("/admin/dashboard");
     }else{
-      this.router.navigateByUrl("/company/dashboard");
+      this.router.navigateByUrl("/society/dashboard");
     }
   }
 

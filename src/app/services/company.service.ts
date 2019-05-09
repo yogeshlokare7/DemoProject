@@ -32,6 +32,11 @@ export class CompanyService {
     return this.httpClient.post<Society>(this.api.SOCIETY_URL, society);
   }
 
+  getSocietyList():Observable<Society[]>{
+    const url = `${this.api.SOCIETY_URL}/list`
+    return this.httpClient.get<Society[]>(url);
+  }
+
   getCompany(id:number):Observable<Company>{
     const url = `${this.companyApi}/${id}`
     return this.httpClient.get<Company>(url);

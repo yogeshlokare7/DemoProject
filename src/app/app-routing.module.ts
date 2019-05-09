@@ -40,7 +40,7 @@ const routes: Routes = [
     canActivate: [AuthService],
     children: [
       {
-        path: 'company', 
+        path: 'society', 
         loadChildren: './views/company/company.module#CompanyModule', 
         data: { title: 'Dashboard', breadcrumb: 'DASHBOARD'}
       }

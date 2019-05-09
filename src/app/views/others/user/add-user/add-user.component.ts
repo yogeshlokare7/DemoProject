@@ -7,10 +7,11 @@ import { RoleService } from 'src/app/services/role.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { CountryStateService } from 'src/app/services/country-state.service';
 import { Role } from 'src/app/models/role';
-import { GenericTerm } from 'src/app/models/generic/generic-term';
-import { User } from 'src/app/models/user.1';
 import { Society } from 'src/app/models/society';
 import { State } from 'src/app/models/state';
+import { Location } from '@angular/common';
+import { User } from 'src/app/models/user';
+import { GenericTerm } from 'src/app/models/generic/generic-term';
 
 @Component({
   selector: 'app-add-user',
@@ -19,12 +20,12 @@ import { State } from 'src/app/models/state';
 })
 export class AddUserComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
+  userForm: FormGroup;
   title: string = "Add";
   countries: string[];
   states: State[];
   userstates: State[];
-  society:Society;
+  societies: Society[] = [];
   user: User;
   selectedFile: File = null;
   maxSize: number = 2097152;
@@ -34,157 +35,227 @@ export class AddUserComponent implements OnInit {
   url2 = '';
   generic = new GenericTerm();
   isLoadingResults: boolean = false;
-  roles : Role[];
+  roles: Role[];
   userRoles: Role[] = [];
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
     private companyService: CompanyService,
-    private roleService:RoleService,
+    private roleService: RoleService,
     private route: ActivatedRoute,
     private userService: UserService) { }
 
   ngOnInit() {
     this.countries = this._dataService.getCountries();
-    let id = this.route.queryParams['id'];
-    console.log("id", id);
-   // this.getRoles();
-    this.firstFormGroup = this.fb.group({
-      societyName: ['', Validators.required],
+    this.createForm();
+    this.getRoles();
+    this.getSocietyList();
+  }
+
+  createForm(){
+    this.userForm = this.fb.group({
+      id: [''],
+      firstname: ['', [Validators.required, Validators.minLength(3)]],
+      lastname: [''],
+      username: [''],
       email: ['', Validators.required],
-      fax: [''],
       contactNo: ['', Validators.required],
+      password: [''],
+      streetno: [''],
+      streetname: [''],
+      postalcode: [''],
+      city: [''],
+      province: [''],
+      country: [''],
+      token: [''],
+      picture: [''],
+      gender: [''],
+      dob: [''],
+      rating: [''],
+      status: [''],
+      loginallowed: [''],
+      colone: [''],
+      coltwo: [''],
+      apartment: [''],
+      societyid: [''],
+      role: [''],
+      fax: [''],
       phoneNo: [''],
       addressOne: [''],
       addressTwo: [''],
-      city: [''],
-      postalCode: [''],
       state: [''],
-      country: [''],
-      status: ['Y'],
-      apartments: ['', Validators.required],
+      
+       apartments: ['', Validators.required],
     });
-    this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
-    this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
   }
+  get id() { return this.userForm.get('id');}
+  get firstname() { return this.userForm.get('firstname');}
+  get lastname() { return this.userForm.get('lastname');}
+  get email() { return this.userForm.get('email'); }
+  get contactNo() { return this.userForm.get('contactNo'); }
+  get addressOne() { return this.userForm.get('addressOne'); }
+  get city() { return this.userForm.get('city'); }
+  get province() { return this.userForm.get('province'); }
+  get country() { return this.userForm.get('country'); }
+  get token() { return this.userForm.get('token'); }
+  get picture() { return this.userForm.get('picture'); }
+  get gender() { return this.userForm.get('gender'); }
+  get dob() { return this.userForm.get('dob'); }
+  get rating() { return this.userForm.get('rating'); }
+  get status() { return this.userForm.get('status'); }
+  get loginallowed() { return this.userForm.get('loginallowed'); }
+  get colone() { return this.userForm.get('colone'); }
+  get coltwo() { return this.userForm.get('coltwo'); }
+  get apartment() { return this.userForm.get('apartment'); }
+  get societyid() { return this.userForm.get('societyid'); }
+  get Role() { return this.userForm.get('Role'); }
 
-  getRoles(){
-    this.roleService.getRoles().subscribe(data=>{
+
+  getRoles() {
+    this.roleService.getRoles().subscribe(data => {
       this.roles = data;
-      let myRole = this.roles.find(x=>x.id ==2);
-      this.userRoles.push(myRole);
       console.log("adding roles", this.userRoles);
+    }, err=>{
+
     });
   }
 
-  get societyName(){
-    return this.firstFormGroup.get('societyName');
-  }
-  get email(){ return this.firstFormGroup.get('email'); }
-  get contactNo(){ return this.firstFormGroup.get('contactNo'); }
-  get addressOne(){ return this.firstFormGroup.get('addressOne'); }
-  get city(){ return this.firstFormGroup.get('city'); }
-  get postalcode(){ return this.firstFormGroup.get('postalcode'); }
-  //get status(){ return this.firstFormGroup.get('status'); }
+  getSocietyList(){
+    this.companyService.getSocietyList().subscribe(data=>{
+      this.societies = data;
+    }, err=>{
 
-  onSelect(country:string) {
-    this.states = this._dataService.getStates().filter((item)=> item.country == country);
-   }
-  
-   onSubmit() {
-    this.society = this.firstFormGroup.value;
+    })
+  }
+
+  onSelect(country: string) {
+    this.states = this._dataService.getStates().filter((item) => item.country == country);
+  }
+
+  onSubmit() {
+    this.user = this.prepareSaveUser();
     this.isLoadingResults = true;
-    this.companyService.saveSociety(this.society).subscribe(data => {
-      this.society = data;
-      this.isLoadingResults =false;
-      this.goBack();
-    }, (err:HttpErrorResponse)=>{
+    this.userService.saveUser(this.user).subscribe(data => {
       this.isLoadingResults = false;
-      console.log("company err", err);
-  })
-}
+      this.goBack();
+    }, (err: HttpErrorResponse) => {
+      this.isLoadingResults = false;
+      console.log("user err", err);
+    })
+  }
 
-uploadFile(event, file: ElementRef) {
-  if (event.target.files && event.target.files[0]) {
-    let files1 = event.target.files[0];
-    file['value'] = (files1) ? files1.name : '';
-    this.selectedFile = files1;
+  prepareSaveUser() : User{
+    const formModel = this.userForm.value;
+    const saveUser : User = {
+    id: formModel.id as number,
+    firstname: formModel.firstname  as string,
+    lastname:  formModel.lastname as string,
+    username:  formModel.username as string,
+    email:  formModel.email as string,
+    contactno:  formModel.contactno as string,
+    password:  formModel.password as string,
+    streetno:  formModel.streetno as string,
+    streetname:  formModel.streetname as string,
+    postalcode:  formModel.postalcode as string,
+    city:  formModel.city as string,
+    province:  formModel.province as string,
+    country:  formModel.country as string,
+    token:  formModel.token as string,
+    picture:  formModel.picture as string,
+    gender:  formModel.gender as string,
+    dob: formModel.dob as Date,
+    rating:  formModel.rating as string,
+    status:  formModel.status as string,
+    loginallowed: formModel.loginallowed as boolean,
+    colone:  formModel.colone as string,
+    coltwo:  formModel.coltwo as string,
+    apartment:  formModel.apartment as string,
+    societyid: formModel.societyid as number,
+    Role: formModel.Role as string,
+    }
+    return saveUser;
+  }  
 
-    if (this.selectedFile.size < this.maxSize) {
-      let ftype = event.target.files[0].type;
-      if (ftype) {
-        switch (ftype) {
-          case 'image/png':
-            break;
-          case 'image/jpg':
-            break;
-          case 'image/gif':
-            break;
-          case 'image/jpeg':
-            break;
-          default:
-            alert("Invalid file format extension, only allowed formats are png/jpg/gif/jpeg.");
-            file['value'] = '';
-            this.selectedFile = null;
-            this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+  uploadFile(event, file: ElementRef) {
+    if (event.target.files && event.target.files[0]) {
+      let files1 = event.target.files[0];
+      file['value'] = (files1) ? files1.name : '';
+      this.selectedFile = files1;
+
+      if (this.selectedFile.size < this.maxSize) {
+        let ftype = event.target.files[0].type;
+        if (ftype) {
+          switch (ftype) {
+            case 'image/png':
+              break;
+            case 'image/jpg':
+              break;
+            case 'image/gif':
+              break;
+            case 'image/jpeg':
+              break;
+            default:
+              alert("Invalid file format extension, only allowed formats are png/jpg/gif/jpeg.");
+              file['value'] = '';
+              this.selectedFile = null;
+              this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+          }
         }
-      }
-      var reader = new FileReader();
+        var reader = new FileReader();
 
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+        }
+        reader.readAsDataURL(this.selectedFile);
+      } else {
+        alert("Sorry! File size should be less than 2MB.");
+        file['value'] = '';
+        this.selectedFile = null;
+        this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
       }
-      reader.readAsDataURL(this.selectedFile);
-    } else {
-      alert("Sorry! File size should be less than 2MB.");
-      file['value'] = '';
-      this.selectedFile = null;
-      this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
     }
   }
-}
 
-uploadUserLogo(event, file: ElementRef) {
-  if (event.target.files && event.target.files[0]) {
-    let files = event.target.files[0];
-    file['value'] = (files) ? files.name : '';
-    this.selectedFile2 = files;
+  uploadUserLogo(event, file: ElementRef) {
+    if (event.target.files && event.target.files[0]) {
+      let files = event.target.files[0];
+      file['value'] = (files) ? files.name : '';
+      this.selectedFile2 = files;
 
-    if (this.selectedFile2.size < this.maxSize) {
-      let ftype = event.target.files[0].type;
-      if (ftype) {
-        switch (ftype) {
-          case 'image/png':
-            break;
-          case 'image/jpg':
-            break;
-          case 'image/gif':
-            break;
-          case 'image/jpeg':
-            break;
-          default:
-            alert("Invalid file format extension, only allowed formats are png/jpg/gif/jpeg.");
-            file['value'] = '';
-            this.selectedFile2 = null;
-            this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+      if (this.selectedFile2.size < this.maxSize) {
+        let ftype = event.target.files[0].type;
+        if (ftype) {
+          switch (ftype) {
+            case 'image/png':
+              break;
+            case 'image/jpg':
+              break;
+            case 'image/gif':
+              break;
+            case 'image/jpeg':
+              break;
+            default:
+              alert("Invalid file format extension, only allowed formats are png/jpg/gif/jpeg.");
+              file['value'] = '';
+              this.selectedFile2 = null;
+              this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+          }
         }
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url2 = event.target.result;
+        }
+        reader.readAsDataURL(this.selectedFile2);
+      } else {
+        alert("Sorry! File size should be less than 2MB.");
+        file['value'] = '';
+        this.selectedFile2 = null;
+        this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
       }
-      var reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.url2 = event.target.result;
-      }
-      reader.readAsDataURL(this.selectedFile2);
-    } else {
-      alert("Sorry! File size should be less than 2MB.");
-      file['value'] = '';
-      this.selectedFile2 = null;
-      this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
     }
   }
-}
 
-goBack(){
-  this.location.back();
-}
-
+  goBack() {
+    this.location.back();
+  }
 }

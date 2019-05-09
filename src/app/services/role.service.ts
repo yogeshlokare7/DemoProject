@@ -37,7 +37,7 @@ export class RoleService {
   }
 
   getRoles(): Observable<Role[]> {
-    return this.httpClient.get<Role[]>(this.api.ROLE_URL);
+    return this.httpClient.get<Role[]>(this.api.ROLE_URL+"/list");
   }
 
   addRole(role: Role): void {

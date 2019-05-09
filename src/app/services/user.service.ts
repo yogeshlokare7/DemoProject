@@ -89,6 +89,10 @@ export class UserService {
       });
   }
 
+  saveUser(user:User) : Observable<User>{
+    return this.httpClient.post<User>(this.api.USER_URL, user);
+  }
+
   uploadImage(id: number, selectedFile: File) {
     const url = `${this.api.USER_IMAGE_URL}/${id}`;
     if (selectedFile !== null) {
@@ -146,10 +150,6 @@ export class UserService {
       params: httpParams,
       responseType: 'json'
     });
-  }
-
-  saveUser(user:User):Observable<User>{
-    return this.httpClient.post<User>(this.userApi, user);
   }
   
   addNewPassword(user: User): Observable<User> {
