@@ -8,7 +8,7 @@ export class RestApi {
     //LOGIN MODULE API
     public readonly LOGIN_URL = this.API_URL + '/login';
     public readonly UPDATEPWD_URL = this.API_URL + '/update';
-    public readonly FORGOT_URL = this.API_URL + '/forgot';
+    public readonly FORGOT_URL = this.API_URL + '/api/auth/forgot';
 
     //
     public readonly SOCIETY_URL = this.API_URL + '/api/society';

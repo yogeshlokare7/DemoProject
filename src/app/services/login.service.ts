@@ -45,11 +45,12 @@ export class LoginService {
     });
   }
 
-  forgotPassword(email: string) {
+  forgotPassword(email: string, date:string) {
     let httpHeaders = new HttpHeaders()
       .set('Content-Type', 'application/json');
     let httpParams = new HttpParams()
-      .set('userEmail', email);
+      .set('userEmail', email)
+      .set('forgotDate', date);
     console.log(httpParams.toString());
     console.log(httpHeaders.keys());
     return this.httpClient.get<User>(this.api.FORGOT_URL, {
