@@ -86,14 +86,14 @@ export class AddUserComponent implements OnInit {
   onSubmit(){
     let formModel = this.userForm.value;
     console.log("data", JSON.stringify(formModel));
-    this.user = this.prepareSaveUser(formModel);
+    //.user = this.prepareSaveUser(formModel);
     this.userService.saveUser(this.user).subscribe(data => {
       console.log("user", data)
       this.location.back();
     });
   }
 
-  prepareSaveUser(formModel : any) : User{
+ /* prepareSaveUser(formModel : any) : User{
     const saveUser : User = {
       id: formModel.id,
       name: formModel.name,
@@ -110,7 +110,7 @@ export class AddUserComponent implements OnInit {
       roles: this.roles
     }
     return saveUser;
-  }
+  }*/
 }
 
 

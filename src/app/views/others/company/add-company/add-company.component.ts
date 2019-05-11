@@ -73,8 +73,6 @@ export class AddCompanyComponent implements OnInit {
   getRoles(){
     this.roleService.getRoles().subscribe(data=>{
       this.roles = data;
-      let myRole = this.roles.find(x=>x.id ==2);
-      this.userRoles.push(myRole);
       console.log("adding roles", this.userRoles);
     });
   }
@@ -87,7 +85,6 @@ export class AddCompanyComponent implements OnInit {
   get addressOne(){ return this.firstFormGroup.get('addressOne'); }
   get city(){ return this.firstFormGroup.get('city'); }
   get postalcode(){ return this.firstFormGroup.get('postalcode'); }
-  //get status(){ return this.firstFormGroup.get('status'); }
 
   onSelect(country:string) {
     this.states = this._dataService.getStates().filter((item)=> item.country == country);

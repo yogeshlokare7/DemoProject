@@ -35,7 +35,7 @@ export class AddUserComponent implements OnInit {
   url2 = '';
   generic = new GenericTerm();
   isLoadingResults: boolean = false;
-  roles: Role[];
+  roles: Role[] = [];
   userRoles: Role[] = [];
   constructor(private fb: FormBuilder,
     private location: Location,
@@ -56,11 +56,11 @@ export class AddUserComponent implements OnInit {
     this.userForm = this.fb.group({
       id: [''],
       firstname: ['', [Validators.required, Validators.minLength(3)]],
-      lastname: [''],
-      username: [''],
+      lastname:['', [Validators.required]],
+      username: ['', [Validators.required]],
       email: ['', Validators.required],
-      contactNo: ['', Validators.required],
-      password: [''],
+      contactno: ['', Validators.required],
+      password: ['12345678'],
       streetno: [''],
       streetname: [''],
       postalcode: [''],
@@ -77,22 +77,19 @@ export class AddUserComponent implements OnInit {
       colone: [''],
       coltwo: [''],
       apartment: [''],
-      societyid: [''],
-      role: [''],
+      societyid: ['', [Validators.required]],
+      role: ['', [Validators.required]],
       fax: [''],
       phoneNo: [''],
-      addressOne: [''],
-      addressTwo: [''],
-      state: [''],
-      
-       apartments: ['', Validators.required],
+      apartments: ['', Validators.required],
     });
   }
   get id() { return this.userForm.get('id');}
   get firstname() { return this.userForm.get('firstname');}
   get lastname() { return this.userForm.get('lastname');}
+  get username() { return this.userForm.get('username');}
   get email() { return this.userForm.get('email'); }
-  get contactNo() { return this.userForm.get('contactNo'); }
+  get contactNo() { return this.userForm.get('contactno'); }
   get addressOne() { return this.userForm.get('addressOne'); }
   get city() { return this.userForm.get('city'); }
   get province() { return this.userForm.get('province'); }
@@ -108,13 +105,13 @@ export class AddUserComponent implements OnInit {
   get coltwo() { return this.userForm.get('coltwo'); }
   get apartment() { return this.userForm.get('apartment'); }
   get societyid() { return this.userForm.get('societyid'); }
-  get Role() { return this.userForm.get('Role'); }
+  get role() { return this.userForm.get('role'); }
 
 
   getRoles() {
     this.roleService.getRoles().subscribe(data => {
       this.roles = data;
-      console.log("adding roles", this.userRoles);
+      console.log("adding roles", this.roles);
     }, err=>{
 
     });
@@ -134,7 +131,8 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     this.user = this.prepareSaveUser();
-    this.isLoadingResults = true;
+    console.log("user form", JSON.stringify(this.user));
+    //.isLoadingResults = true;
     this.userService.saveUser(this.user).subscribe(data => {
       this.isLoadingResults = false;
       this.goBack();
@@ -146,6 +144,9 @@ export class AddUserComponent implements OnInit {
 
   prepareSaveUser() : User{
     const formModel = this.userForm.value;
+
+    let selectedSociety  = this.societies.find(x=>x.id == formModel.societyid);
+    let selectedRole = this.roles.find(y=>y.id == formModel.role);
     const saveUser : User = {
     id: formModel.id as number,
     firstname: formModel.firstname  as string,
@@ -170,8 +171,8 @@ export class AddUserComponent implements OnInit {
     colone:  formModel.colone as string,
     coltwo:  formModel.coltwo as string,
     apartment:  formModel.apartment as string,
-    societyid: formModel.societyid as number,
-    Role: formModel.Role as string,
+    societyid: selectedSociety as Society,
+    role: selectedRole as Role,
     }
     return saveUser;
   }  

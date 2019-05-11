@@ -4,6 +4,7 @@ import { AppBlankComponent } from './app-blank/app-blank.component';
 import { CompanyComponent } from './company/company.component';
 import { UserComponent } from './user/user.component';
 import { AddCompanyComponent } from './company/add-company/add-company.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
 
 const routes: Routes = [ 
   {
@@ -33,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'users/add',
-    component: AddCompanyComponent,
+    component: AddUserComponent,
     data: { title: 'add Save', breadcrumb: 'Save users' }
   },
   {
