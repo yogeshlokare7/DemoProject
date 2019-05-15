@@ -36,10 +36,10 @@
           <mat-cell *matCellDef="let row">{{row.email}}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="streetno">
+       <ng-container matColumnDef="contactno">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.streetno}} {{row.streetname}} {{row.city}} {{row.postalcode}}</mat-cell>
-        </ng-container>
+          <mat-cell *matCellDef="let row"> {{row.contactno}}</mat-cell>
+        </ng-container> 
 
         <ng-container matColumnDef="societyid">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Society</mat-header-cell>
@@ -49,6 +49,11 @@
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.status}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.role.name}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">

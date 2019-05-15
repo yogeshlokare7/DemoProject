@@ -19,7 +19,7 @@ export class PaginationDao {
 
     getListByCompanyId(url:string, sort1: string, order1: string, page: number, size1:number): Observable<PageModel> {
       let sort  = sort1 != null ? sort1: "id";
-      let order = order1 != null ? order1: "desc";
+      let order =(order1 == null  || order1 == '') ? "desc" : order1;
       let size = size1 !=null ? size1 : 10;
       const requestUrl = `${url}?page=${page}&size=${size}&sort=${sort},${order}`;
       console.log("requestUrl=>", requestUrl);

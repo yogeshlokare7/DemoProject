@@ -16,7 +16,7 @@ import { ListApi } from 'src/app/models/api/list-api';
 })
 export class UserComponent implements OnInit {
 
-  displayedColumns = ['firstname','email', 'streetno', 'societyid', 'status', 'actions'];
+  displayedColumns = ['firstname','email', 'contactno', 'societyid', 'role', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: User[] = [];
 
