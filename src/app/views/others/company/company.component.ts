@@ -9,6 +9,8 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CompanyService } from '../../../services/company.service';
 import { Society } from 'src/app/models/society';
+import { ActivatedRoute } from '@angular/router';
+import { ListApi } from 'src/app/models/api/list-api';
 
 
 
@@ -24,14 +26,15 @@ export class CompanyComponent implements OnInit {
   data: Society[] = [];
 
   dataSource:any;
-  api = environment.baseUrl;
+  api = new ListApi();
   resultsLength = 0;
   pageSize = 5;
   isLoadingResults = true;
   isRateLimitReached = false;
 
   constructor(public httpClient: HttpClient,
-    public compService: CompanyService) { }
+    private route:ActivatedRoute,
+    public societyService: CompanyService) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -44,7 +47,7 @@ export class CompanyComponent implements OnInit {
   refresh() {
     this.loadData();
   }
-  
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -58,7 +61,7 @@ export class CompanyComponent implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getListByCompanyId(`${this.api}/api/society`,
+          return this.exampleDatabase!.getListByCompanyId(`${this.api.SOCIETY_LIST}`,
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

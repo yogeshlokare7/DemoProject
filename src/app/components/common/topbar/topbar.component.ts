@@ -7,6 +7,7 @@ import { TokenStorageService } from '../../../services/token-storage/token-stora
 import { HttpErrorResponse } from '@angular/common/http';
 import { Company } from 'src/app/models/company';
 import { Society } from 'src/app/models/society';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'topbar',
@@ -14,9 +15,9 @@ import { Society } from 'src/app/models/society';
 })
 export class TopbarComponent implements OnInit {
   baseUrl = environment.baseUrl;
-  pictureUrl :string  = `assets//images//account.jpg`;
-  companyId :number;
-  company:Society;
+  pictureUrl: string = `assets//images//account.jpg`;
+  companyId: number;
+  company: Society;
 
   @Input() sidenav;
   @Input() notificPanel;
@@ -30,32 +31,20 @@ export class TopbarComponent implements OnInit {
     code: 'es',
   }]
   egretThemes;
-  
-  constructor(private themeService: ThemeService, 
-        private tokenService:TokenStorageService,
+
+  constructor(private themeService: ThemeService,
+    private tokenService: TokenStorageService,
+    private router:Router,
     public companyService: CompanyService) {
-      this.companyId = this.tokenService.getUserId();
-      this.company = this.tokenService.getSociety();
-      let roles = this.tokenService.getRole();
-      if(!roles.includes("Tejovat Admin")){
-        this.pictureUrl = `assets//images//account2.jpg`;
-      }
-      console.log("company", this.company);
-      // if(this.companyId != null || this.companyId > 0){
-      //   this.companyService.checkCompanyLogo(this.companyId, "user").subscribe(data=>{
-      //     console.log("profile", data);
-      //     if(data.available){
-      //       this.pictureUrl = `${this.baseUrl}/api/auth/others/files/user_${this.companyId}.png`;
-      //     }else{
-      //       this.pictureUrl = `${this.baseUrl}/api/auth/others/files/user_default.png`;
-      //     }
-      //   }, (error:HttpErrorResponse)=>{
-      //     console.log("error", error);
-      //   })
-      // }else{
-      //   this.pictureUrl = `${this.baseUrl}/api/auth/others/files/company_default.png`;
-      // }
+    this.companyId = this.tokenService.getUserId();
+    this.company = this.tokenService.getSociety();
+    let roles = this.tokenService.getRole();
+    if (!roles.includes("Tejovat Admin")) {
+      this.pictureUrl = `assets//images//account2.jpg`;
     }
+    console.log("company", this.company);
+  }
+
   ngOnInit() {
     this.egretThemes = this.themeService.egretThemes;
   }
@@ -72,14 +61,14 @@ export class TopbarComponent implements OnInit {
     this.sidenav.toggle();
   }
   toggleCollapse() {
-        let appBody = document.body;
-        domHelper.toggleClass(appBody, 'collapsed-menu');
-        domHelper.removeClass(document.getElementsByClassName('has-submenu'), 'open');
-    }
+    let appBody = document.body;
+    domHelper.toggleClass(appBody, 'collapsed-menu');
+    domHelper.removeClass(document.getElementsByClassName('has-submenu'), 'open');
+  }
 
-    
+
   logout() {
     this.tokenService.signOut();
-    window.location.reload();
+    this.router.navigateByUrl('/sessions/signin');
   }
 }

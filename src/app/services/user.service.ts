@@ -15,15 +15,12 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   api = new RestApi();
 
-  baseUrl = environment.baseUrl;
-  userApi :string;
-
   dataChange: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   // Temporarily stores data from dialogs
   dialogData: any;
 
   constructor(private httpClient: HttpClient, private toasterService: ToasterService) {
-    this.userApi = `${this.baseUrl}/api/user`;
+  
    }
 
   get data(): User[] {
@@ -155,10 +152,9 @@ export class UserService {
   addNewPassword(user: User): Observable<User> {
     return this.httpClient.post<User>(this.api.SETPWD_URL, user);
   }
-
   
   saveUserLogo(id:number, selectedFile:File){
-    const url = `${this.baseUrl}/api/auth/others/upload/${id}?type=user`;
+    const url = `${this.api.UPLOAD_IMAGE_URL}/${id}?type=user`;
     const fd = new FormData();
     fd.append('file', selectedFile, selectedFile.name);
     this.httpClient.post(url, fd).subscribe(data=>{

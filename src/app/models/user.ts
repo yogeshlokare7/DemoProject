@@ -1,4 +1,3 @@
-import { Company } from './company';
 import { Role } from './role';
 import { Society } from './society';
 

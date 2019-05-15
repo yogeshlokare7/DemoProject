@@ -25,7 +25,7 @@ const routes: Routes = [
   {
     path: 'society/edit',
     component: AddCompanyComponent,
-    data: { title: 'Society Update', breadcrumb: 'Save Society' }
+    data: { title: 'Society Update', breadcrumb: 'Update Society' }
   },
   {
     path: 'users',

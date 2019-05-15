@@ -21,12 +21,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddCompanyComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
+  societyForm: FormGroup;
   title: string = "Add";
   countries: string[];
   states: State[];
   userstates: State[];
-  society:Society;
+  society: Society;
   user: User;
   selectedFile: File = null;
   maxSize: number = 2097152;
@@ -36,22 +36,35 @@ export class AddCompanyComponent implements OnInit {
   url2 = '';
   generic = new GenericTerm();
   isLoadingResults: boolean = false;
-  roles : Role[];
+  roles: Role[];
   userRoles: Role[] = [];
+  sub: any;
+  id: number;
+
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
-    private companyService: CompanyService,
-    private roleService:RoleService,
-    private route: ActivatedRoute,
-    private userService: UserService) { }
+    private societyService: CompanyService,
+    private roleService: RoleService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.countries = this._dataService.getCountries();
-    let id = this.route.queryParams['id'];
-    console.log("id", id);
-   // this.getRoles();
-    this.firstFormGroup = this.fb.group({
+    this.createForm();
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id']; // (+) converts string 'id' to a number
+      if (this.id != null && this.id > 0) {
+        this.getSocietyInfo(this.id);
+        this.title = 'Update';
+      }
+    });
+    this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+    this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+  }
+
+  createForm() {
+    this.societyForm = this.fb.group({
+      id: [''],
       societyName: ['', Validators.required],
       email: ['', Validators.required],
       fax: [''],
@@ -66,124 +79,153 @@ export class AddCompanyComponent implements OnInit {
       status: ['Y'],
       apartments: ['', Validators.required],
     });
-    this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
-    this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
   }
 
-  getRoles(){
-    this.roleService.getRoles().subscribe(data=>{
+  getSocietyInfo(societyId: number) {
+    this.isLoadingResults = true;
+    this.societyService.getSociety(societyId).subscribe(data => {
+      this.society = data;
+      this.setFormValue(this.society);
+      this.isLoadingResults = false;
+    }, err => {
+      this.isLoadingResults = false;
+    })
+  }
+
+  setFormValue(society: Society) {
+    this.societyForm.patchValue({
+      id:society.id as number,
+      societyName: society.societyName as string,
+      email: society.email as string,
+      fax: society.fax as string,
+      contactNo: society.contactNo as string,
+      phoneNo: society.phoneNo as string,
+      addressOne: society.addressOne as string,
+      addressTwo: society.addressTwo as string,
+      city: society.city as string,
+      postalCode: society.postalCode as string,
+      state: society.state as string,
+      country: society.country as string,
+      status: society.status as string,
+      apartments: society.apartments as number,
+    });
+    this.onSelect(society.country);
+  }
+
+  getRoles() {
+    this.roleService.getRoles().subscribe(data => {
       this.roles = data;
       console.log("adding roles", this.userRoles);
     });
   }
 
-  get societyName(){
-    return this.firstFormGroup.get('societyName');
+  get societyName() {
+    return this.societyForm.get('societyName');
   }
-  get email(){ return this.firstFormGroup.get('email'); }
-  get contactNo(){ return this.firstFormGroup.get('contactNo'); }
-  get addressOne(){ return this.firstFormGroup.get('addressOne'); }
-  get city(){ return this.firstFormGroup.get('city'); }
-  get postalcode(){ return this.firstFormGroup.get('postalcode'); }
+  get email() { return this.societyForm.get('email'); }
+  get contactNo() { return this.societyForm.get('contactNo'); }
+  get addressOne() { return this.societyForm.get('addressOne'); }
+  get city() { return this.societyForm.get('city'); }
+  get postalcode() { return this.societyForm.get('postalcode'); }
 
-  onSelect(country:string) {
-    this.states = this._dataService.getStates().filter((item)=> item.country == country);
-   }
-  
-   onSubmit() {
-    this.society = this.firstFormGroup.value;
+  onSelect(country: string) {
+    this.states = this._dataService.getStates().filter((item) => item.country == country);
+  }
+
+  onSubmit() {
+    this.society = this.societyForm.value;
     this.isLoadingResults = true;
-    this.companyService.saveSociety(this.society).subscribe(data => {
+    this.societyService.saveSociety(this.society).subscribe(data => {
       this.society = data;
-      this.isLoadingResults =false;
+      this.isLoadingResults = false;
       this.goBack();
-    }, (err:HttpErrorResponse)=>{
+    }, (err: HttpErrorResponse) => {
       this.isLoadingResults = false;
       console.log("company err", err);
-  })
-}
+    })
+  }
 
-uploadFile(event, file: ElementRef) {
-  if (event.target.files && event.target.files[0]) {
-    let files1 = event.target.files[0];
-    file['value'] = (files1) ? files1.name : '';
-    this.selectedFile = files1;
+  uploadFile(event, file: ElementRef) {
+    if (event.target.files && event.target.files[0]) {
+      let files1 = event.target.files[0];
+      file['value'] = (files1) ? files1.name : '';
+      this.selectedFile = files1;
 
-    if (this.selectedFile.size < this.maxSize) {
-      let ftype = event.target.files[0].type;
-      if (ftype) {
-        switch (ftype) {
-          case 'image/png':
-            break;
-          case 'image/jpg':
-            break;
-          case 'image/gif':
-            break;
-          case 'image/jpeg':
-            break;
-          default:
-            alert("Invalid file format extension, only allowed formats are png/jpg/gif/jpeg.");
-            file['value'] = '';
-            this.selectedFile = null;
-            this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+      if (this.selectedFile.size < this.maxSize) {
+        let ftype = event.target.files[0].type;
+        if (ftype) {
+          switch (ftype) {
+            case 'image/png':
+              break;
+            case 'image/jpg':
+              break;
+            case 'image/gif':
+              break;
+            case 'image/jpeg':
+              break;
+            default:
+              alert("Invalid file format extension, only allowed formats are png/jpg/gif/jpeg.");
+              file['value'] = '';
+              this.selectedFile = null;
+              this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+          }
         }
-      }
-      var reader = new FileReader();
+        var reader = new FileReader();
 
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+        }
+        reader.readAsDataURL(this.selectedFile);
+      } else {
+        alert("Sorry! File size should be less than 2MB.");
+        file['value'] = '';
+        this.selectedFile = null;
+        this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
       }
-      reader.readAsDataURL(this.selectedFile);
-    } else {
-      alert("Sorry! File size should be less than 2MB.");
-      file['value'] = '';
-      this.selectedFile = null;
-      this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
     }
   }
-}
 
-uploadUserLogo(event, file: ElementRef) {
-  if (event.target.files && event.target.files[0]) {
-    let files = event.target.files[0];
-    file['value'] = (files) ? files.name : '';
-    this.selectedFile2 = files;
+  uploadUserLogo(event, file: ElementRef) {
+    if (event.target.files && event.target.files[0]) {
+      let files = event.target.files[0];
+      file['value'] = (files) ? files.name : '';
+      this.selectedFile2 = files;
 
-    if (this.selectedFile2.size < this.maxSize) {
-      let ftype = event.target.files[0].type;
-      if (ftype) {
-        switch (ftype) {
-          case 'image/png':
-            break;
-          case 'image/jpg':
-            break;
-          case 'image/gif':
-            break;
-          case 'image/jpeg':
-            break;
-          default:
-            alert("Invalid file format extension, only allowed formats are png/jpg/gif/jpeg.");
-            file['value'] = '';
-            this.selectedFile2 = null;
-            this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+      if (this.selectedFile2.size < this.maxSize) {
+        let ftype = event.target.files[0].type;
+        if (ftype) {
+          switch (ftype) {
+            case 'image/png':
+              break;
+            case 'image/jpg':
+              break;
+            case 'image/gif':
+              break;
+            case 'image/jpeg':
+              break;
+            default:
+              alert("Invalid file format extension, only allowed formats are png/jpg/gif/jpeg.");
+              file['value'] = '';
+              this.selectedFile2 = null;
+              this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+          }
         }
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url2 = event.target.result;
+        }
+        reader.readAsDataURL(this.selectedFile2);
+      } else {
+        alert("Sorry! File size should be less than 2MB.");
+        file['value'] = '';
+        this.selectedFile2 = null;
+        this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
       }
-      var reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.url2 = event.target.result;
-      }
-      reader.readAsDataURL(this.selectedFile2);
-    } else {
-      alert("Sorry! File size should be less than 2MB.");
-      file['value'] = '';
-      this.selectedFile2 = null;
-      this.url2 = "data:image/png;base64," + this.generic.IMAGEDATA + "";
     }
   }
-}
 
-goBack(){
-  this.location.back();
-}
+  goBack() {
+    this.location.back();
+  }
 
 }

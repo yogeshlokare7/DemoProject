@@ -7,6 +7,7 @@ import { PaginationDao } from '../../../models/pagination-dao';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../../models/user';
+import { ListApi } from 'src/app/models/api/list-api';
 
 @Component({
   selector: 'app-user',
@@ -20,7 +21,7 @@ export class UserComponent implements OnInit {
   data: User[] = [];
 
   dataSource:any;
-  api = environment.baseUrl;
+  api = new ListApi();
   resultsLength = 0;
   pageSize = 5;
   isLoadingResults = true;
@@ -53,7 +54,7 @@ export class UserComponent implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getListByCompanyId(`${this.api}/api/user/list`,
+          return this.exampleDatabase!.getListByCompanyId(`${this.api.USER_LIST}`,
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

@@ -38,8 +38,13 @@ export class CompanyService {
   }
 
   getCompany(id:number):Observable<Company>{
-    const url = `${this.companyApi}/${id}`
+    const url = `${this.api.SOCIETY_URL}/${id}`
     return this.httpClient.get<Company>(url);
+  }
+
+  getSociety(id:number):Observable<Society>{
+    const url = `${this.api.SOCIETY_URL}/${id}`;
+    return this.httpClient.get<Society>(url);
   }
 
   saveCompLogo(id:number, selectedFile:File){
