@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8099' 
+  baseUrl: 'http://13.233.229.86:8080/tbsm'
 };

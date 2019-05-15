@@ -29,7 +29,7 @@ export class AdminLayoutComponent implements OnInit {
   moduleLoaderSub: Subscription;
   @ViewChild(MatSidenav) private sideNave: MatSidenav;
   baseUrl = environment.baseUrl;
-  pictureUrl :string  = "assets//images//logotej.png";
+  pictureUrl :string  = "assets//png_logo.png";
   companyId :number;
 
   constructor(

@@ -889,7 +889,7 @@ div.hopscotch-bubble .hopscotch-nav-button.prev:hover {
 }
 .branding .app-logo {
     box-sizing: border-box;
-    width: 100%;
+     /* width: 50%;  */
     padding: 5px;
 }
 .branding .app-logo-text {
