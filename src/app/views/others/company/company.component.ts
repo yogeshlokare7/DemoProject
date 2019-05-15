@@ -21,7 +21,7 @@ import { ListApi } from 'src/app/models/api/list-api';
 })
 export class CompanyComponent implements OnInit {
 
-  displayedColumns = ['societyName', 'contactNo', 'email', 'addressOne', 'status', 'societyCode', 'actions'];
+  displayedColumns = ['pic', 'societyName', 'contactNo', 'email', 'addressOne', 'status', 'societyCode', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: Society[] = [];
 

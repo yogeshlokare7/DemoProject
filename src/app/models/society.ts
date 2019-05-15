@@ -14,6 +14,7 @@ export class Society{
     country: string;
     status: string;
     societyCode: string;
+    picture:string;
 
     constructor(){
         

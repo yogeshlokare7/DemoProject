@@ -11,9 +11,10 @@
       <ng-template matStepLabel>Society information</ng-template>
       <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
         <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-          <input matInput placeholder="Society Name" type="text" minlength="4" maxlength="30" formControlName="societyName"
-            required>
-          <mat-error *ngIf="societyName.invalid && (societyName.dirty || societyName.touched)" class="alert alert-danger">
+          <input matInput placeholder="Society Name" type="text" minlength="4" maxlength="30"
+            formControlName="societyName" required>
+          <mat-error *ngIf="societyName.invalid && (societyName.dirty || societyName.touched)"
+            class="alert alert-danger">
             <mat-error *ngIf="societyName.errors.required">
               Society name is required.
             </mat-error>
@@ -72,7 +73,8 @@
           <input matInput placeholder="Postal code" type="text" maxlength="10" formControlName="postalCode">
         </mat-form-field>
         <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-          <mat-select placeholder="Select Country" name="country" formControlName="country" (selectionChange)="onSelect($event.value)">
+          <mat-select placeholder="Select Country" name="country" formControlName="country"
+            (selectionChange)="onSelect($event.value)">
             <mat-option>None</mat-option>
             <mat-option *ngFor="let obj of countries" [value]="obj">
               {{ obj }}
@@ -88,8 +90,42 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex="100" fxFlex.gt-md="60" ngClass.gt-md="pr-1">
+          <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="97">
+              <input matInput #file2 placeholder="Choose image" class="pointer--cursor" (click)="upload2.click()">
+              <input [hidden]="true" type="file" #upload2 (change)="uploadFile($event, file2)" />
+            </mat-form-field>
+            <button type="button" mat-button color="accent" mat-mini-fab (click)="upload2.click()"
+              matTooltip="Choose society image">
+              <mat-icon>attachment</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-md="5" ngClass.gt-md="pr-1">
+        </div>
+        <div fxFlex="100" fxFlex.gt-md="35" ngClass.gt-md="pr-1">
+          <div class="profile__pic" fxFlex="100" fxFlex.gt-xs="24">
+            <img [src]="url" alt="Society Image" class="user">
+          </div>
+          <br>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex="100" fxFlex.gt-md="70" ngClass.gt-md="pr-1">
+          <div>
+            <label class="mr-1 mat-body-3">&nbsp;Status:</label>
+            <mat-radio-group fxFlex="100" fxLayoutGap=".5rem" formControlName="status">
+              <mat-radio-button value="Y">YES</mat-radio-button>
+              <mat-radio-button value="N">NO</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+      <br>
       <div>
-        <button mat-raised-button color="accent"  type="button" (click)="goBack()" class="mr-1">Back</button>
+        <button mat-raised-button color="accent" type="button" (click)="goBack()" class="mr-1">Back</button>
         <button mat-raised-button color="primary" [disabled]="societyForm.invalid" (click)="onSubmit()">Submit</button>
       </div>
     </form>

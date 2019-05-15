@@ -78,6 +78,7 @@ export class AddCompanyComponent implements OnInit {
       country: [''],
       status: ['Y'],
       apartments: ['', Validators.required],
+      picture: '',
     });
   }
 
@@ -108,6 +109,7 @@ export class AddCompanyComponent implements OnInit {
       country: society.country as string,
       status: society.status as string,
       apartments: society.apartments as number,
+      picture: society.picture
     });
     this.onSelect(society.country);
   }

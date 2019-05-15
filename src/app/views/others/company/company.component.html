@@ -25,7 +25,10 @@
 
       <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDisableClear
         matSortDirection="desc">
-
+        <ng-container matColumnDef="pic">
+          <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+          <mat-cell *matCellDef="let row"> <img src="{{row.picture}}" alt="" class="user__icon" ngClass.gt-xs="ml-1" ngStyle.xs="min-width: auto"></mat-cell>
+        </ng-container>
         <ng-container matColumnDef="societyName">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.societyName}}</mat-cell>

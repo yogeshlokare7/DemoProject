@@ -16,7 +16,7 @@ import { ListApi } from 'src/app/models/api/list-api';
 })
 export class UserComponent implements OnInit {
 
-  displayedColumns = ['firstname','email', 'contactno', 'societyid', 'role', 'status', 'actions'];
+  displayedColumns = ['pic', 'firstname','email', 'contactno', 'societyid', 'role', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: User[] = [];
 
@@ -26,6 +26,7 @@ export class UserComponent implements OnInit {
   pageSize = 5;
   isLoadingResults = true;
   isRateLimitReached = false;
+  pictureUrl: string = `http://localhost:8099/api/auth/userpicture?filename=`;
 
   constructor(public httpClient: HttpClient) { }
 

@@ -12,7 +12,7 @@
       <div fxLayout="row" fxLayoutWrap="wrap">
         <div fxFlex="100" fxFlex.gt-md="100" ngClass.gt-md="pr-1">
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="32">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
               <mat-select formControlName="societyid" placeholder="Please Select Society">
                 <mat-option *ngFor="let society of societies" [value]="society.id">
                   {{society.societyName}}
@@ -24,7 +24,7 @@
                 </mat-error>
               </mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="32">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="36">
               <input matInput placeholder="Username" type="text" minlength="3" maxlength="30" formControlName="username"
                 required>
               <mat-error *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
@@ -36,7 +36,7 @@
                 </mat-error>
               </mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="32">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="36">
               <input matInput placeholder="Email Id" type="text" minlength="5" maxlength="40" formControlName="email"
                 required>
               <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
@@ -77,29 +77,64 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-              <input matInput placeholder="Alternate contact no" maxlength="15" type="text" formControlName="phoneNo">
+              <input matInput placeholder="Alternate Contact No" type="text" minlength="3" maxlength="15"
+                formControlName="contactno" required>
+              <mat-error *ngIf="postalcode.invalid && (postalcode.dirty || postalcode.touched)"
+                class="alert alert-danger">
+                <mat-error *ngIf="postalcode.errors.required">
+                  Alternate Contact number is required.
+                </mat-error>
+              </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-              <input matInput placeholder="Fax" type="text" maxlength="30" formControlName="fax">
+              <input matInput [matDatepicker]="picker1" placeholder="Date of Birth" [max]="maxDate"
+                formControlName="dob" required>
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              <mat-error *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="alert alert-danger">
+                <mat-error *ngIf="dob.errors.required">
+                  Date of Birth is required.
+                </mat-error>
+              </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-              <input matInput placeholder="Total Apartments" type="text" maxlength="30" formControlName="apartments"
+              <mat-select placeholder="Select Gender" formControlName="gender" required>
+                <mat-option value="M">Male</mat-option>
+                <mat-option value="F">Female</mat-option>
+                <mat-option value="O">Other</mat-option>
+              </mat-select>
+              <mat-error *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="alert alert-danger">
+                <mat-error *ngIf="gender.errors.required">
+                  Please select gender
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+              <input matInput placeholder="Apartment No/Name" type="text" maxlength="30" formControlName="apartment"
                 required>
             </mat-form-field>
-          </div>
-          <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-              <input matInput placeholder="Address Line 1" type="text" maxlength="80" formControlName="streetno">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+              <input matInput placeholder="Floor Number" type="text" maxlength="80" formControlName="streetno" required>
             </mat-form-field>
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-              <input matInput placeholder="Address Line 2" type="text" maxlength="80" formControlName="streetname">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+              <input matInput placeholder="House/Flat Number" type="text" maxlength="80" formControlName="streetname" required>
+            </mat-form-field>
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+              <mat-select formControlName="role" placeholder="Please Select role">
+                <mat-option *ngFor="let obj of roles" [value]="obj.id">
+                  {{obj.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="role.invalid && (role.dirty || role.touched)" class="alert alert-danger">
+                <mat-error *ngIf="role.errors.required">
+                  Please select role.
+                </mat-error>
+              </mat-error>
             </mat-form-field>
           </div>
-        </div>
-      </div>
-      <div fxLayout="row" fxLayoutWrap="wrap">
-        <div fxFlex="100" fxFlex.gt-md="60" ngClass.gt-md="pr-1">
-          <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+          <!-- <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
               <input matInput placeholder="City" type="text" maxlength="30" formControlName="city">
             </mat-form-field>
@@ -123,34 +158,46 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
+          </div> -->
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex="100" fxFlex.gt-md="60" ngClass.gt-md="pr-1">
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-              <mat-select formControlName="role" placeholder="Please Select role">
-                <mat-option *ngFor="let obj of roles" [value]="obj.id">
-                  {{obj.name}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="role.invalid && (role.dirty || role.touched)" class="alert alert-danger">
-                <mat-error *ngIf="role.errors.required">
-                  Society name is required.
-                </mat-error>
-              </mat-error>
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="97">
+              <input matInput #file2 placeholder="Choose image" class="pointer--cursor" (click)="upload2.click()">
+              <input [hidden]="true" type="file" #upload2 (change)="uploadFile($event, file2)" />
             </mat-form-field>
+            <button type="button" mat-button color="accent" mat-mini-fab (click)="upload2.click()"
+              matTooltip="Choose user image">
+              <mat-icon>attachment</mat-icon>
+            </button>
           </div>
         </div>
         <div fxFlex="100" fxFlex.gt-md="5" ngClass.gt-md="pr-1">
         </div>
         <div fxFlex="100" fxFlex.gt-md="35" ngClass.gt-md="pr-1">
           <div class="profile__pic" fxFlex="100" fxFlex.gt-xs="24">
-            <img [src]="url" alt="Event Image" class="user">
+            <img [src]="url" alt="User Image" class="user">
           </div>
           <br>
         </div>
       </div>
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex="100" fxFlex.gt-md="70" ngClass.gt-md="pr-1">
+          <div>
+            <label class="mr-1 mat-body-3">&nbsp;Status:</label>
+            <mat-radio-group fxFlex="100" fxLayoutGap=".5rem" formControlName="status">
+              <mat-radio-button value="Y">YES</mat-radio-button>
+              <mat-radio-button value="N">NO</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+      <br>
       <div>
         <button mat-raised-button color="accent" type="button" (click)="goBack()" class="mr-1">Back</button>
-        <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="userForm.invalid">Submit</button>
       </div>
     </form>
   </mat-card-content>

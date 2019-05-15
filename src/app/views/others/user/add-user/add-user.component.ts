@@ -37,6 +37,7 @@ export class AddUserComponent implements OnInit {
   isLoadingResults: boolean = false;
   roles: Role[] = [];
   userRoles: Role[] = [];
+  maxDate  = new Date();
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
@@ -50,6 +51,7 @@ export class AddUserComponent implements OnInit {
     this.createForm();
     this.getRoles();
     this.getSocietyList();
+    this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
   }
 
   createForm(){
@@ -69,19 +71,16 @@ export class AddUserComponent implements OnInit {
       country: [''],
       token: [''],
       picture: [''],
-      gender: [''],
-      dob: [''],
+      gender: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
       rating: [''],
-      status: [''],
+      status: ['Y'],
       loginallowed: [''],
       colone: [''],
       coltwo: [''],
       apartment: [''],
       societyid: ['', [Validators.required]],
       role: ['', [Validators.required]],
-      fax: [''],
-      phoneNo: [''],
-      apartments: ['', Validators.required],
     });
   }
   get id() { return this.userForm.get('id');}
@@ -90,7 +89,7 @@ export class AddUserComponent implements OnInit {
   get username() { return this.userForm.get('username');}
   get email() { return this.userForm.get('email'); }
   get contactNo() { return this.userForm.get('contactno'); }
-  get addressOne() { return this.userForm.get('addressOne'); }
+  get postalcode() { return this.userForm.get('postalcode'); }
   get city() { return this.userForm.get('city'); }
   get province() { return this.userForm.get('province'); }
   get country() { return this.userForm.get('country'); }

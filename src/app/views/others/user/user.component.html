@@ -10,7 +10,7 @@
     <div fxLayout="column">
       <div>
         <mat-form-field fxFlex="100" fxFlex.gt-xs="40" color="accent">
-          <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="Search User">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search User">
         </mat-form-field>
         <button mat-icon-button (click)="refresh()">
           <mat-icon matTooltip="Refresh" matTooltipPosition="right">refresh</mat-icon>
@@ -26,20 +26,24 @@
       <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDisableClear
         matSortDirection="desc">
 
+        <ng-container matColumnDef="pic">
+          <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+          <mat-cell *matCellDef="let row"> <img src="{{row.picture}}" alt="" class="user__icon" ngClass.gt-xs="ml-1" ngStyle.xs="min-width: auto"></mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="firstname">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.firstname}} {{row.lastname}}</mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="email">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.email}}</mat-cell>
         </ng-container>
 
-       <ng-container matColumnDef="contactno">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+        <ng-container matColumnDef="contactno">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Contact No</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.contactno}}</mat-cell>
-        </ng-container> 
+        </ng-container>
 
         <ng-container matColumnDef="societyid">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Society</mat-header-cell>
@@ -59,7 +63,8 @@
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef>
             <button mat-icon-button color="primary" routerLink="add">
-              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Add" matTooltipPosition="right">add</mat-icon>
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Add" matTooltipPosition="right">
+                add</mat-icon>
             </button>
           </mat-header-cell>
           <mat-cell *matCellDef="let row; let i=index;">
@@ -80,9 +85,8 @@
         No results
       </div>
 
-      <mat-paginator #paginator [length]="resultsLength" [pageIndex]="0" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
-        showFirstLastButtons></mat-paginator>
+      <mat-paginator #paginator [length]="resultsLength" [pageIndex]="0" [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
     </div>
   </mat-card-content>
 </mat-card>
-
