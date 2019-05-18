@@ -13,6 +13,7 @@ import { RoleService } from 'src/app/services/role.service';
 import { Role } from 'src/app/models/role';
 import { Society } from 'src/app/models/society';
 import { ActivatedRoute } from '@angular/router';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 @Component({
   selector: 'app-add-company',
@@ -46,6 +47,7 @@ export class AddCompanyComponent implements OnInit {
     private _dataService: CountryStateService,
     private societyService: CompanyService,
     private roleService: RoleService,
+    private toasterService:ToasterService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -139,6 +141,16 @@ export class AddCompanyComponent implements OnInit {
     this.isLoadingResults = true;
     this.societyService.saveSociety(this.society).subscribe(data => {
       this.society = data;
+      if (data!=null) {
+        this.society = data;
+        if (this.society != null && this.selectedFile != null) {
+          this.societyService.uploadImage(this.society.id, this.selectedFile).subscribe(data => {
+
+          });
+        }
+        this.toasterService.openSuccessSnackBar('Successfully updated', '', 2000);
+        this.isLoadingResults = false;
+      }
       this.isLoadingResults = false;
       this.goBack();
     }, (err: HttpErrorResponse) => {
@@ -177,6 +189,7 @@ export class AddCompanyComponent implements OnInit {
         reader.onload = (event: any) => {
           this.url = event.target.result;
         }
+
         reader.readAsDataURL(this.selectedFile);
       } else {
         alert("Sorry! File size should be less than 2MB.");

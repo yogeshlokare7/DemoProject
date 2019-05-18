@@ -55,5 +55,14 @@ export class CompanyService {
     })
   }
 
+  uploadImage(id:number, selectedFile:File):Observable<any>{
+    const url = `${this.api.USER_FILE_URL}/${id}?type=society`;
+    if(selectedFile!=null){
+      const fd = new FormData();
+      fd.append('file', selectedFile, selectedFile.name);
+      return this.httpClient.post<any>(url, fd);
+    }
+  }
+
 
 }
