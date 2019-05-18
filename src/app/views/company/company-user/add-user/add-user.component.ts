@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 import { RoleService } from 'src/app/services/role.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { GenericTerm } from 'src/app/models/generic/generic-term';
+import { SecurityuserService } from 'src/app/services/securityuser.service';
+import { Securityuser } from 'src/app/models/securityuser';
 
 
 @Component({
@@ -30,7 +32,7 @@ export class AddUserComponent implements OnInit {
   states: State[];
   userstates: State[];
   societies: Society[] = [];
-  user: User;
+  user: Securityuser;
   selectedFile: File = null;
   maxSize: number = 2097152;
   url = '';
@@ -42,13 +44,15 @@ export class AddUserComponent implements OnInit {
   roles: Role[] = [];
   userRoles: Role[] = [];
   maxDate  = new Date();
+  societyId  : number;
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
     private companyService: CompanyService,
     private roleService: RoleService,
     private route: ActivatedRoute,
-    private userService: UserService) { }
+    private tokenservice: TokenStorageService,
+    private securityuserService: SecurityuserService) { }
 
   ngOnInit() {
     this.countries = this._dataService.getCountries();
@@ -56,6 +60,10 @@ export class AddUserComponent implements OnInit {
     this.getRoles();
     this.getSocietyList();
     this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+    let society = this.tokenservice.getSociety();
+    if(society.id != null){
+      this.societyId = society.id;
+    }
   }
 
   createForm(){
@@ -83,7 +91,7 @@ export class AddUserComponent implements OnInit {
       colone: [''],
       coltwo: [''],
       apartment: [''],
-      societyid: ['', [Validators.required]],
+      societyid: [''],
       role: ['', [Validators.required]],
     });
   }
@@ -136,7 +144,7 @@ export class AddUserComponent implements OnInit {
     this.user = this.prepareSaveUser();
     console.log("user form", JSON.stringify(this.user));
     //.isLoadingResults = true;
-    this.userService.saveUser(this.user).subscribe(data => {
+    this.securityuserService.saveSecurityuser(this.user).subscribe(data => {
       this.isLoadingResults = false;
       this.goBack();
     }, (err: HttpErrorResponse) => {
@@ -145,12 +153,11 @@ export class AddUserComponent implements OnInit {
     })
   }
 
-  prepareSaveUser() : User{
+  prepareSaveUser() : Securityuser{
     const formModel = this.userForm.value;
 
-    let selectedSociety  = this.societies.find(x=>x.id == formModel.societyid);
     let selectedRole = this.roles.find(y=>y.id == formModel.role);
-    const saveUser : User = {
+    const saveUser : Securityuser = {
     id: formModel.id as number,
     firstname: formModel.firstname  as string,
     lastname:  formModel.lastname as string,
@@ -174,7 +181,7 @@ export class AddUserComponent implements OnInit {
     colone:  formModel.colone as string,
     coltwo:  formModel.coltwo as string,
     apartment:  formModel.apartment as string,
-    societyid: selectedSociety as Society,
+    societyid: this.societyId as number,
     role: selectedRole as Role,
     }
     return saveUser;
