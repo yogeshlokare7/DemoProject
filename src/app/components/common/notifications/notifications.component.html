@@ -2,7 +2,6 @@
   <h6 class="m-0">Notifications</h6>
 </div>
 <mat-nav-list class="notification-list" role="list">
-  <!-- Notification item -->
   <mat-list-item *ngFor="let n of notifications" class="notific-item" role="listitem" routerLinkActive="open">
     <mat-icon [color]="n.color" class="notific-icon">{{n.icon}}</mat-icon>
     <a [routerLink]="[n.route || '/dashboard']">
