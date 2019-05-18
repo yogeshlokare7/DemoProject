@@ -10,7 +10,7 @@ export class RestApi {
 
     //Dashboard Counterss
     public readonly DASHBOARD_URL = this.API_URL + '/dashboard';
-    public readonly COUNTER_URL = this.DASHBOARD_URL + '/counters';
+    public readonly COUNTER_URL = this.DASHBOARD_URL + '/admincounters';
 
     //Role URL
     public readonly ROLE_URL = this.API_URL + '/api/role';

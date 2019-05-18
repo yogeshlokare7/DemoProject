@@ -40,6 +40,8 @@ export class AddUserComponent implements OnInit {
   userRoles: Role[] = [];
   maxDate  = new Date();
   isUpdate: boolean = false;
+  sub:any;
+  id:number;
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
@@ -54,7 +56,26 @@ export class AddUserComponent implements OnInit {
     this.createForm();
     this.getRoles();
     this.getSocietyList();
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id']; // (+) converts string 'id' to a number
+      if (this.id != null && this.id > 0) {
+        this.getUserInfo(this.id);
+        this.title = 'Update';
+        this.isUpdate = true;
+      }
+    });
     this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+  }
+
+  getUserInfo(userid: number) {
+    this.isLoadingResults = true;
+    this.userService.getUser(userid).subscribe(data => {
+      this.user = data;
+      this.setFormValue(this.user);
+      this.isLoadingResults = false;
+    }, err => {
+      this.isLoadingResults = false;
+    })
   }
 
   createForm(){
@@ -86,7 +107,6 @@ export class AddUserComponent implements OnInit {
       role: ['', [Validators.required]],
     });
   }
-  get id() { return this.userForm.get('id');}
   get firstname() { return this.userForm.get('firstname');}
   get lastname() { return this.userForm.get('lastname');}
   get username() { return this.userForm.get('username');}
@@ -109,6 +129,41 @@ export class AddUserComponent implements OnInit {
   get societyid() { return this.userForm.get('societyid'); }
   get role() { return this.userForm.get('role'); }
 
+  setFormValue(user: User) {
+    this.userForm.patchValue({
+      id: user.id as number,
+      firstname: user.firstname as string,
+      lastname:user.lastname as string,
+      username: user.username as string,
+      email: user.email as string,
+      contactno: user.contactno as string,
+      password: user.password as string,
+      streetno: user.streetno as string,
+      streetname: user.streetname as string,
+      postalcode: user.postalcode as string,
+      city: user.city as string,
+      province: user.province as string,
+      country: user.country as string,
+      token: user.token as string,
+      picture: user.picture as string,
+      gender: user.gender as string,
+      dob: user.dob as Date,
+      rating: user.rating as string,
+      status: user.status as string,
+      loginallowed: user.loginallowed as boolean,
+      colone: user.colone as string,
+      coltwo: user.coltwo as string,
+      apartment: user.apartment as string,
+      societyid: user.societyid.id as number,
+      role: user.role as Role
+    });
+    this.onSelect(user.country);
+    if (user != null && user.picture != null) {
+      this.url = user.picture;
+    } else {
+      this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+    }
+  }
 
   getRoles() {
     this.roleService.getRoles().subscribe(data => {

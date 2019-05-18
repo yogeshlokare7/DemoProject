@@ -11,18 +11,21 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  counterDto = new DashboardCounter();
+  counterDto: any;
   constructor(private themeService: ThemeService, 
     public dialog: MatDialog, 
     private dashboardService: DashboardService) { 
   }
 
   ngOnInit() {
+
   }
 
   counters(){
     this.dashboardService.getCounters().subscribe(data => {
       this.counterDto = data;
+    }, err=>{
+
     })
   }
 

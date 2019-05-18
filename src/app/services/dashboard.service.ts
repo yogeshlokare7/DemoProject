@@ -14,7 +14,7 @@ export class DashboardService {
   constructor(private httpClient : HttpClient) { }
 
 
-  getCounters(): Observable<DashboardCounter> {
-    return this.httpClient.get<DashboardCounter>(this.api.COUNTER_URL);
+  getCounters(): Observable<any> {
+    return this.httpClient.get<any>(this.api.COUNTER_URL);
   }
 }

@@ -49,9 +49,7 @@
   font-family: 'Lato', sans-serif;
   box-shadow: none;
 }
-
 .user__icon {
   min-height: 64px;
   height: 64px;
-  width: 100px;
 }
