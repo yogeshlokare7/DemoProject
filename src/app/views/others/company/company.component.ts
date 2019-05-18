@@ -31,6 +31,7 @@ export class CompanyComponent implements OnInit {
   pageSize = 5;
   isLoadingResults = true;
   isRateLimitReached = false;
+  url = 'assets/images/myuser.png';
 
   constructor(public httpClient: HttpClient,
     private route:ActivatedRoute,

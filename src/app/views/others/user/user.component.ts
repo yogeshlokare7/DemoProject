@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
   pageSize = 5;
   isLoadingResults = true;
   isRateLimitReached = false;
-  pictureUrl: string = `http://localhost:8099/api/auth/userpicture?filename=`;
+  url = 'assets/images/myuser.png';
 
   constructor(public httpClient: HttpClient) { }
 
