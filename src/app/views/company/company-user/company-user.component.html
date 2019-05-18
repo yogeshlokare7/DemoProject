@@ -1,83 +1,87 @@
 <mat-card class="list--scroll">
-    <mat-card-header>
-      <mat-card-title>
-        <div class="mt-1">
-          <button mat-raised-button color="accent" class="mr-1" routerLink="add">Add User</button>
-        </div>
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div fxLayout="column">
-        <div>
-          <mat-form-field fxFlex="100" fxFlex.gt-xs="40" color="accent">
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search User">
-          </mat-form-field>
-          <button mat-icon-button (click)="refresh()">
-            <mat-icon matTooltip="Refresh" matTooltipPosition="right">refresh</mat-icon>
-          </button>
-        </div>
-        <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
-          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-          <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
-            Please wait.
-          </div>
-        </div>
-  
-        <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDisableClear
-          matSortDirection="desc">
-  
-          <ng-container matColumnDef="pic">
-            <mat-header-cell *matHeaderCellDef>Profile Picture</mat-header-cell>
-            <mat-cell *matCellDef="let row"> <img src="{{row.picture}}" alt="" class="user__icon" ngClass.gt-xs="ml-1" ngStyle.xs="min-width: auto"></mat-cell>
-          </ng-container>
-  
-          <ng-container matColumnDef="firstname">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.firstname}} {{row.lastname}}</mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.email}}</mat-cell>
-          </ng-container>
-  
-          <ng-container matColumnDef="contactno">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Contact No</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.contactno}}</mat-cell>
-          </ng-container>
-  
-  
-          <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.status}}</mat-cell>
-          </ng-container>
-  
-          <ng-container matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef>
-              <button mat-icon-button color="primary" routerLink="add">
-                <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Add" matTooltipPosition="right">
-                  add</mat-icon>
-              </button>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row; let i=index;">
-              <button mat-icon-button color="accent" matTooltip="Edit" [routerLink]="['edit', {'id': row.id}]">
-                <mat-icon aria-label="Edit">edit</mat-icon>
-              </button>
-              <button mat-icon-button color="accent">
-                <mat-icon aria-label="Delete" matTooltip="Delete">delete</mat-icon>
-              </button>
-            </mat-cell>
-          </ng-container>
-  
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="view(row.id)"></mat-row>
-        </mat-table>
-  
-        <div class="no-results" [style.display]="resultsLength == 0 ? '' : 'none'">
-          No results
-        </div>
-  
-        <mat-paginator #paginator [length]="resultsLength" [pageIndex]="0" [pageSize]="pageSize"
-          [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+  <mat-card-header>
+    <mat-card-title>
+      <div class="mt-1">
+        <button mat-raised-button color="accent" class="mr-1" routerLink="add">Add User</button>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="column">
+      <div>
+        <mat-form-field fxFlex="100" fxFlex.gt-xs="40" color="accent">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search User">
+        </mat-form-field>
+        <button mat-icon-button (click)="refresh()">
+          <mat-icon matTooltip="Refresh" matTooltipPosition="right">refresh</mat-icon>
+        </button>
+      </div>
+      <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+          Please wait.
+        </div>
+      </div>
+
+      <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDisableClear
+        matSortDirection="desc">
+
+        <ng-container matColumnDef="pic">
+          <mat-header-cell *matHeaderCellDef>Profile Picture</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <img mat-list-avatar class="user__icon"
+              [src]="(row.picture == null || row.picture == '') ? url : row.picture" ngClass.gt-xs="m-1"
+              ngStyle.xs="min-width: auto">
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="firstname">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{row.firstname}} {{row.lastname}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{row.email}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="contactno">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Contact No</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.contactno}}</mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.status}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>
+            <button mat-icon-button color="primary" routerLink="add">
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Add" matTooltipPosition="right">
+                add</mat-icon>
+            </button>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row; let i=index;">
+            <button mat-icon-button color="accent" matTooltip="Edit" [routerLink]="['edit', {'id': row.id}]">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="accent">
+              <mat-icon aria-label="Delete" matTooltip="Delete">delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="view(row.id)"></mat-row>
+      </mat-table>
+
+      <div class="no-results" [style.display]="resultsLength == 0 ? '' : 'none'">
+        No results
+      </div>
+
+      <mat-paginator #paginator [length]="resultsLength" [pageIndex]="0" [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>
