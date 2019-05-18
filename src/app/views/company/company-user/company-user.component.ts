@@ -8,37 +8,37 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../../../models/user';
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 import { Company } from 'src/app/models/company';
+import { ListApi } from 'src/app/models/api/list-api';
 
 
 @Component({
   selector: 'app-company-user',
   templateUrl: './company-user.component.html',
-  styleUrls: ['./company-user.component.css']  
+  styleUrls: ['./company-user.component.css']
 })
 
 export class CompanyUserComponent implements OnInit {
 
-  displayedColumns = ['name', 'streetno', 'status', 'company', 'actions'];
+  displayedColumns = ['pic','firstname', 'email', 'contactno', 'societyid', 'role', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: User[] = [];
-  cmpId:number;
-  company: Company;
+ 
 
   dataSource:any;
-  api = environment.baseUrl;
+  api = new ListApi;
   resultsLength = 0;
   pageSize = 5;
   isLoadingResults = true;
   isRateLimitReached = false;
+  pictureUrl: string = `http://localhost:8099/api/auth/userpicture?filename=`;
 
-  constructor(public httpClient: HttpClient, private tokenService:TokenStorageService) { }
+  constructor(public httpClient: HttpClient) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit() {
-    this.cmpId = this.tokenService.getCompanyId();
     this.loadData();
 
   }
@@ -60,7 +60,7 @@ export class CompanyUserComponent implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getListByCompanyId(`${this.api}/api/user/list/${this.cmpId}`,
+          return this.exampleDatabase!.getListByCompanyId(`${this.api.USER_LIST}`,
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {
