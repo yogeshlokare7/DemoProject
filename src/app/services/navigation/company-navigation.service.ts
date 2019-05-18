@@ -28,14 +28,14 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'home',
       icon: 'dashboard',
-      state: 'company/dashboard'
+      state: 'society/dashboard'
     },
     {
       name: 'Manage Security User',
       type: 'link',
       tooltip: 'Manage User',
       icon: 'chat',
-      state: 'company/users'
+      state: 'society/users'
     }
   ]
   separatorMenu:IMenuItem[] = [
@@ -48,42 +48,42 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'Home',
       icon: 'dashboard',
-      state: 'company/dashboard'
+      state: 'society/dashboard'
     },
     {
       name: 'Manage Security Users',
       type: 'link',
       tooltip: 'Users',
       icon: 'person',
-      state: 'company/users'
+      state: 'society/users'
     },
     {
       name: 'Manage Residents',
       type: 'link',
       tooltip: 'Residents',
       icon: 'supervisor_account',
-      state: 'company/customers'
+      state: 'society/customers'
     },
     {
       name: 'Manage Daily Staff',
       type: 'link',
       tooltip: 'Vendors',
       icon: 'people',
-      state: 'company/vendors'
+      state: 'society/vendors'
     },
     {
       name: 'Manage Admins',
       type: 'link',
       tooltip: 'Products',
       icon: 'view_module',
-      state: 'company/products'
+      state: 'society/products'
     },
     {
       name: 'Manage Bills',
       type: 'link',
       tooltip: 'Bills',
       icon: 'view_comfy',
-      state: 'company/items'
+      state: 'society/items'
     }
   ]
 
@@ -93,42 +93,42 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'Home',
       icon: 'dashboard',
-      state: 'company/dashboard'
+      state: 'society/dashboard'
     },
     {
       name: 'Manage Security Users',
       type: 'link',
       tooltip: 'Users',
       icon: 'person',
-      state: 'company/users'
+      state: 'society/users'
     },
     {
       name: 'Manage Residents',
       type: 'link',
       tooltip: 'Residents',
       icon: 'supervisor_account',
-      state: 'company/customers'
+      state: 'society/customers'
     },
     {
       name: 'Manage Daily Staff',
       type: 'link',
       tooltip: 'Vendors',
       icon: 'people',
-      state: 'company/vendors'
+      state: 'society/vendors'
     },
     {
       name: 'Manage Admins',
       type: 'link',
       tooltip: 'Products',
       icon: 'view_module',
-      state: 'company/products'
+      state: 'society/products'
     },
     {
       name: 'Manage Bills',
       type: 'link',
       tooltip: 'Bills',
       icon: 'view_comfy',
-      state: 'company/items'
+      state: 'society/items'
     }
   ]
 
