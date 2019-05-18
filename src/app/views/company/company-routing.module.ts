@@ -13,6 +13,7 @@ import { PackagesComponent } from './packages/packages.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { AddUserComponent } from './company-user/add-user/add-user.component';
 import { RowMaterialComponent } from './row-material/row-material.component';
+import { ResidentsComponent } from './residents/residents.component';
 
 const routes: Routes = [
   {
@@ -84,6 +85,11 @@ const routes: Routes = [
     path: 'packages',
     component: PackagesComponent,
     data: { title: 'Packages', breadcrumb: 'Packages'}
+  },
+  {
+    path: 'residents',
+    component: ResidentsComponent,
+    data: { title: 'Residents', breadcrumb: 'Residents'}
   }
 ];
 

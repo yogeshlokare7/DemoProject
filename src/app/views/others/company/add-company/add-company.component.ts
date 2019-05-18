@@ -114,6 +114,11 @@ export class AddCompanyComponent implements OnInit {
       picture: society.picture
     });
     this.onSelect(society.country);
+    if (society != null && society.picture != null) {
+      this.url = society.picture;
+    } else {
+      this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+    }
   }
 
   getRoles() {

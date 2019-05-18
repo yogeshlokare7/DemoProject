@@ -62,7 +62,7 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'Residents',
       icon: 'supervisor_account',
-      state: 'society/customers'
+      state: 'society/residents'
     },
     {
       name: 'Manage Daily Staff',
@@ -107,7 +107,7 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'Residents',
       icon: 'supervisor_account',
-      state: 'society/customers'
+      state: 'society/residents'
     },
     {
       name: 'Manage Daily Staff',

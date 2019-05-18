@@ -25,7 +25,6 @@ export class SigninComponent implements OnInit {
   loggedIn:boolean;
 
   constructor(private authService :LoginService,
-    private tokenService :TokenStorageService,
     private router: Router,
     private tokenStorage:TokenStorageService) { }
 
@@ -38,7 +37,7 @@ export class SigninComponent implements OnInit {
   }
 
   isValidUser() {
-    this.loggedIn = this.tokenService.isAuthenticated();
+    this.loggedIn = this.tokenStorage.isAuthenticated();
     if (this.loggedIn) {
       this.navigatePage();
     } 
@@ -46,15 +45,13 @@ export class SigninComponent implements OnInit {
 
   signin() {
     const signinData = this.signinForm.value;
-
     this.submitButton.disabled = true;
     this.progressBar.mode = 'indeterminate';
     this.loginInfo = new AuthLoginInfo(
       signinData.username,
       signinData.password);
 
-    this.authService.signin(this.loginInfo).subscribe(
-      data => {
+    this.authService.signin(this.loginInfo).subscribe( data => {
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveRole(data.role.name);
         this.tokenStorage.saveUserId(data.id);
