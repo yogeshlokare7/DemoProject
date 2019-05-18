@@ -27,9 +27,10 @@ import { CompanyComponent } from './company/company.component';
 import { DemoMaterialModule } from '../../../app/material-module';
 import { AddCompanyComponent } from './company/add-company/add-company.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
+import { RoleComponent } from './role/role.component';
 
 @NgModule({
-  declarations: [AppBlankComponent, UserComponent, CompanyComponent, AddCompanyComponent, AddUserComponent],
+  declarations: [AppBlankComponent, UserComponent, CompanyComponent, AddCompanyComponent, AddUserComponent, RoleComponent],
   imports: [
     CommonModule,
     FormsModule,
