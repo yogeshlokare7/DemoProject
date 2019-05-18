@@ -19,7 +19,7 @@ import { ListApi } from 'src/app/models/api/list-api';
 
 export class CompanyUserComponent implements OnInit {
 
-  displayedColumns = ['pic','firstname', 'email', 'contactno', 'societyid', 'role', 'status', 'actions'];
+  displayedColumns = ['pic','firstname', 'email', 'contactno', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: User[] = [];
  
@@ -60,7 +60,7 @@ export class CompanyUserComponent implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getListByCompanyId(`${this.api.USER_LIST}`,
+          return this.exampleDatabase!.getListByCompanyId(`${this.api.SECURITYUSER_LIST}`,
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {
