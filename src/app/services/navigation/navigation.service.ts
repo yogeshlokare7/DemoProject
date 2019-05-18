@@ -41,6 +41,13 @@ export class NavigationService {
       icon: 'chat',
       state: 'admin/users'
     },
+    {
+      name: 'MANAGE ROLE',
+      type: 'link',
+      tooltip: 'Manage Role',
+      icon: 'chat',
+      state: 'admin/role'
+    },
     // {
     //   name: 'DOC',
     //   type: 'extLink',
@@ -75,6 +82,13 @@ export class NavigationService {
       icon: 'chat',
       state: 'admin/users'
     },
+    {
+      name: 'MANAGE ROLE',
+      type: 'link',
+      tooltip: 'Manage Role',
+      icon: 'chat',
+      state: 'admin/role'
+    }
     // {
     //   name: 'DOC',
     //   type: 'extLink',
@@ -104,6 +118,13 @@ export class NavigationService {
       tooltip: 'Manage User',
       icon: 'chat',
       state: 'admin/users'
+    },
+    {
+      name: 'MANAGE ROLE',
+      type: 'link',
+      tooltip: 'Manage Role',
+      icon: 'chat',
+      state: 'admin/role'
     },
     // {
     //   name: 'DOC',

@@ -40,7 +40,7 @@ export class RoleService {
     return this.httpClient.get<Role[]>(this.api.ROLE_URL+"/list");
   }
 
-  addRole(role: Role): void {
+  addRole2(role: Role): void {
     console.log(role);
     this.httpClient.post(this.api.ROLE_URL, role).subscribe(data => {
       this.dialogData = data;
@@ -53,6 +53,10 @@ export class RoleService {
       (err: HttpErrorResponse) => {
         this.toasterService.openErrorSnackBar('Error occurred. Details: ' + err.name + ' ' + err.message, '', 4000);
       });
+  }
+
+  addRole(role: Role): Observable<Role> {
+    return this.httpClient.post<Role>(this.api.ROLE_URL, role);
   }
 
   deleteRole(id: number): void {

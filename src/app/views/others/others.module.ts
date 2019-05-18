@@ -28,9 +28,10 @@ import { DemoMaterialModule } from '../../../app/material-module';
 import { AddCompanyComponent } from './company/add-company/add-company.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { RoleComponent } from './role/role.component';
+import { AddRoleComponent } from './role/add-role/add-role.component';
 
 @NgModule({
-  declarations: [AppBlankComponent, UserComponent, CompanyComponent, AddCompanyComponent, AddUserComponent, RoleComponent],
+  declarations: [AppBlankComponent, UserComponent, CompanyComponent, AddCompanyComponent, AddUserComponent, RoleComponent, AddRoleComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -39,6 +40,9 @@ import { RoleComponent } from './role/role.component';
     FlexLayoutModule,
     NgxDatatableModule,
     OthersRoutingModule
+  ],
+  entryComponents: [
+    AddRoleComponent
   ]
 })
 export class OthersModule { }

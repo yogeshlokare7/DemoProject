@@ -5,6 +5,7 @@ import { CompanyComponent } from './company/company.component';
 import { UserComponent } from './user/user.component';
 import { AddCompanyComponent } from './company/add-company/add-company.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
+import { RoleComponent } from './role/role.component';
 
 const routes: Routes = [ 
   {
@@ -46,7 +47,12 @@ const routes: Routes = [
     path: 'dashboard',
     component: AppBlankComponent,
     data: { title: 'Home', breadcrumb: 'Home'}
-  }
+  },
+  {
+    path: 'role',
+    component: RoleComponent,
+    data: { title: 'Roles', breadcrumb: 'Roles'}
+  },
 ];
 
 @NgModule({
