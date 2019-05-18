@@ -2,11 +2,11 @@
 
 .mat-cell:nth-child(1),
 .mat-header-cell:nth-child(1){
-  flex: 0 0 15%;
+  flex: 0 0 10%;
 }
 .mat-cell:nth-child(2),
 .mat-header-cell:nth-child(2){
-  flex: 0 0 20%;
+  flex: 0 0 15%;
 }
 
 .mat-cell:nth-child(3),
@@ -16,14 +16,23 @@
 
 .mat-cell:nth-child(4),
 .mat-header-cell:nth-child(4){
-  flex: 0 0 15%;
+  flex: 0 0 10%;
 }
 
 .mat-cell:nth-child(5),
 .mat-header-cell:nth-child(5){
-  flex: 0 0 10%;
+  flex: 0 0 20%;
 }
 
+.mat-cell:nth-child(5),
+.mat-header-cell:nth-child(5){
+  flex: 0 0 15%;
+}
+
+.mat-cell:nth-child(6),
+.mat-header-cell:nth-child(6){
+  flex: 0 0 15%;
+}
 .user__icon {
   min-height: 64px;
   height: 64px;
@@ -52,4 +61,10 @@
 .mat-card {
   font-family: 'Lato', sans-serif;
   box-shadow: none;
+}
+
+
+.user__icon {
+  min-height: 64px;
+  height: 64px;
 }

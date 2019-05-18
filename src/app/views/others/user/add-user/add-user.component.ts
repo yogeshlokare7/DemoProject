@@ -12,6 +12,7 @@ import { State } from 'src/app/models/state';
 import { Location } from '@angular/common';
 import { User } from 'src/app/models/user';
 import { GenericTerm } from 'src/app/models/generic/generic-term';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 @Component({
   selector: 'app-add-user',
@@ -38,12 +39,14 @@ export class AddUserComponent implements OnInit {
   roles: Role[] = [];
   userRoles: Role[] = [];
   maxDate  = new Date();
+  isUpdate: boolean = false;
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
     private companyService: CompanyService,
     private roleService: RoleService,
     private route: ActivatedRoute,
+    private toasterService:ToasterService,
     private userService: UserService) { }
 
   ngOnInit() {
@@ -131,9 +134,23 @@ export class AddUserComponent implements OnInit {
   onSubmit() {
     this.user = this.prepareSaveUser();
     console.log("user form", JSON.stringify(this.user));
-    //.isLoadingResults = true;
+    this.isLoadingResults = true;
     this.userService.saveUser(this.user).subscribe(data => {
       this.isLoadingResults = false;
+      if(data!=null){
+        let savedUser = data;
+        if (savedUser != null && this.selectedFile != null) {
+          this.userService.uploadImage(savedUser.id, this.selectedFile).subscribe(data => {
+
+          });
+        }
+        if(this.isUpdate){
+          this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
+        }else{
+          this.toasterService.openSuccessSnackBar('Successfully Added', '', 2000);
+        }
+        this.isLoadingResults = false;
+      }
       this.goBack();
     }, (err: HttpErrorResponse) => {
       this.isLoadingResults = false;

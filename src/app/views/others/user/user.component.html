@@ -25,11 +25,11 @@
 
       <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDisableClear
         matSortDirection="desc">
-      <img src="url">hello
+
         <ng-container matColumnDef="pic">
           <mat-header-cell *matHeaderCellDef>Profile Picture</mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <img mat-list-avatar class="user__icon" [src]="row?.picture !=null || row.picture !=''? row.picture : url" ngClass.gt-xs="m-1"
+            <img mat-list-avatar class="user__icon" [src]="row.picture !=null? row.picture : url" ngClass.gt-xs="m-1"
               ngStyle.xs="min-width: auto">
           </mat-cell>
         </ng-container>
@@ -53,10 +53,10 @@
           <mat-cell *matCellDef="let row"> {{row.societyid.societyName}}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="status">
+        <!-- <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.status}}</mat-cell>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="role">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>

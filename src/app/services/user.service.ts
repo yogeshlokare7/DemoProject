@@ -90,20 +90,6 @@ export class UserService {
     return this.httpClient.post<User>(this.api.USER_URL, user);
   }
 
-  uploadImage(id: number, selectedFile: File) {
-    const url = `${this.api.USER_IMAGE_URL}/${id}`;
-    if (selectedFile !== null) {
-      const fd = new FormData();
-      fd.append("file", selectedFile, selectedFile.name);
-      this.httpClient.post(url, fd).subscribe(result => {
-        if (!result) {
-          return;
-        } else {
-        }
-      });
-    }
-  }
-
   deleteUser(id: number): void {
     const url = `${this.api.USER_URL}/${id}`;
 
@@ -153,12 +139,13 @@ export class UserService {
     return this.httpClient.post<User>(this.api.SETPWD_URL, user);
   }
   
-  saveUserLogo(id:number, selectedFile:File){
-    const url = `${this.api.UPLOAD_IMAGE_URL}/${id}?type=user`;
-    const fd = new FormData();
-    fd.append('file', selectedFile, selectedFile.name);
-    this.httpClient.post(url, fd).subscribe(data=>{
-    })
+  uploadImage(id:number, selectedFile:File):Observable<any>{
+    const url = `${this.api.USER_FILE_URL}/${id}?type=user`;
+    if(selectedFile!=null){
+      const fd = new FormData();
+      fd.append('file', selectedFile, selectedFile.name);
+      return this.httpClient.post<any>(url, fd);
+    }
   }
 
 }

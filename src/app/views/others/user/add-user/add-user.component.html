@@ -79,9 +79,8 @@
             <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
               <input matInput placeholder="Alternate Contact No" type="text" minlength="3" maxlength="15"
                 formControlName="contactno" required>
-              <mat-error *ngIf="postalcode.invalid && (postalcode.dirty || postalcode.touched)"
-                class="alert alert-danger">
-                <mat-error *ngIf="postalcode.errors.required">
+              <mat-error *ngIf="colone.invalid && (colone.dirty || colone.touched)" class="alert alert-danger">
+                <mat-error *ngIf="colone.errors.required">
                   Alternate Contact number is required.
                 </mat-error>
               </mat-error>
@@ -111,30 +110,20 @@
             </mat-form-field>
           </div>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="32">
               <input matInput placeholder="Apartment No/Name" type="text" maxlength="30" formControlName="apartment"
                 required>
             </mat-form-field>
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-              <input matInput placeholder="Floor Number" type="text" maxlength="80" formControlName="streetno" required>
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="32">
+              <input matInput placeholder="Address Line 1" type="text" maxlength="80" formControlName="streetno"
+                required>
             </mat-form-field>
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-              <input matInput placeholder="House/Flat Number" type="text" maxlength="80" formControlName="streetname" required>
-            </mat-form-field>
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-              <mat-select formControlName="role" placeholder="Please Select role">
-                <mat-option *ngFor="let obj of roles" [value]="obj.id">
-                  {{obj.name}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="role.invalid && (role.dirty || role.touched)" class="alert alert-danger">
-                <mat-error *ngIf="role.errors.required">
-                  Please select role.
-                </mat-error>
-              </mat-error>
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="32">
+              <input matInput placeholder="Address Line 2" type="text" maxlength="80" formControlName="streetname"
+                required>
             </mat-form-field>
           </div>
-          <!-- <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+          <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
               <input matInput placeholder="City" type="text" maxlength="30" formControlName="city">
             </mat-form-field>
@@ -158,13 +147,25 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-          </div> -->
+          </div>
         </div>
       </div>
       <div fxLayout="row" fxLayoutWrap="wrap">
         <div fxFlex="100" fxFlex.gt-md="60" ngClass.gt-md="pr-1">
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="97">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="27">
+              <mat-select formControlName="role" placeholder="Please Select role">
+                <mat-option *ngFor="let obj of roles" [value]="obj.id">
+                  {{obj.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="role.invalid && (role.dirty || role.touched)" class="alert alert-danger">
+                <mat-error *ngIf="role.errors.required">
+                  Please select role.
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="60">
               <input matInput #file2 placeholder="Choose image" class="pointer--cursor" (click)="upload2.click()">
               <input [hidden]="true" type="file" #upload2 (change)="uploadFile($event, file2)" />
             </mat-form-field>

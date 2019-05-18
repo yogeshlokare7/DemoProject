@@ -41,7 +41,7 @@ export class AddCompanyComponent implements OnInit {
   userRoles: Role[] = [];
   sub: any;
   id: number;
-
+  isUpdate:boolean = false;
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
@@ -58,6 +58,7 @@ export class AddCompanyComponent implements OnInit {
       if (this.id != null && this.id > 0) {
         this.getSocietyInfo(this.id);
         this.title = 'Update';
+        this.isUpdate = true;
       }
     });
     this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
@@ -153,7 +154,11 @@ export class AddCompanyComponent implements OnInit {
 
           });
         }
-        this.toasterService.openSuccessSnackBar('Successfully updated', '', 2000);
+        if(this.isUpdate){
+          this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
+        }else{
+          this.toasterService.openSuccessSnackBar('Successfully Added', '', 2000);
+        }
         this.isLoadingResults = false;
       }
       this.isLoadingResults = false;
