@@ -29,7 +29,7 @@
         <ng-container matColumnDef="pic">
           <mat-header-cell *matHeaderCellDef>Profile Picture</mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <img mat-list-avatar class="user__icon" [src]="row.picture !=null? row.picture : url" ngClass.gt-xs="m-1"
+            <img mat-list-avatar class="user__icon" [src]="(row.picture == null || row.picture == '') ? url : row.picture" ngClass.gt-xs="m-1"
               ngStyle.xs="min-width: auto">
           </mat-cell>
         </ng-container>

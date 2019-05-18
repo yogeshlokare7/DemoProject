@@ -4,13 +4,13 @@
       <div class="mt-1">
         <button mat-raised-button color="accent" class="mr-1" routerLink="add">Add Society</button>
       </div>
-    </mat-card-title> 
+    </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div fxLayout="column">
       <div>
         <mat-form-field fxFlex="100" fxFlex.gt-xs="40" color="accent">
-          <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="Search Society">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Society">
         </mat-form-field>
         <button mat-icon-button (click)="refresh()">
           <mat-icon matTooltip="Refresh" matTooltipPosition="right">refresh</mat-icon>
@@ -28,7 +28,9 @@
         <ng-container matColumnDef="pic">
           <mat-header-cell *matHeaderCellDef>Profile Picture</mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <img mat-list-avatar class="user__icon" [src]="row?.picture !=null ? row.picture : url" ngClass.gt-xs="m-1" ngStyle.xs="min-width: auto">
+            <img mat-list-avatar class="user__icon"
+              [src]="(row.picture == null || row.picture == '') ? url : row.picture" ngClass.gt-xs="m-1"
+              ngStyle.xs="min-width: auto">
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="societyName">
@@ -64,7 +66,8 @@
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef>
             <button mat-icon-button color="primary" routerLink="add">
-              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Add" matTooltipPosition="right">add</mat-icon>
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Add" matTooltipPosition="right">
+                add</mat-icon>
             </button>
           </mat-header-cell>
 
@@ -87,8 +90,8 @@
         No results
       </div>
 
-      <mat-paginator #paginator [length]="resultsLength" [pageIndex]="0" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
-        showFirstLastButtons></mat-paginator>
-    </div> 
+      <mat-paginator #paginator [length]="resultsLength" [pageIndex]="0" [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    </div>
   </mat-card-content>
 </mat-card>
