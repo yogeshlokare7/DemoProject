@@ -6,6 +6,8 @@ import { SideNavAccordionDirective } from './sidenav-accordion.directive';
 import { AppAccordionDirective } from './app-accordion.directive';
 import { FontSizeDirective } from './font-size.directive';
 import { ScrollToDirective } from './scroll-to.directive';
+import { EmailValidatorDirective } from '../email-validator.directive';
+import { PhoneMaskDirective } from './phone-mask.directive';
 
 @NgModule({
   imports: [
@@ -16,14 +18,18 @@ import { ScrollToDirective } from './scroll-to.directive';
     SideNavAccordionDirective,
     AppAccordionDirective,
     FontSizeDirective,
-    ScrollToDirective
+    ScrollToDirective,
+    EmailValidatorDirective,
+    PhoneMaskDirective
   ],
   exports: [
     EqualValidatorDirective,
     SideNavAccordionDirective,
     AppAccordionDirective,
     FontSizeDirective,
-    ScrollToDirective
+    ScrollToDirective,
+    EmailValidatorDirective, 
+    PhoneMaskDirective
   ]
 })
 export class CommonDirectivesModule { }

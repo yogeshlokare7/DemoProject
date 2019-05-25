@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Residentuser } from 'src/app/models/residentuser';
 import { Location } from '@angular/common';
 import { ResidentuserService } from 'src/app/services/token-storage/residentuser.service';
+import { emailValidator } from 'src/app/directives/email-validator.directive';
 
 @Component({
   selector: 'app-add-resident',
@@ -25,7 +26,6 @@ residentForm: FormGroup;
 title: string = "Add";
 contries: string[];
 states: State[];
-societies: Society[] = [];
 resident: Residentuser; 
 selectedFile: File = null;
 maxsize: number = 12345678;
@@ -35,14 +35,12 @@ maxSize2: number = 12345678;
 url2 = '';
 generic = new GenericTerm();
 isLoadingResults: boolean = false;
-roles: Role[] = [];
-userRoles: Role[] = [];
 maxDate = new Date();
-societyId: number;
+societyId: number = 0;
+
 constructor(private fb: FormBuilder,
   private location: Location,
   private _dataService: CountryStateService,
-  private roleService: RoleService,
   private route: ActivatedRoute,
   private tokenservice: TokenStorageService,
   private residentService: ResidentuserService) {}
@@ -50,12 +48,10 @@ constructor(private fb: FormBuilder,
   ngOnInit() {
     this.contries = this._dataService.getCountries();
     this.createForm();
-    this.getRoles();
     this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
     let society = this.tokenservice.getSociety();
     if(society.id != null){
       this.societyId = society.id;
-
     }
   } 
   
@@ -63,10 +59,10 @@ constructor(private fb: FormBuilder,
     this.residentForm = this.fb.group({
       id: [''],
       firstname: ['', [Validators.required, Validators.minLength(3)]],
-      lastname:['', [Validators.required]],
-      username: ['', [Validators.required]],
-      email: ['', Validators.required],
-      contactno: ['', Validators.required],
+      lastname:['', [Validators.required, Validators.minLength(3)]],
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      email: ['', [Validators.required, emailValidator()]],
+      contactno: ['', [Validators.required]],
       password: ['12345678'],
       streetno: [''],
       streetname: [''],
@@ -112,22 +108,12 @@ constructor(private fb: FormBuilder,
   get role() { return this.residentForm.get('role'); }
 
 
-  getRoles() {
-    this.roleService.getRoles().subscribe(data => {
-      this.roles = data;
-      console.log("adding roles", this.roles);
-    }, err=>{
-
-    });
-  }
-
-
   onSelect(country: string) {
     this.states = this._dataService.getStates().filter((item) => item.country == country);
   }
 
   onSubmit() {
-    this.resident = this.prepareSaveUser();
+    //this.resident = this.prepareSaveUser();
     console.log("resident form", JSON.stringify(this.resident));
     //.isLoadingResults = true;
     this.residentService.saveResidentuser(this.resident).subscribe(data => {
@@ -139,10 +125,9 @@ constructor(private fb: FormBuilder,
     })
   }
 
-  prepareSaveUser() : Residentuser{
+  /*prepareSaveUser() : Residentuser{
     const formModel = this.residentForm.value;
 
-    let selectedRole = this.roles.find(y=>y.id == formModel.role);
     const saveUser : Residentuser = {
     id: formModel.id as number,
     firstname: formModel.firstname  as string,
@@ -151,27 +136,18 @@ constructor(private fb: FormBuilder,
     email:  formModel.email as string,
     contactno:  formModel.contactno as string,
     password:  formModel.password as string,
-    streetno:  formModel.streetno as string,
-    streetname:  formModel.streetname as string,
-    postalcode:  formModel.postalcode as string,
-    city:  formModel.city as string,
-    province:  formModel.province as string,
-    country:  formModel.country as string,
     token:  formModel.token as string,
     picture:  formModel.picture as string,
     gender:  formModel.gender as string,
-    dob: formModel.dob as Date,
-    rating:  formModel.rating as string,
     status:  formModel.status as string,
     loginallowed: formModel.loginallowed as boolean,
     colone:  formModel.colone as string,
     coltwo:  formModel.coltwo as string,
     apartment:  formModel.apartment as string,
     societyid: this.societyId as number,
-    role: selectedRole as Role,
     }
     return saveUser;
-  }  
+  }  */
 
   uploadFile(event, file: ElementRef) {
     if (event.target.files && event.target.files[0]) {
