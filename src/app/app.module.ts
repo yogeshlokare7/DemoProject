@@ -13,10 +13,12 @@ import { AuthService } from './services/auth/auth.service';
 import { AppCommonModule } from './components/common/app-common.module';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 import { ErrorInterceptorService } from './services/auth/error-interceptor.service';
+import { AddResidentComponent } from './add-resident/add-resident.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AddResidentComponent,
   ],
   imports: [
     BrowserModule,

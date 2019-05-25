@@ -14,6 +14,8 @@ import { InvoicesComponent } from './invoices/invoices.component';
 import { AddUserComponent } from './company-user/add-user/add-user.component';
 import { RowMaterialComponent } from './row-material/row-material.component';
 import { ResidentsComponent } from './residents/residents.component';
+import { AddResidentComponent } from './residents/add-resident/add-resident.component';
+import { AddVendorComponent } from './vendors/add-vendor/add-vendor.component';
 
 const routes: Routes = [
   {
@@ -90,7 +92,22 @@ const routes: Routes = [
     path: 'residents',
     component: ResidentsComponent,
     data: { title: 'Residents', breadcrumb: 'Residents'}
-  }
+  },
+  {
+    path: 'residents/add',
+    component: AddResidentComponent,
+    data: { title: 'Add Resident', breadcrumb: 'Add Resident'}
+  },
+  {
+    path: 'residents/update',
+    component: AddResidentComponent,
+    data: { title: 'update Users', breadcrumb: 'Update Users'}
+  },
+  {
+    path: 'vendors/add',
+    component: AddVendorComponent,
+    data: { title: 'Add Vendors', breadcrumb: 'Add Vendors'}
+  },
 ];
 
 @NgModule({

@@ -25,6 +25,7 @@ import { AddRowMaterialComponent } from './row-material/add-rowmaterial/add-rowm
 import { CreatePurchaseOrderComponent } from './purchase-order/create-purchase-order/create-purchase-order.component';
 import { AddInvoiceComponent } from './invoices/add-invoice/add-invoice.component';
 import { ResidentsComponent } from './residents/residents.component';
+import { AddResidentComponent } from './residents/add-resident/add-resident.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ResidentsComponent } from './residents/residents.component';
     CreatePurchaseOrderComponent,
     AddItemComponent,
     AddInvoiceComponent,
-    ResidentsComponent
+    ResidentsComponent,
+    AddResidentComponent
   ],
   imports: [
     CommonModule,
