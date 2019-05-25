@@ -29,4 +29,13 @@ export class SecurityuserService {
     const url = `${this.api.SECURITYUSER_LIST}/${id}`;
     return this.httpClient.delete(url);
   }
+
+  uploadImage(id:number, selectedFile:File):Observable<any>{
+    const url = `${this.api.USER_FILE_URL}/${id}?type=securityuser`;
+    if(selectedFile!=null){
+      const fd = new FormData();
+      fd.append('file', selectedFile, selectedFile.name);
+      return this.httpClient.post<any>(url, fd);
+    }
+  }
 }

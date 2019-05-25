@@ -29,4 +29,13 @@ export class ResidentuserService {
     const url = `${this.api.RESIDENTUSER_LIST}/${id}`;
     return this.httpClient.delete(url);
   }
+
+  uploadImage(id:number, selectedFile:File):Observable<any>{
+    const url = `${this.api.USER_FILE_URL}/${id}?type=resident`;
+    if(selectedFile!=null){
+      const fd = new FormData();
+      fd.append('file', selectedFile, selectedFile.name);
+      return this.httpClient.post<any>(url, fd);
+    }
+  }
 }
