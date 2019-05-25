@@ -14,6 +14,7 @@ import { Residentuser } from 'src/app/models/residentuser';
 import { Location } from '@angular/common';
 import { ResidentuserService } from 'src/app/services/token-storage/residentuser.service';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 @Component({
   selector: 'app-add-resident',
@@ -37,12 +38,17 @@ generic = new GenericTerm();
 isLoadingResults: boolean = false;
 maxDate = new Date();
 societyId: number = 0;
+isUpdate:boolean = false;
+id:number;
+sub:any;
+
 
 constructor(private fb: FormBuilder,
   private location: Location,
   private _dataService: CountryStateService,
   private route: ActivatedRoute,
   private tokenservice: TokenStorageService,
+  private toasterService:ToasterService,
   private residentService: ResidentuserService) {}
 
   ngOnInit() {
@@ -53,7 +59,52 @@ constructor(private fb: FormBuilder,
     if(society.id != null){
       this.societyId = society.id;
     }
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id']; // (+) converts string 'id' to a number
+      if (this.id != null && this.id > 0) {
+        this.getResidentInfo(this.id);
+        this.title = 'Update';
+        this.isUpdate = true;
+      }
+    });
   } 
+
+  getResidentInfo(id:number){
+    this.isLoadingResults = true;
+    this.residentService.getResidentuserByUserId(id).subscribe(data=>{
+      this.resident = data;
+      this.setFormValue(this.resident);
+      this.isLoadingResults = false;
+    }, err=>{
+      this.isLoadingResults =false;
+    })
+  }
+
+  setFormValue(resident :Residentuser){
+    this.residentForm.patchValue({
+      id: resident.id,
+      firstname : resident.firstname,
+      lastname : resident.lastname,
+      username : resident.username,
+      email  : resident.email,
+      contactno : resident.contactno,
+      alternatecontact : resident.alternatecontact,
+      password : resident.password,
+      token : resident.token,
+      picture : resident.picture,
+      gender : resident.gender,
+      status : resident.status,
+      loginallowed : resident.loginallowed,
+      colone : resident.colone,
+      coltwo : resident.coltwo,
+      apartment : resident.apartment,
+      societyid : resident.societyid,
+      age : resident.age,
+      flatnumber : resident.flatnumber,
+      floornumber : resident.floornumber,
+
+    })
+  }
   
   createForm(){
     this.residentForm = this.fb.group({
@@ -63,61 +114,54 @@ constructor(private fb: FormBuilder,
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, emailValidator()]],
       contactno: ['', [Validators.required]],
+      alternatecontact: ['', [Validators.required]],
       password: ['12345678'],
-      streetno: [''],
-      streetname: [''],
-      postalcode: [''],
-      city: [''],
-      province: [''],
-      country: [''],
       token: [''],
       picture: [''],
       gender: ['', [Validators.required]],
-      dob: ['', [Validators.required]],
-      rating: [''],
       status: ['Y'],
       loginallowed: [''],
       colone: [''],
       coltwo: [''],
       apartment: [''],
       societyid: [''],
-      role: ['', [Validators.required]],
+      age: [''],
+      floornumber: [''],
+      flatnumber: [''],
     });
   }
-  get id() { return this.residentForm.get('id');}
   get firstname() { return this.residentForm.get('firstname');}
   get lastname() { return this.residentForm.get('lastname');}
   get username() { return this.residentForm.get('username');}
   get email() { return this.residentForm.get('email'); }
-  get contactNo() { return this.residentForm.get('contactno'); }
-  get postalcode() { return this.residentForm.get('postalcode'); }
-  get city() { return this.residentForm.get('city'); }
-  get province() { return this.residentForm.get('province'); }
-  get country() { return this.residentForm.get('country'); }
-  get token() { return this.residentForm.get('token'); }
-  get picture() { return this.residentForm.get('picture'); }
+  get contactno() { return this.residentForm.get('contactno'); }
+  get alternatecontact() { return this.residentForm.get('alternatecontact'); }
   get gender() { return this.residentForm.get('gender'); }
-  get dob() { return this.residentForm.get('dob'); }
-  get rating() { return this.residentForm.get('rating'); }
-  get status() { return this.residentForm.get('status'); }
-  get loginallowed() { return this.residentForm.get('loginallowed'); }
-  get colone() { return this.residentForm.get('colone'); }
-  get coltwo() { return this.residentForm.get('coltwo'); }
-  get apartment() { return this.residentForm.get('apartment'); }
-  get societyid() { return this.residentForm.get('societyid'); }
-  get role() { return this.residentForm.get('role'); }
-
 
   onSelect(country: string) {
     this.states = this._dataService.getStates().filter((item) => item.country == country);
   }
 
   onSubmit() {
-    //this.resident = this.prepareSaveUser();
+    this.resident = this.prepareSaveResident();
     console.log("resident form", JSON.stringify(this.resident));
     //.isLoadingResults = true;
     this.residentService.saveResidentuser(this.resident).subscribe(data => {
       this.isLoadingResults = false;
+      if(data!=null){
+        let savedResident = data;
+        if (savedResident != null && this.selectedFile != null) {
+          this.residentService.uploadImage(savedResident.id, this.selectedFile).subscribe(data => {
+
+          });
+        }
+        if(this.isUpdate){
+          this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
+        }else{
+          this.toasterService.openSuccessSnackBar('Successfully Added', '', 2000);
+        }
+        this.isLoadingResults = false;
+      }
       this.goBack();
     }, (err: HttpErrorResponse) => {
       this.isLoadingResults = false;
@@ -125,17 +169,22 @@ constructor(private fb: FormBuilder,
     })
   }
 
-  /*prepareSaveUser() : Residentuser{
+  prepareSaveResident() : Residentuser{
     const formModel = this.residentForm.value;
 
-    const saveUser : Residentuser = {
+    const saveResident : Residentuser = {
     id: formModel.id as number,
     firstname: formModel.firstname  as string,
     lastname:  formModel.lastname as string,
     username:  formModel.username as string,
     email:  formModel.email as string,
     contactno:  formModel.contactno as string,
+    alternatecontact:  formModel.alternatecontact as string,
     password:  formModel.password as string,
+    floornumber:  formModel.floornumber as string,
+    flatnumber:  formModel.flatnumber as string,
+    age:  formModel.age as number,
+
     token:  formModel.token as string,
     picture:  formModel.picture as string,
     gender:  formModel.gender as string,
@@ -146,8 +195,8 @@ constructor(private fb: FormBuilder,
     apartment:  formModel.apartment as string,
     societyid: this.societyId as number,
     }
-    return saveUser;
-  }  */
+    return saveResident;
+  }  
 
   uploadFile(event, file: ElementRef) {
     if (event.target.files && event.target.files[0]) {

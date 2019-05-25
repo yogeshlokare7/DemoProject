@@ -12,9 +12,11 @@ export class Residentuser {
     token: string;
     picture: string;
     gender: string;
+
     apartment:string;
     floornumber:string;
     flatnumber:string;
+    
     status: string;
     loginallowed: boolean;
     colone: string;

@@ -16,6 +16,7 @@ import { CompanyService } from 'src/app/services/company.service';
 import { GenericTerm } from 'src/app/models/generic/generic-term';
 import { SecurityuserService } from 'src/app/services/securityuser.service';
 import { Securityuser } from 'src/app/models/securityuser';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 
 @Component({
@@ -45,6 +46,9 @@ export class AddUserComponent implements OnInit {
   userRoles: Role[] = [];
   maxDate  = new Date();
   societyId  : number;
+  sub:any;
+  id : number;
+  isUpdate:boolean = false;
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
@@ -52,6 +56,7 @@ export class AddUserComponent implements OnInit {
     private roleService: RoleService,
     private route: ActivatedRoute,
     private tokenservice: TokenStorageService,
+    private toasterService: ToasterService,
     private securityuserService: SecurityuserService) { }
 
   ngOnInit() {
@@ -64,7 +69,57 @@ export class AddUserComponent implements OnInit {
     if(society.id != null){
       this.societyId = society.id;
     }
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id']; // (+) converts string 'id' to a number
+      if (this.id != null && this.id > 0) {
+        this.getUserInfo(this.id);
+        this.title = 'Update';
+        this.isUpdate = true;
+      }
+    });
   }
+  getUserInfo(id:number){
+    this.isLoadingResults = true;
+    this.securityuserService.getSecurityuserByUserId(id).subscribe(data=>{
+      this.user = data;
+      this.setFormValue(this.user);
+      this.isLoadingResults = false;
+    }, err=>{
+      this.isLoadingResults =false;
+    })
+  }
+
+  setFormValue(user :Securityuser){
+    this.userForm.patchValue({
+      id: user.id,
+      firstname : user.firstname,
+      lastname : user.lastname,
+      username : user.username,
+      email  : user.email,
+      contactno : user.contactno,
+      country : user.country,
+      password : user.password,
+      token : user.token,
+      picture : user.picture,
+      gender : user.gender,
+      status : user.status,
+      loginallowed : user.loginallowed,
+      colone : user.colone,
+      coltwo : user.coltwo,
+      apartment : user.apartment,
+      societyid : user.societyid,
+      dob : user.dob,
+      postalcode : user.postalcode,
+      city : user.city,
+      province : user.province,
+      streetname : user.streetname,
+      streetno : user.streetno,
+      rating : user.rating,
+      role : user.role,
+
+    })
+  }
+  
 
   createForm(){
     this.userForm = this.fb.group({
@@ -95,7 +150,6 @@ export class AddUserComponent implements OnInit {
       role: ['', [Validators.required]],
     });
   }
-  get id() { return this.userForm.get('id');}
   get firstname() { return this.userForm.get('firstname');}
   get lastname() { return this.userForm.get('lastname');}
   get username() { return this.userForm.get('username');}
@@ -146,6 +200,20 @@ export class AddUserComponent implements OnInit {
     //.isLoadingResults = true;
     this.securityuserService.saveSecurityuser(this.user).subscribe(data => {
       this.isLoadingResults = false;
+      if(data!=null){
+        let savedResident = data;
+        if (savedResident != null && this.selectedFile != null) {
+          this.securityuserService.uploadImage(savedResident.id, this.selectedFile).subscribe(data => {
+
+          });
+        }
+        if(this.isUpdate){
+          this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
+        }else{
+          this.toasterService.openSuccessSnackBar('Successfully Added', '', 2000);
+        }
+        this.isLoadingResults = false;
+      }
       this.goBack();
     }, (err: HttpErrorResponse) => {
       this.isLoadingResults = false;

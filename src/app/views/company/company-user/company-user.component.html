@@ -63,7 +63,7 @@
             </button>
           </mat-header-cell>
           <mat-cell *matCellDef="let row; let i=index;">
-            <button mat-icon-button color="accent" matTooltip="Edit" [routerLink]="['edit', {'id': row.id}]">
+            <button mat-icon-button color="accent" matTooltip="Edit" [routerLink]="['update', {'id': row.id}]">
               <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
             <button mat-icon-button color="accent">
