@@ -7,6 +7,7 @@ import { AuthLoginInfo } from '../../models/login-info';
 import { SignUpInfo } from '../../models/signup-info';
 import { environment } from '../../../environments/environment';
 import { UserModel } from 'src/app/models/user-model';
+import { RestApi } from 'src/app/models/api/rest-api';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,24 +18,22 @@ const httpOptions = {
 })
 export class LoginService {
 
-  baseUrl = environment.baseUrl;
+  api = new RestApi();
 
   constructor(private http: HttpClient) {
   }
 
   attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
-    let loginUrl = `${this.baseUrl}/api/auth/signin`;
-    return this.http.post<JwtResponse>(loginUrl, credentials, httpOptions);
+    return this.http.post<JwtResponse>(this.api.LOGIN_URL, credentials, httpOptions);
   }
 
   signUp(info: SignUpInfo): Observable<string> {
-    let signupUrl = `${this.baseUrl}/api/auth/signup`;
+    let signupUrl = `${this.api.SOCIETY_BASE}/api/auth/signup`;
     return this.http.post<string>(signupUrl, info, httpOptions);
   }
 
   signin(credentials: AuthLoginInfo): Observable<UserModel> {
-    let loginUrl = `${this.baseUrl}/api/auth/signin`;
-    return this.http.post<UserModel>(loginUrl, credentials, httpOptions);
+    return this.http.post<UserModel>(this.api.LOGIN_URL, credentials, httpOptions);
   }
   
 }

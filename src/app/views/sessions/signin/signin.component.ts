@@ -53,7 +53,7 @@ export class SigninComponent implements OnInit {
 
     this.authService.signin(this.loginInfo).subscribe( data => {
         this.tokenStorage.saveUsername(data.username);
-        this.tokenStorage.saveRole(data.role.name);
+        //this.tokenStorage.saveRole(data.role.name);
         this.tokenStorage.saveUserId(data.id);
         //this.tokenStorage.saveCompanyId(data.societyid.id);
         this.tokenStorage.saveSociety(data.societyid);
@@ -75,13 +75,12 @@ export class SigninComponent implements OnInit {
   }
 
   navigatePage() {
-    this.roles = this.tokenStorage.getRole();
-    console.log("roles", this.roles);
-    if(this.roles.includes("Tejovat Admin")){
-      this.router.navigateByUrl("/admin/dashboard");
-    }else{
+    //this.roles = this.tokenStorage.getRole();
+    // if(this.roles.includes("Tejovat Admin")){
+    //   this.router.navigateByUrl("/admin/dashboard");
+    // }else{
       this.router.navigateByUrl("/society/dashboard");
-    }
+    //}
   }
 
 }
