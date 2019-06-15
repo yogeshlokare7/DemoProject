@@ -71,20 +71,20 @@ export class CompanyNavigationService {
       icon: 'people',
       state: 'society/daily-staff'
     },
-    {
-      name: 'Manage Admins',
-      type: 'link',
-      tooltip: 'Products',
-      icon: 'view_module',
-      state: 'society/products'
-    },
-    {
-      name: 'Manage Bills',
-      type: 'link',
-      tooltip: 'Bills',
-      icon: 'view_comfy',
-      state: 'society/items'
-    }
+    // {
+    //   name: 'Manage Admins',
+    //   type: 'link',
+    //   tooltip: 'Products',
+    //   icon: 'view_module',
+    //   state: 'society/products'
+    // },
+    // {
+    //   name: 'Manage Bills',
+    //   type: 'link',
+    //   tooltip: 'Bills',
+    //   icon: 'view_comfy',
+    //   state: 'society/items'
+    // }
   ]
 
   iconMenu:IMenuItem[] = [
@@ -116,20 +116,20 @@ export class CompanyNavigationService {
       icon: 'people',
       state: 'society/daily-staff'
     },
-    {
-      name: 'Manage Admins',
-      type: 'link',
-      tooltip: 'Products',
-      icon: 'view_module',
-      state: 'society/products'
-    },
-    {
-      name: 'Manage Bills',
-      type: 'link',
-      tooltip: 'Bills',
-      icon: 'view_comfy',
-      state: 'society/items'
-    }
+    // {
+    //   name: 'Manage Admins',
+    //   type: 'link',
+    //   tooltip: 'Products',
+    //   icon: 'view_module',
+    //   state: 'society/products'
+    // },
+    // {
+    //   name: 'Manage Bills',
+    //   type: 'link',
+    //   tooltip: 'Bills',
+    //   icon: 'view_comfy',
+    //   state: 'society/items'
+    // }
   ]
 
   iconTypeMenuTitle:string = 'Frequently Accessed';

@@ -4,9 +4,10 @@ export class RestApi {
     public readonly API_URL = environment.baseUrl;
 
     //LOGIN MODULE API
-    public readonly LOGIN_URL = this.API_URL + '/login';
-    public readonly UPDATEPWD_URL = this.API_URL + '/update';
-    public readonly FORGOT_URL = this.API_URL + '/api/auth/forgot';
+    public readonly SOCIETY_BASE = this.API_URL + '/api/auth/society';
+    public readonly LOGIN_URL = this.SOCIETY_BASE + '/login';
+    public readonly UPDATEPWD_URL = this.SOCIETY_BASE + '/update';
+    public readonly FORGOT_URL = this.SOCIETY_BASE + '/forgot';
 
     //Dashboard Counterss
     public readonly DASHBOARD_URL = this.API_URL + '/dashboard';
