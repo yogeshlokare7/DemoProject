@@ -33,10 +33,6 @@
 .mat-header-cell:nth-child(6){
   flex: 0 0 15%;
 }
-.user__icon {
-  min-height: 64px;
-  height: 64px;
-}
 
 
 .example-loading-shade {
@@ -67,4 +63,12 @@
 .user__icon {
   min-height: 64px;
   height: 64px;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 5px;
 }
