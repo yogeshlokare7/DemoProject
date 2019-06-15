@@ -20,7 +20,7 @@ export class ResidentsComponent implements OnInit {
   displayedColumns = ['pic','firstname', 'email', 'contactno', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: User[] = [];
- 
+
 
   dataSource:any;
   api = new ListApi;
@@ -44,9 +44,13 @@ export class ResidentsComponent implements OnInit {
   refresh() {
     this.loadData();
   }
-  
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  view(id: number) {
+
   }
 
   public loadData() {

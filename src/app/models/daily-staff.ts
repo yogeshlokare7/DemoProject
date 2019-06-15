@@ -21,6 +21,6 @@ export class DailyStaff {
     colone: string;
     coltwo: string;
     constructor(){
-        
+
     }
 }

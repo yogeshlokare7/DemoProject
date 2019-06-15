@@ -14,7 +14,7 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
   styleUrls: ['./daily-staff.component.css']
 })
 export class DailyStaffComponent implements OnInit {
-  displayedColumns = ['pic','firstname', 'email', 'contactno', 'status', 'actions'];
+  displayedColumns = ['pic','firstname', 'email', 'gender', 'contactno', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: DailyStaff[] = [];
 
@@ -42,6 +42,10 @@ export class DailyStaffComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  view(id: number) {
+
   }
 
   public loadData() {
