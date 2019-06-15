@@ -26,6 +26,8 @@ import { CreatePurchaseOrderComponent } from './purchase-order/create-purchase-o
 import { AddInvoiceComponent } from './invoices/add-invoice/add-invoice.component';
 import { ResidentsComponent } from './residents/residents.component';
 import { AddResidentComponent } from './residents/add-resident/add-resident.component';
+import { DailyStaffComponent } from './daily-staff/daily-staff.component';
+import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { AddResidentComponent } from './residents/add-resident/add-resident.comp
     AddItemComponent,
     AddInvoiceComponent,
     ResidentsComponent,
-    AddResidentComponent
+    AddResidentComponent,
+    DailyStaffComponent,
+    AddDailyStaffComponent
   ],
   imports: [
     CommonModule,

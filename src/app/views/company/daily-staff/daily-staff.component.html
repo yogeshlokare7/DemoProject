@@ -2,7 +2,7 @@
   <mat-card-header>
     <mat-card-title>
       <div>
-        <button mat-raised-button color="accent" class="mr-1" routerLink="add">Add User</button>
+        <button mat-raised-button color="accent" class="mr-1" routerLink="add">Add Daily Staff</button>
       </div>
     </mat-card-title>
   </mat-card-header>
@@ -47,10 +47,23 @@
           <mat-cell *matCellDef="let row"> {{row.contactno}}</mat-cell>
         </ng-container>
 
-
+        <ng-container matColumnDef="societyid">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Society</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.societyid.societyName}}</mat-cell>
+        </ng-container>
         <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+            <mat-cell  *matCellDef="let element" [style.color]="element.status != 'Y' ? 'red' : 'green'" >{{element.status != 'Y' ? 'Inactive' : 'Active'}} </mat-cell>
+          </ng-container>
+
+        <!-- <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.status}}</mat-cell>
+        </ng-container> -->
+
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.role.name}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">

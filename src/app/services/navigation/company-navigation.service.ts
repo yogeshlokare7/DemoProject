@@ -67,9 +67,9 @@ export class CompanyNavigationService {
     {
       name: 'Manage Daily Staff',
       type: 'link',
-      tooltip: 'Vendors',
+      tooltip: 'Daily Staff',
       icon: 'people',
-      state: 'society/vendors'
+      state: 'society/daily-staff'
     },
     {
       name: 'Manage Admins',
@@ -112,9 +112,9 @@ export class CompanyNavigationService {
     {
       name: 'Manage Daily Staff',
       type: 'link',
-      tooltip: 'Vendors',
+      tooltip: 'Daily Staff',
       icon: 'people',
-      state: 'society/vendors'
+      state: 'society/daily-staff'
     },
     {
       name: 'Manage Admins',

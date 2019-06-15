@@ -16,6 +16,8 @@ import { RowMaterialComponent } from './row-material/row-material.component';
 import { ResidentsComponent } from './residents/residents.component';
 import { AddResidentComponent } from './residents/add-resident/add-resident.component';
 import { AddVendorComponent } from './vendors/add-vendor/add-vendor.component';
+import { DailyStaffComponent } from './daily-staff/daily-staff.component';
+import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
 
 const routes: Routes = [
   {
@@ -49,9 +51,14 @@ const routes: Routes = [
     data: { title: 'Customers', breadcrumb: 'Customers'}
   },
   {
-    path: 'vendors',
-    component: VendorsComponent,
-    data: { title: 'Vendors', breadcrumb: 'Vendors'}
+    path: 'daily-staff',
+    component: DailyStaffComponent,
+    data: { title: 'Daily Staff', breadcrumb: 'Daily Staff'}
+  },
+  {
+    path: 'daily-staff/add',
+    component: AddDailyStaffComponent,
+    data: { title: 'Add Daily Staff', breadcrumb: 'Add Daily Staff'}
   },
   {
     path: 'products',
@@ -108,11 +115,7 @@ const routes: Routes = [
     component: AddResidentComponent,
     data: { title: 'update Users', breadcrumb: 'Update Users'}
   },
-  {
-    path: 'vendors/add',
-    component: AddVendorComponent,
-    data: { title: 'Add Vendors', breadcrumb: 'Add Vendors'}
-  },
+ 
 ];
 
 @NgModule({

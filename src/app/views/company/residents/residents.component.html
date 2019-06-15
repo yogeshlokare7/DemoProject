@@ -1,7 +1,7 @@
 <mat-card class="list--scroll">
     <mat-card-header>
       <mat-card-title>
-        <div class="mt-1">
+        <div>
           <button mat-raised-button color="accent" class="mr-1" routerLink="add">Add Resident</button>
         </div>
       </mat-card-title>
@@ -27,10 +27,9 @@
           matSortDirection="desc">
   
           <ng-container matColumnDef="pic">
-            <mat-header-cell *matHeaderCellDef>Profile Picture</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <img mat-list-avatar class="user__icon" [src]="(row.picture == null || row.picture == '') ? url : row.picture" ngClass.gt-xs="m-1"
-                ngStyle.xs="min-width: auto">
+              <img mat-list-avatar class="avatar" [src]="(row.picture == null || row.picture == '') ? url : row.picture">
             </mat-cell>
           </ng-container>
   
