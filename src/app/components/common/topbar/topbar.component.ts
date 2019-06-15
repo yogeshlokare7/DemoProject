@@ -39,9 +39,9 @@ export class TopbarComponent implements OnInit {
     this.companyId = this.tokenService.getUserId();
     this.company = this.tokenService.getSociety();
     let roles = this.tokenService.getRole();
-    if (!roles.includes("Tejovat Admin")) {
-      this.pictureUrl = `assets//images//account2.jpg`;
-    }
+    // if (!roles.includes("Tejovat Admin")) {
+    //   this.pictureUrl = `assets//images//account2.jpg`;
+    // }
     console.log("company", this.company);
   }
 
