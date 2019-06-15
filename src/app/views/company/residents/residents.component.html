@@ -22,17 +22,17 @@
             Please wait.
           </div>
         </div>
-  
+
         <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDisableClear
           matSortDirection="desc">
-  
+
           <ng-container matColumnDef="pic">
             <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <img mat-list-avatar class="avatar" [src]="(row.picture == null || row.picture == '') ? url : row.picture">
             </mat-cell>
           </ng-container>
-  
+
           <ng-container matColumnDef="firstname">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
             <mat-cell *matCellDef="let row">{{row.firstname}} {{row.lastname}}</mat-cell>
@@ -41,12 +41,12 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
             <mat-cell *matCellDef="let row">{{row.email}}</mat-cell>
           </ng-container>
-  
+
           <ng-container matColumnDef="contactno">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Contact No</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.contactno}}</mat-cell>
           </ng-container>
-  
+
           <ng-container matColumnDef="societyid">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Society</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.societyid.societyName}}</mat-cell>
@@ -55,17 +55,17 @@
               <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
               <mat-cell  *matCellDef="let element" [style.color]="element.status != 'Y' ? 'red' : 'green'" >{{element.status != 'Y' ? 'Inactive' : 'Active'}} </mat-cell>
             </ng-container>
-  
+
           <!-- <ng-container matColumnDef="status">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.status}}</mat-cell>
           </ng-container> -->
-  
+
           <ng-container matColumnDef="role">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.role.name}}</mat-cell>
           </ng-container>
-  
+
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef>
               <button mat-icon-button color="primary" routerLink="add">
@@ -82,15 +82,15 @@
               </button>
             </mat-cell>
           </ng-container>
-  
+
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="view(row.id)"></mat-row>
         </mat-table>
-  
+
         <div class="no-results" [style.display]="resultsLength == 0 ? '' : 'none'">
           No results
         </div>
-  
+
         <mat-paginator #paginator [length]="resultsLength" [pageIndex]="0" [pageSize]="pageSize"
           [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
       </div>
