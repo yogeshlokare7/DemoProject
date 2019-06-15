@@ -17,6 +17,7 @@ import { GenericTerm } from 'src/app/models/generic/generic-term';
 import { SecurityuserService } from 'src/app/services/securityuser.service';
 import { Securityuser } from 'src/app/models/securityuser';
 import { ToasterService } from 'src/app/services/toaster.service';
+import { emailValidator } from 'src/app/directives/email-validator.directive';
 
 
 @Component({
@@ -119,7 +120,7 @@ export class AddUserComponent implements OnInit {
 
     })
   }
-  
+
 
   createForm(){
     this.userForm = this.fb.group({
@@ -127,7 +128,7 @@ export class AddUserComponent implements OnInit {
       firstname: ['', [Validators.required, Validators.minLength(3)]],
       lastname:['', [Validators.required]],
       username: ['', [Validators.required]],
-      email: ['', Validators.required],
+      email: ['', Validators.required, emailValidator()],
       contactno: ['', Validators.required],
       password: ['12345678'],
       streetno: [''],
@@ -253,7 +254,7 @@ export class AddUserComponent implements OnInit {
     role: selectedRole as Role,
     }
     return saveUser;
-  }  
+  }
 
   uploadFile(event, file: ElementRef) {
     if (event.target.files && event.target.files[0]) {
