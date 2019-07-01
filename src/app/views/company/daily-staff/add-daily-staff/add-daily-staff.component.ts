@@ -132,6 +132,22 @@ createForm(){
   get contactno() { return this.dailystaffForm.get('contactno'); }
   get alternatecontact() { return this.dailystaffForm.get('alternatecontact'); }
   get gender() { return this.dailystaffForm.get('gender'); }
+  get profile() { return this.dailystaffForm.get('profile'); }
+  get societyid() { return this.dailystaffForm.get('societyid'); }
+  get residentid() { return this.dailystaffForm.get('residentid'); }
+  get age() { return this.dailystaffForm.get('age'); }
+  get streetname() { return this.dailystaffForm.get('streetname'); }
+  get streetno() { return this.dailystaffForm.get('streetno'); }
+  get postalcode() { return this.dailystaffForm.get('postalcode'); }
+  get city() { return this.dailystaffForm.get('city'); }
+  get province() { return this.dailystaffForm.get('province'); }
+
+
+
+
+
+  
+
 
   onSelect(country: string) {
     this.states = this._dataService.getStates().filter((item) => item.country == country);

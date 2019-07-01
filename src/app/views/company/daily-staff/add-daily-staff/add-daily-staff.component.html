@@ -13,40 +13,48 @@
         <div fxFlex="100" fxFlex.gt-md="100" ngClass.gt-md="pr-1">
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.5">
-              <input matInput placeholder="First Name" type="text" required> 
-              <!-- <mat-error *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
-                <mat-error *ngIf="username.errors.required">
+              <input matInput placeholder="First Name" type="text" pattern="[a-zA-Z][a-zA-Z ]+"
+                formControlName="firstname" required>
+              <mat-error *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
+                <mat-error *ngIf="firstname.errors.required">
                   First name is required.
                 </mat-error>
-              </mat-error> -->
+                <mat-error *ngIf="firstname.errors['pattern']">
+                  First Name should not contain number or symbols
+                </mat-error>
+              </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-              <input matInput placeholder="Last Name" type="text" formControlName="lastname" required>
-              <!-- <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
+              <input matInput placeholder="Last Name" type="text" pattern="[a-zA-Z][a-zA-Z ]+"
+                formControlName="lastname" required>
+              <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
                 <mat-error *ngIf="lastname.errors.required">
                   Last Name is required.
                 </mat-error>
-              </mat-error> -->
+                <mat-error *ngIf="firstname.errors.pattern">
+                  Last Name should not contain number or symbols
+                </mat-error>
+              </mat-error>
             </mat-form-field>
           </div>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
-              <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-                <mat-select placeholder="Profile" formControlName="Profile" required>
-                    <mat-option value="D">Driver</mat-option>
-                    <mat-option value="M">Manager</mat-option>
-                    <mat-option value="S">Security</mat-option>
-                    <mat-option value="S">Sweeper</mat-option>
-                    <mat-option value="G">Gardner</mat-option>
-                    <mat-option value="E">Electrician</mat-option>
-                    <mat-option value="O">Other</mat-option>
-                </mat-select>
-               
-                <!-- <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
-                  <mat-error *ngIf="lastname.errors.required">
-                    Profile is required.
-                  </mat-error>
-                </mat-error> -->
-              </mat-form-field> 
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
+              <mat-select placeholder="Profile" formControlName="profile" required>
+                <mat-option value="D">Driver</mat-option>
+                <mat-option value="M">Manager</mat-option>
+                <mat-option value="S">Security</mat-option>
+                <mat-option value="S">Sweeper</mat-option>
+                <mat-option value="G">Gardner</mat-option>
+                <mat-option value="E">Electrician</mat-option>
+                <mat-option value="O">Other</mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="profile.invalid && (profile.dirty || profile.touched)" class="alert alert-danger">
+                <mat-error *ngIf="profile.errors.required">
+                  Profile is required.
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.5">
               <input matInput placeholder="Email Id" type="text" minlength="5" maxlength="40" formControlName="email"
                 required>
@@ -54,33 +62,39 @@
                 <mat-error *ngIf="email.errors.required">
                   Email ID is required.
                 </mat-error>
-                 <mat-error *ngIf="email.errors.email">
-                 Email must be a valid email address
+                <mat-error *ngIf="email.errors.email">
+                  Email must be a valid email address
                 </mat-error>
               </mat-error>
             </mat-form-field>
-            
+
           </div>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <input matInput placeholder="Contact No" type="text" minlength="3" maxlength="15"
+              <input matInput placeholder="Contact No" type="text" minlength="3" maxlength="15" pattern="[0-9]*"
                 formControlName="contactno" required>
-              <!-- <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
+              <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
                 <mat-error *ngIf="contactno.errors.required">
                   Contact number is required.
                 </mat-error>
-              </mat-error> -->
+                <mat-error *ngIf="contactno.errors.pattern">
+                  Contact number should not contain alphabet or Symbols.
+                </mat-error>
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Alternate Contact No" type="text" minlength="3" maxlength="15"
-                formControlName="alternatecontact" required>
-              <!-- <mat-error *ngIf="alternatecontact.invalid && (alternatecontact.dirty || alternatecontact.touched)"
+                pattern="[0-9]*" formControlName="alternatecontact" required>
+              <mat-error *ngIf="alternatecontact.invalid && (alternatecontact.dirty || alternatecontact.touched)"
                 class="alert alert-danger">
                 <mat-error *ngIf="alternatecontact.errors.required">
                   Alternate Contact number is required.
                 </mat-error>
-              </mat-error> -->
+                <mat-error *ngIf="alternatecontact.errors.pattern">
+                  Alternate Contact number should not contain alphabet or Symbols.
+                </mat-error>
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
@@ -89,79 +103,80 @@
                 <mat-option value="F">Female</mat-option>
                 <mat-option value="O">Other</mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="alert alert-danger">
+              <mat-error *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="alert alert-danger">
                 <mat-error *ngIf="gender.errors.required">
                   Please select gender
                 </mat-error>
-              </mat-error> -->
+              </mat-error>
             </mat-form-field>
           </div>
 
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Society ID" type="number" formControlName="societyid" required>
-              <!-- <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
-                <mat-error *ngIf="contactno.errors.required">
+              <mat-error *ngIf="societyid.invalid && (societyid.dirty || societyid.touched)" class="alert alert-danger">
+                <mat-error *ngIf="societyid.errors.required">
                   Society ID is required.
                 </mat-error>
-              </mat-error> -->
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Resident ID" type="number" formControlName="residentid" required>
-              <!-- <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
-                <mat-error *ngIf="contactno.errors.required">
+              <mat-error *ngIf="residentid.invalid && (residentid.dirty || residentid.touched)"
+                class="alert alert-danger">
+                <mat-error *ngIf="residentid.errors.required">
                   Resident ID is required.
                 </mat-error>
-              </mat-error> -->
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
               <input matInput placeholder="Age" type="number" formControlName="age" required>
-              <!-- <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
-                <mat-error *ngIf="contactno.errors.required">
+              <mat-error *ngIf="age.invalid && (age.dirty || age.touched)" class="alert alert-danger">
+                <mat-error *ngIf="age.errors.required">
                   Age is required.
                 </mat-error>
-              </mat-error> -->
+              </mat-error>
             </mat-form-field>
           </div>
           <label>Address</label>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Street Number" type="text" formControlName="streetno" required>
-              <!-- <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
-                <mat-error *ngIf="contactno.errors.required">
+              <mat-error *ngIf="streetno.invalid && (streetno.dirty || streetno.touched)" class="alert alert-danger">
+                <mat-error *ngIf="streetno.errors.required">
                   Street Number is required.
                 </mat-error>
-              </mat-error> -->
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Street Name" type="text" formControlName="streetname" required>
-              <!-- <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
+              <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
                 <mat-error *ngIf="contactno.errors.required">
                   Street Name is required.
                 </mat-error>
-              </mat-error> -->
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
               <input matInput placeholder="Postalcode" type="text" formControlName="postalcode" required>
-              <!-- <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
-                <mat-error *ngIf="contactno.errors.required">
-                  Postalcode is required.
+              <mat-error *ngIf="postalcode.invalid && (postalcode.dirty || postalcode.touched)"
+                class="alert alert-danger">
+                <mat-error *ngIf="postalcode.errors.required">
+                  Postal Code is required.
                 </mat-error>
-              </mat-error> -->
-            </mat-form-field>            
+              </mat-error>
+            </mat-form-field>
           </div>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="City" type="text" formControlName="city" required>
-              <!-- <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
-                <mat-error *ngIf="contactno.errors.required">
-                  City is required.
-                </mat-error>
-              </mat-error> -->
+              <mat-error *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+                <mat-error *ngIf="city.errors.required">
+                  Please select City. </mat-error>
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
@@ -170,11 +185,11 @@
                 <mat-option value="F">Female</mat-option>
                 <mat-option value="O">Other</mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="alert alert-danger">
-                <mat-error *ngIf="gender.errors.required">
+              <mat-error *ngIf="province.invalid && (province.dirty || province.touched)" class="alert alert-danger">
+                <mat-error *ngIf="province.errors.required">
                   Please select province
                 </mat-error>
-              </mat-error> -->
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
@@ -187,7 +202,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-           <!-- <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column"> 
+          <!-- <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column"> 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35"> 
               <input matInput placeholder="Wing Name/No" type="text" maxlength="30" formControlName="apartment"
                 required>
@@ -237,7 +252,8 @@
       <br>
       <div>
         <button mat-raised-button color="accent" type="button" (click)="goBack()" class="mr-1">Back</button>
-        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="dailystaffForm.invalid">Submit</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()"
+          [disabled]="dailystaffForm.invalid">Submit</button>
       </div>
     </form>
   </mat-card-content>

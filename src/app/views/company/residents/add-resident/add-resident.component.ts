@@ -127,7 +127,7 @@ constructor(private fb: FormBuilder,
       societyid: [''],
       age: [''],
       floornumber: ['', [Validators.required]],
-      flatnumber: ['', [Validators.required]],
+      flatnumber: [''],
     });
   }
   get firstname() { return this.residentForm.get('firstname');}
@@ -137,6 +137,10 @@ constructor(private fb: FormBuilder,
   get contactno() { return this.residentForm.get('contactno'); }
   get alternatecontact() { return this.residentForm.get('alternatecontact'); }
   get gender() { return this.residentForm.get('gender'); }
+  get apartment() { return this.residentForm.get('apartment'); }
+  get floornumber() { return this.residentForm.get('floornumber'); }
+  get flatnumber() { return this.residentForm.get('flatnumber'); }
+
 
   onSelect(country: string) {
     this.states = this._dataService.getStates().filter((item) => item.country == country);
@@ -168,6 +172,7 @@ constructor(private fb: FormBuilder,
       console.log("resident err", err);
     })
   }
+  
 
   prepareSaveResident() : Residentuser{
     const formModel = this.residentForm.value;

@@ -53,6 +53,10 @@ export class ResidentsComponent implements OnInit {
 
   }
 
+  deleteResident() {
+    
+  }
+
   public loadData() {
     this.exampleDatabase = new PaginationDao(this.httpClient);
     // If the user changes the sort order, reset back to the first page.

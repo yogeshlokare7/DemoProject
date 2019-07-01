@@ -32,15 +32,15 @@
                   Email id is required.
                 </mat-error>
                 <mat-error *ngIf="email.errors.email">
-                 Email must be a valid email address
+                  Email must be a valid email address
                 </mat-error>
               </mat-error>
             </mat-form-field>
           </div>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-              <input matInput placeholder="First Name" type="text" minlength="3" maxlength="15" pattern="[a-zA-Z][a-zA-Z ]+"
-                formControlName="firstname" required>
+              <input matInput placeholder="First Name" type="text" minlength="3" maxlength="15"
+                pattern="[a-zA-Z][a-zA-Z ]+" formControlName="firstname" required>
               <mat-error *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
                 <mat-error *ngIf="firstname.errors.required">
                   First Name is required.
@@ -51,8 +51,8 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-              <input matInput placeholder="Last Name" type="text" minlength="3" maxlength="15" pattern="[a-zA-Z][a-zA-Z ]+"
-                formControlName="lastname" required>
+              <input matInput placeholder="Last Name" type="text" minlength="3" maxlength="15"
+                pattern="[a-zA-Z][a-zA-Z ]+" formControlName="lastname" required>
               <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
                 <mat-error *ngIf="lastname.errors.required">
                   Last Name is required.
@@ -77,8 +77,8 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <input matInput placeholder="Alternate Contact No" type="text" minlength="3" maxlength="15" pattern="[0-9]*"
-                formControlName="alternatecontact" required>
+              <input matInput placeholder="Alternate Contact No" type="text" minlength="3" maxlength="15"
+                pattern="[0-9]*" formControlName="alternatecontact" required>
               <mat-error *ngIf="alternatecontact.invalid && (alternatecontact.dirty || alternatecontact.touched)"
                 class="alert alert-danger">
                 <mat-error *ngIf="alternatecontact.errors.required">
@@ -103,18 +103,35 @@
               </mat-error>
             </mat-form-field>
           </div>
-           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column"> 
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="35"> 
+          <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Wing Name/No" type="text" maxlength="30" formControlName="apartment"
                 required>
+              <mat-error *ngIf="apartment.invalid && (apartment.dirty || apartment.touched)" class="alert alert-danger">
+                <mat-error *ngIf="apartment.errors.required">
+                  Please select Wing Name/No.
+                </mat-error>
+              </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <input matInput placeholder="Floor Number" type="text" maxlength="80" formControlName="floornumber" required>
+              <input matInput placeholder="Floor Number" type="text" maxlength="80" formControlName="floornumber"
+                required>
+                <mat-error *ngIf="floornumber.invalid && (floornumber.dirty || floornumber.touched)" class="alert alert-danger">
+                  <mat-error *ngIf="floornumber.errors.required">
+                    Please select Floor Number.
+                  </mat-error>
+                </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
-              <input matInput placeholder="Flat Number" type="text" maxlength="80" formControlName="flatnumber" required>
-            </mat-form-field> 
-       </div> 
+              <input matInput placeholder="Flat Number" type="text" maxlength="80" formControlName="flatnumber"
+                required>
+                <mat-error *ngIf="flatnumber.invalid && (flatnumber.dirty || flatnumber.touched)" class="alert alert-danger">
+                  <mat-error *ngIf="flatnumber.errors.required">
+                    Please select Flat Number.
+                  </mat-error>
+                </mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </div>
       <div fxLayout="row" fxLayoutWrap="wrap">
@@ -123,6 +140,7 @@
             <mat-form-field fxFlex="100" fxFlex.gt-xs="97">
               <input matInput #file2 placeholder="Choose image" class="pointer--cursor" (click)="upload2.click()">
               <input [hidden]="true" type="file" #upload2 (change)="uploadFile($event, file2)" />
+              
             </mat-form-field>
             <button type="button" mat-button color="accent" mat-mini-fab (click)="upload2.click()"
               matTooltip="Choose user image">

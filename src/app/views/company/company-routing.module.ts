@@ -115,6 +115,11 @@ const routes: Routes = [
     component: AddResidentComponent,
     data: { title: 'update Users', breadcrumb: 'Update Users'}
   },
+  {
+    path: 'residents/delete',
+    component: AddResidentComponent,
+    data: { title: 'Delete Users', breadcrumb: 'Delete Users'}
+  },
  
 ];
 
