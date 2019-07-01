@@ -8,7 +8,7 @@
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
     <form [formGroup]="dailystaffForm">
-      <ng-template matStepLabel>Resident information</ng-template>
+      <ng-template matStepLabel>DailyStaff information</ng-template>
       <div fxLayout="row" fxLayoutWrap="wrap">
         <div fxFlex="100" fxFlex.gt-md="100" ngClass.gt-md="pr-1">
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
@@ -31,22 +31,33 @@
           </div>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
               <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-                  <input matInput placeholder="Profile" type="text" minlength="3" maxlength="15"
-                    formControlName="profile" required>
-                  <!-- <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
-                    <mat-error *ngIf="lastname.errors.required">
-                      Profile is required.
-                    </mat-error>
-                  </mat-error> -->
-                </mat-form-field>
+                <mat-select placeholder="Profile" formControlName="Profile" required>
+                    <mat-option value="D">Driver</mat-option>
+                    <mat-option value="M">Manager</mat-option>
+                    <mat-option value="S">Security</mat-option>
+                    <mat-option value="S">Sweeper</mat-option>
+                    <mat-option value="G">Gardner</mat-option>
+                    <mat-option value="E">Electrician</mat-option>
+                    <mat-option value="O">Other</mat-option>
+                </mat-select>
+               
+                <!-- <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
+                  <mat-error *ngIf="lastname.errors.required">
+                    Profile is required.
+                  </mat-error>
+                </mat-error> -->
+              </mat-form-field> 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.5">
               <input matInput placeholder="Email Id" type="text" minlength="5" maxlength="40" formControlName="email"
                 required>
-              <!-- <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+              <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
                 <mat-error *ngIf="email.errors.required">
                   Email ID is required.
                 </mat-error>
-              </mat-error> -->
+                 <mat-error *ngIf="email.errors.email">
+                 Email must be a valid email address
+                </mat-error>
+              </mat-error>
             </mat-form-field>
             
           </div>
@@ -166,17 +177,14 @@
               </mat-error> -->
             </mat-form-field>
 
-            <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
-              <mat-select placeholder="country" formControlName="country" required>
-                <mat-option value="M">Male</mat-option>
-                <mat-option value="F">Female</mat-option>
-                <mat-option value="O">Other</mat-option>
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+              <mat-select placeholder="Select Country" name="country" formControlName="country"
+                (selectionChange)="onSelect($event.value)">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let obj of countries" [value]="obj">
+                  {{ obj }}
+                </mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="alert alert-danger">
-                <mat-error *ngIf="gender.errors.required">
-                  Please select country
-                </mat-error>
-              </mat-error> -->
             </mat-form-field>
           </div>
            <!-- <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column"> 

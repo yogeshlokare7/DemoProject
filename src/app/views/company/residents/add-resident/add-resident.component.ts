@@ -109,8 +109,8 @@ constructor(private fb: FormBuilder,
   createForm(){
     this.residentForm = this.fb.group({
       id: [''],
-      firstname: ['', [Validators.required, Validators.minLength(3)]],
-      lastname:['', [Validators.required, Validators.minLength(3)]],
+      firstname: ['', [Validators.required, Validators.minLength(3), Validators.pattern('[a-zA-Z][a-zA-Z ]+')]],
+      lastname:['', [Validators.required, Validators.minLength(3), Validators.pattern('[a-zA-Z][a-zA-Z ]+')]],
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, emailValidator()]],
       contactno: ['', [Validators.required]],
@@ -123,11 +123,11 @@ constructor(private fb: FormBuilder,
       loginallowed: [''],
       colone: [''],
       coltwo: [''],
-      apartment: [''],
+      apartment: ['', [Validators.required]],
       societyid: [''],
       age: [''],
-      floornumber: [''],
-      flatnumber: [''],
+      floornumber: ['', [Validators.required]],
+      flatnumber: ['', [Validators.required]],
     });
   }
   get firstname() { return this.residentForm.get('firstname');}

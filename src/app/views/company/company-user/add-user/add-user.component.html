@@ -32,6 +32,9 @@
                   <mat-error *ngIf="email.errors['required']">
                     Email id is required.
                   </mat-error>
+                  <mat-error *ngIf="email.errors.email">
+                    Email id is required.
+                  </mat-error>
                 </mat-error>
               </mat-form-field>
             </div>
