@@ -200,6 +200,11 @@
                   {{ obj }}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="country.invalid && (country.dirty || country.touched)" class="alert alert-danger">
+                <mat-error *ngIf="country.errors.required">
+                  Please select Country.
+                </mat-error>
+              </mat-error>
             </mat-form-field>
           </div>
           <!-- <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column"> 

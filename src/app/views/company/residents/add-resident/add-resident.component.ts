@@ -140,6 +140,7 @@ constructor(private fb: FormBuilder,
   get apartment() { return this.residentForm.get('apartment'); }
   get floornumber() { return this.residentForm.get('floornumber'); }
   get flatnumber() { return this.residentForm.get('flatnumber'); }
+  get status() { return this.residentForm.get('status'); }
 
 
   onSelect(country: string) {

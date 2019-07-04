@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTable, MatTableDataSource, MatDialog } from '@angular/material';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { PaginationDao } from '../../../models/pagination-dao';
@@ -9,6 +9,8 @@ import { User } from '../../../models/user';
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 import { Company } from 'src/app/models/company';
 import { ListApi } from 'src/app/models/api/list-api';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ResidentuserService } from 'src/app/services/token-storage/residentuser.service';
 
 @Component({
   selector: 'app-residents',
@@ -30,7 +32,9 @@ export class ResidentsComponent implements OnInit {
   isRateLimitReached = false;
   url = 'assets/images/myuser.png';
 
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient, 
+    public residentService:ResidentuserService,
+    public dialog: MatDialog) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -53,8 +57,17 @@ export class ResidentsComponent implements OnInit {
 
   }
 
-  deleteResident() {
-    
+ deleteResident(id: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: {id: id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.residentService.deleteResidents(id);
+      }
+    });
   }
 
   public loadData() {

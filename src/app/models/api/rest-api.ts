@@ -25,6 +25,8 @@ export class RestApi {
     public readonly UPLOAD_IMAGE_URL = this.API_URL + '/api/auth/others/upload';
     public readonly SECURITYUSER_LIST = this.API_URL + '/api/securityuser';
     public readonly RESIDENTUSER_LIST = this.API_URL + '/api/resident';
+    public readonly USER_LIST = this.API_URL + '/api/user';
+
     public readonly DAILYSTAFF_LIST = this.API_URL + '/api/dailystaff';
 
 

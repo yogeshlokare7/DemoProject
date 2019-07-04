@@ -28,7 +28,7 @@ constructor(private snackBar: MatSnackBar) { }
     this.snackBar.open(message, action, {
       panelClass: ['mat--errors'],
       verticalPosition: 'bottom',
-      horizontalPosition: 'right',
+      horizontalPosition: 'right', 
       duration: duration
     });
   }

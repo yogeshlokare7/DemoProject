@@ -77,7 +77,7 @@
               <button mat-icon-button color="accent" matTooltip="Edit" [routerLink]="['update', {'id': row.id}]">
                 <mat-icon aria-label="Edit">edit</mat-icon>
               </button>
-              <button mat-icon-button color="accent" (click)="deleteResident()"> 
+              <button mat-icon-button color="accent" (click)="deleteResident(row.id)"> 
                 <mat-icon aria-label="Delete" matTooltip="Delete">delete</mat-icon>
               </button>
             </mat-cell>

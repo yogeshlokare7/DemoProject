@@ -98,10 +98,23 @@ export class UserService {
       this.toasterService.openSuccessSnackBar('Successfully deleted', 'ok', 1000);
     },
       (err: HttpErrorResponse) => {
-        this.toasterService.openErrorSnackBar('Error occurred. Details: ' + err.name + ' ' + err.message, '', 8000);
+        this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, '', 8000);
       }
     );
   }
+  // deleteUser(id: number): void {
+  //   console.log(id);
+  //   const url = `${this.api.USER_LIST}/${id}`
+  //   this.httpClient.delete(url).subscribe(data => {
+  //     console.log('subscribe');
+  //     //this.toasteService.openSuccessSnackBar('Successfully deleted', 'ok', 1000);
+  //   },
+  //     (err: HttpErrorResponse) => {
+  //     console.log('subscribe');
+  //       // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+  //     }
+  //   );
+  // }
 
   getUser(id: number): Observable<User> {
     console.log("user" + id);

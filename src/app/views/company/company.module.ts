@@ -28,6 +28,8 @@ import { ResidentsComponent } from './residents/residents.component';
 import { AddResidentComponent } from './residents/add-resident/add-resident.component';
 import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-
     ResidentsComponent,
     AddResidentComponent,
     DailyStaffComponent,
-    AddDailyStaffComponent
+    AddDailyStaffComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +65,7 @@ import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-
     ReactiveFormsModule,
     DemoMaterialModule,
     FlexLayoutModule,
-    CompanyRoutingModule
+    CompanyRoutingModule,
   ],
   entryComponents: [
     AddCustomerComponent,
@@ -70,7 +73,8 @@ import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-
     AddProductComponent,
     AddUserComponent,
     AddRowMaterialComponent,
-    AddItemComponent
+    AddItemComponent,
+    ConfirmDialogComponent
   ]
 })
 export class CompanyModule { }
