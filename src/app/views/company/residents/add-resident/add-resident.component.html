@@ -116,20 +116,22 @@
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Floor Number" type="text" maxlength="80" formControlName="floornumber"
                 required>
-                <mat-error *ngIf="floornumber.invalid && (floornumber.dirty || floornumber.touched)" class="alert alert-danger">
-                  <mat-error *ngIf="floornumber.errors.required">
-                    Please select Floor Number.
-                  </mat-error>
+              <mat-error *ngIf="floornumber.invalid && (floornumber.dirty || floornumber.touched)"
+                class="alert alert-danger">
+                <mat-error *ngIf="floornumber.errors.required">
+                  Please select Floor Number.
                 </mat-error>
+              </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
               <input matInput placeholder="Flat Number" type="text" maxlength="80" formControlName="flatnumber"
                 required>
-                <mat-error *ngIf="flatnumber.invalid && (flatnumber.dirty || flatnumber.touched)" class="alert alert-danger">
-                  <mat-error *ngIf="flatnumber.errors.required">
-                    Please select Flat Number.
-                  </mat-error>
+              <mat-error *ngIf="flatnumber.invalid && (flatnumber.dirty || flatnumber.touched)"
+                class="alert alert-danger">
+                <mat-error *ngIf="flatnumber.errors.required">
+                  Please select Flat Number.
                 </mat-error>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -140,7 +142,7 @@
             <mat-form-field fxFlex="100" fxFlex.gt-xs="97">
               <input matInput #file2 placeholder="Choose image" class="pointer--cursor" (click)="upload2.click()">
               <input [hidden]="true" type="file" #upload2 (change)="uploadFile($event, file2)" />
-              
+
             </mat-form-field>
             <button type="button" mat-button color="accent" mat-mini-fab (click)="upload2.click()"
               matTooltip="Choose user image">
