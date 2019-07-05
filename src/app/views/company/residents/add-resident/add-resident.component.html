@@ -31,7 +31,7 @@
                 <mat-error *ngIf="email.errors.required">
                   Email id is required.
                 </mat-error>
-                <mat-error *ngIf="email.errors.email">
+                <mat-error *ngIf="email.errors[pattern]">
                   Email must be a valid email address
                 </mat-error>
               </mat-error>

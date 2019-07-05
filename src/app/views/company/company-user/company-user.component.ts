@@ -56,6 +56,7 @@ export class CompanyUserComponent implements OnInit {
   }
 
   view(id: number) {
+    
 
   }
   deleteUser(id: number) {
