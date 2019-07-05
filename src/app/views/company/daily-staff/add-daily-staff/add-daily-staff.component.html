@@ -31,7 +31,7 @@
                 <mat-error *ngIf="lastname.errors.required">
                   Last Name is required.
                 </mat-error>
-                <mat-error *ngIf="firstname.errors.pattern">
+                <mat-error *ngIf="lastname.errors.pattern">
                   Last Name should not contain number or symbols
                 </mat-error>
               </mat-error>
@@ -172,23 +172,27 @@
           </div>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <input matInput placeholder="City" type="text" formControlName="city" required>
+              <input matInput placeholder="City" type="text" pattern="[a-zA-Z][a-zA-Z ]+" formControlName="city"
+                required>
               <mat-error *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
                 <mat-error *ngIf="city.errors.required">
                   Please select City. </mat-error>
               </mat-error>
+              <mat-error *ngIf="city.errors.pattern">
+                City Name should not contain number or symbols
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <mat-select placeholder="Province" formControlName="province" required>
-                <mat-option value="M">Male</mat-option>
-                <mat-option value="F">Female</mat-option>
-                <mat-option value="O">Other</mat-option>
-              </mat-select>
+              <input matInput placeholder="Province" type="text" pattern="[a-zA-Z][a-zA-Z ]+" formControlName="province"
+                required>
               <mat-error *ngIf="province.invalid && (province.dirty || province.touched)" class="alert alert-danger">
                 <mat-error *ngIf="province.errors.required">
                   Please select province
                 </mat-error>
+                <mat-error *ngIf="province.errors.pattern">
+                    Province Name should not contain number or symbols
+                  </mat-error>
               </mat-error>
             </mat-form-field>
 

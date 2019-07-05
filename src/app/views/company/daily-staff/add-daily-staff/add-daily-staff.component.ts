@@ -120,9 +120,9 @@ createForm(){
     streetname: [''],
     streetno: [''],
     postalcode: [''],
-    city: [''],
-    province: [''],
-    country: [''],
+    city: ['',[Validators.required, Validators.minLength(3)]],
+    province: ['',[Validators.required, Validators.minLength(3)]],
+    country: ['',[Validators.required]],
   });
 }
   get firstname() { return this.dailystaffForm.get('firstname');}
