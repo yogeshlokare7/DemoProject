@@ -56,6 +56,11 @@ const routes: Routes = [
     data: { title: 'Daily Staff', breadcrumb: 'Daily Staff'}
   },
   {
+    path: 'daily-staff/update',
+    component: AddDailyStaffComponent,
+    data: { title: 'update Daily Staff', breadcrumb: 'update Daily Staff'}
+  },
+  {
     path: 'daily-staff/add',
     component: AddDailyStaffComponent,
     data: { title: 'Add Daily Staff', breadcrumb: 'Add Daily Staff'}

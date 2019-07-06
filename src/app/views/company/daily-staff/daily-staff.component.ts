@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTable, MatTableDataSource, MatDialog } from '@angular/material';
 import { PaginationDao } from '../../../models/pagination-dao';
 import { DailyStaff } from '../../../models/daily-staff';
 import { ListApi } from 'src/app/models/api/list-api';
 import { HttpClient } from '@angular/common/http';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { DailyStaffService } from 'src/app/services/daily-staff.service';
 
 
 @Component({
@@ -26,7 +28,9 @@ export class DailyStaffComponent implements OnInit {
   isRateLimitReached = false;
   url = 'assets/images/myuser.png';
 
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient,
+    public dailystaffService: DailyStaffService,
+    public dialog: MatDialog) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -46,6 +50,18 @@ export class DailyStaffComponent implements OnInit {
 
   view(id: number) {
 
+  }
+  deleteDailyStaff(id: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: {id: id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.dailystaffService.deleteDailyStaff(id);
+      }
+    });
   }
 
   public loadData() {
