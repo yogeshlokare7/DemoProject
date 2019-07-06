@@ -18,15 +18,6 @@ export class AppBlankComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.counters();
-  }
-
-  counters(){
-    this.dashboardService.getCounters().subscribe(data => {
-      this.counterDto = data;
-    }, err=>{
-
-    });
   }
 
 }

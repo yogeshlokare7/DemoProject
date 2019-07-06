@@ -1,11 +1,8 @@
 export class DashboardCounter{
-    salesOrderCount: number;
-	packageCount: number ;
-	invoiceCount: number ;
-	userCount: number ;
-	shipmentCount: number ;
-	customerCount: number ;
-	productCount: number ;
+	userCount: number;
+    staffCount:number;
+    securityCount:number;
+    residentCount: number;
     constructor(){
 
     }

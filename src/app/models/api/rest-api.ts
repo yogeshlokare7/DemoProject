@@ -10,8 +10,8 @@ export class RestApi {
     public readonly FORGOT_URL = this.SOCIETY_BASE + '/forgot';
 
     //Dashboard Counterss
-    public readonly DASHBOARD_URL = this.API_URL + '/dashboard';
-    public readonly COUNTER_URL = this.DASHBOARD_URL + '/admincounters';
+    public readonly DASHBOARD_URL = this.API_URL + '/api/dashboard';
+    public readonly COUNTER_URL = this.DASHBOARD_URL + '/societycounters';
 
     //Role URL
     public readonly ROLE_URL = this.API_URL + '/api/role';
