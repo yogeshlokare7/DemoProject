@@ -59,7 +59,13 @@ export class DailyStaffComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dailystaffService.deleteDailyStaff(id);
+        this.isLoadingResults = true;
+        this.dailystaffService.deleteDailyStaff(id).subscribe(data=>{
+          this.isLoadingResults = false;
+          this.refresh();
+        }, err=>{
+          this.isLoadingResults = false;
+        });
       }
     });
   }
