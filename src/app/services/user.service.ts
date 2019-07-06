@@ -94,6 +94,7 @@ export class UserService {
     const url = `${this.api.SECURITYUSER_LIST}/${id}`;
     return this.httpClient.delete<any>(url);
   }
+
   // deleteUser(id: number): void {
   //   console.log(id);
   //   const url = `${this.api.USER_LIST}/${id}`

@@ -61,6 +61,18 @@ export class CompanyUserComponent implements OnInit {
     
 
   }
+  // deleteUser(id: number) {
+  //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+  //     width: '350px',
+  //     data: {id: id}
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       this.userService.deleteUser(id);
+  //     }
+  //   });
+  // }
   deleteUser(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
@@ -82,6 +94,7 @@ export class CompanyUserComponent implements OnInit {
       }
     });
   }
+
 
   public loadData() {
     this.exampleDatabase = new PaginationDao(this.httpClient);

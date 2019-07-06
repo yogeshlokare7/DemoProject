@@ -105,7 +105,7 @@ export class AddDailyStaffComponent implements OnInit {
       id: [''],
       firstname: ['', [Validators.required, Validators.minLength(3)]],
       lastname: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, emailValidator()]],
+      email: ['', [Validators.required,  emailValidator()]],
       contactno: ['', [Validators.required]],
       alternatecontact: ['', [Validators.required]],
       picture: [''],
