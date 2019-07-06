@@ -15,9 +15,10 @@ import { AddUserComponent } from './company-user/add-user/add-user.component';
 import { RowMaterialComponent } from './row-material/row-material.component';
 import { ResidentsComponent } from './residents/residents.component';
 import { AddResidentComponent } from './residents/add-resident/add-resident.component';
-import { AddVendorComponent } from './vendors/add-vendor/add-vendor.component';
 import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
+import { UserComponent } from './company-user/user/user.component';
+import { SaveUserComponent } from './company-user/user/save-user/save-user.component';
 
 const routes: Routes = [
   {
@@ -38,12 +39,27 @@ const routes: Routes = [
   {
     path: 'users/add',
     component: AddUserComponent,
-    data: { title: 'Add Users', breadcrumb: 'Add Users'}
+    data: { title: 'Add User', breadcrumb: 'Add Users'}
   },
   {
     path: 'users/update',
     component: AddUserComponent,
-    data: { title: 'update Users', breadcrumb: 'Update Users'}
+    data: { title: 'Update User', breadcrumb: 'Update Users'}
+  },
+  {
+    path: 'adminusers',
+    component: UserComponent,
+    data: { title: 'Users', breadcrumb: 'Users'}
+  },
+  {
+    path: 'adminusers/add',
+    component: SaveUserComponent,
+    data: { title: 'Add Admin User', breadcrumb: 'Add Admin Users'}
+  },
+  {
+    path: 'adminusers/edit',
+    component: SaveUserComponent,
+    data: { title: 'Update Admin User', breadcrumb: 'Update Admin Users'}
   },
   {
     path: 'customers',
@@ -118,7 +134,7 @@ const routes: Routes = [
   {
     path: 'residents/update',
     component: AddResidentComponent,
-    data: { title: 'update Users', breadcrumb: 'Update Users'}
+    data: { title: 'Update Resident', breadcrumb: 'Update Resident'}
   },
   {
     path: 'residents/delete',

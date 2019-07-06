@@ -28,9 +28,9 @@ import { ResidentsComponent } from './residents/residents.component';
 import { AddResidentComponent } from './residents/add-resident/add-resident.component';
 import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UserComponent } from './company-user/user/user.component';
+import { SaveUserComponent } from './company-user/user/save-user/save-user.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +59,8 @@ import { UserComponent } from './company-user/user/user.component';
     DailyStaffComponent,
     AddDailyStaffComponent,
     ConfirmDialogComponent,
-    UserComponent
+    UserComponent,
+    SaveUserComponent
   ],
   imports: [
     CommonModule,

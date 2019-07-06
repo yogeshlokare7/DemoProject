@@ -71,6 +71,13 @@ export class CompanyNavigationService {
       icon: 'people',
       state: 'society/daily-staff'
     },
+    {
+      name: 'Manage Admin Users',
+      type: 'link',
+      tooltip: 'Admin Users',
+      icon: 'person',
+      state: 'society/adminusers'
+    },
     // {
     //   name: 'Manage Admins',
     //   type: 'link',
@@ -116,20 +123,13 @@ export class CompanyNavigationService {
       icon: 'people',
       state: 'society/daily-staff'
     },
-    // {
-    //   name: 'Manage Admins',
-    //   type: 'link',
-    //   tooltip: 'Products',
-    //   icon: 'view_module',
-    //   state: 'society/products'
-    // },
-    // {
-    //   name: 'Manage Bills',
-    //   type: 'link',
-    //   tooltip: 'Bills',
-    //   icon: 'view_comfy',
-    //   state: 'society/items'
-    // }
+    {
+      name: 'Manage Admin Users',
+      type: 'link',
+      tooltip: 'Admin Users',
+      icon: 'person',
+      state: 'society/adminusers'
+    }
   ]
 
   iconTypeMenuTitle:string = 'Frequently Accessed';

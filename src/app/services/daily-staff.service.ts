@@ -30,7 +30,7 @@ export class DailyStaffService {
 
   deleteDailyStaff(id: number): Observable< any> {
     const url = `${this.api.DAILYSTAFF_LIST}/${id}`
-    return this.httpClient.delete(url);
+    return this.httpClient.delete<any>(url);
   }
 
   uploadImage(id:number, selectedFile:File):Observable<any>{
