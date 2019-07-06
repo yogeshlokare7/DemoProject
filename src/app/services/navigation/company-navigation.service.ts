@@ -71,6 +71,13 @@ export class CompanyNavigationService {
       icon: 'people',
       state: 'society/daily-staff'
     },
+    {
+      name: 'Manage Admin Users',
+      type: 'link',
+      tooltip: 'Users',
+      icon: 'person',
+      state: 'admin/users'
+    },
     // {
     //   name: 'Manage Admins',
     //   type: 'link',
@@ -115,6 +122,13 @@ export class CompanyNavigationService {
       tooltip: 'Daily Staff',
       icon: 'people',
       state: 'society/daily-staff'
+    },
+    {
+      name: 'Manage Admin Users',
+      type: 'link',
+      tooltip: 'Users',
+      icon: 'person',
+      state: 'admin/users'
     },
     // {
     //   name: 'Manage Admins',

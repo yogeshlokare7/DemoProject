@@ -18,6 +18,9 @@ import { AddResidentComponent } from './residents/add-resident/add-resident.comp
 import { AddVendorComponent } from './vendors/add-vendor/add-vendor.component';
 import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
+import { UserComponent } from './company-user/user/user.component';
+import { AddUserComponent as SaveUserComponent } from './company-user/user/add-user/add-user.component';
+
 
 const routes: Routes = [
   {
@@ -33,6 +36,21 @@ const routes: Routes = [
   {
     path: 'users',
     component: CompanyUserComponent,
+    data: { title: 'Users', breadcrumb: 'Users'}
+  },
+  {
+    path: 'adminusers/add',
+    component: SaveUserComponent,
+    data: { title: 'Add Users', breadcrumb: 'Add Users'}
+  },
+  {
+    path: 'adminusers/edit',
+    component: SaveUserComponent,
+    data: { title: 'update Users', breadcrumb: 'Update Users'}
+  },
+  {
+    path: 'adminusers',
+    component: UserComponent,
     data: { title: 'Users', breadcrumb: 'Users'}
   },
   {

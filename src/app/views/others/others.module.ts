@@ -31,7 +31,7 @@ import { RoleComponent } from './role/role.component';
 import { AddRoleComponent } from './role/add-role/add-role.component';
 
 @NgModule({
-  declarations: [AppBlankComponent, UserComponent, CompanyComponent, AddCompanyComponent, AddUserComponent, RoleComponent, AddRoleComponent],
+  declarations: [AppBlankComponent, CompanyComponent, AddCompanyComponent, AddUserComponent, RoleComponent, AddRoleComponent],
   imports: [
     CommonModule,
     FormsModule,
