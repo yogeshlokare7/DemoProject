@@ -19,115 +19,115 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AddDailyStaffComponent implements OnInit {
 
-dailystaffForm: FormGroup;
-title: string = "Add";
-contries: string[];
-states: State[];
-dailystaff: DailyStaff; 
-selectedFile: File = null;
-maxsize: number = 12345678;
-url = '';
-selectedFile2: File = null;
-maxSize2: number = 12345678;
-url2 = '';
-generic = new GenericTerm();
-isLoadingResults: boolean = false;
-maxDate = new Date();
-societyId: number = 0;
-isUpdate:boolean = false;
-id:number;
-sub:any;
-  
+  dailystaffForm: FormGroup;
+  title: string = "Add";
+  countries: string[] =[];
+  states: State[];
+  dailystaff: DailyStaff;
+  selectedFile: File = null;
+  maxsize: number = 12345678;
+  url = '';
+  selectedFile2: File = null;
+  maxSize2: number = 12345678;
+  url2 = '';
+  generic = new GenericTerm();
+  isLoadingResults: boolean = false;
+  maxDate = new Date();
+  societyId: number = 0;
+  isUpdate: boolean = false;
+  id: number;
+  sub: any;
+
 
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
     private route: ActivatedRoute,
     private tokenservice: TokenStorageService,
-    private toasterService:ToasterService,
+    private toasterService: ToasterService,
     private dailystaffService: DailyStaffService) { }
 
   ngOnInit() {
-    this.contries = this._dataService.getCountries();
+    this.countries = this._dataService.getCountries();
     this.createForm();
     this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
     let society = this.tokenservice.getSociety();
-    if(society.id != null){
+    if (society.id != null) {
       this.societyId = society.id;
-  }
-  this.sub = this.route.params.subscribe(params => {
-    this.id = +params['id']; // (+) converts string 'id' to a number
-    if (this.id != null && this.id > 0) {
-      this.getDailyStaffInfo(this.id);
-      this.title = 'Update';
-      this.isUpdate = true;
     }
-  });
-}
-getDailyStaffInfo(id:number){
-  this.isLoadingResults = true;
-  this.dailystaffService.getDailyStaffByUserId(id).subscribe(data=>{
-    this.dailystaff = data;
-    this.setFormValue(this.dailystaff);
-    this.isLoadingResults = false;
-  }, err=>{
-    this.isLoadingResults =false;
-  })
-}
-setFormValue(dailystaff :DailyStaff){
-  this.dailystaffForm.patchValue({
-    id: dailystaff.id,
-    firstname : dailystaff.firstname,
-    lastname : dailystaff.lastname,
-    email  : dailystaff.email,
-    contactno : dailystaff.contactno,
-    alternatecontact : dailystaff.alternatecontact,
-    picture : dailystaff.picture,
-    gender : dailystaff.gender,
-    status : dailystaff.status,
-    colone : dailystaff.colone,
-    coltwo : dailystaff.coltwo,
-    societyid : dailystaff.societyid,
-    age : dailystaff.age,
-    profile: dailystaff.profile,
-    residentid: dailystaff.residentid,
-    streetno: dailystaff.streetno,
-    streetname: dailystaff.streetname,
-    postalcode: dailystaff.postalcode,
-    city: dailystaff.city,
-    province: dailystaff.province,
-    country: dailystaff.country,
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id']; // (+) converts string 'id' to a number
+      if (this.id != null && this.id > 0) {
+        this.getDailyStaffInfo(this.id);
+        this.title = 'Update';
+        this.isUpdate = true;
+      }
+    });
+  }
+  getDailyStaffInfo(id: number) {
+    this.isLoadingResults = true;
+    this.dailystaffService.getDailyStaffByUserId(id).subscribe(data => {
+      this.dailystaff = data;
+      this.setFormValue(this.dailystaff);
+      this.isLoadingResults = false;
+    }, err => {
+      this.isLoadingResults = false;
+    })
+  }
+  setFormValue(dailystaff: DailyStaff) {
+    this.dailystaffForm.patchValue({
+      id: dailystaff.id,
+      firstname: dailystaff.firstname,
+      lastname: dailystaff.lastname,
+      email: dailystaff.email,
+      contactno: dailystaff.contactno,
+      alternatecontact: dailystaff.alternatecontact,
+      picture: dailystaff.picture,
+      gender: dailystaff.gender,
+      status: dailystaff.status,
+      colone: dailystaff.colone,
+      coltwo: dailystaff.coltwo,
+      societyid: dailystaff.societyid,
+      age: dailystaff.age,
+      profile: dailystaff.profile,
+      residentid: dailystaff.residentid,
+      streetno: dailystaff.streetno,
+      streetname: dailystaff.streetname,
+      postalcode: dailystaff.postalcode,
+      city: dailystaff.city,
+      province: dailystaff.province,
+      country: dailystaff.country,
 
-  })
-}
-createForm(){
-  this.dailystaffForm = this.fb.group({
-    id: [''],
-    firstname: ['', [Validators.required, Validators.minLength(3)]],
-    lastname:['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, emailValidator()]],
-    contactno: ['', [Validators.required]],
-    alternatecontact: ['', [Validators.required]],
-    picture: [''],
-    gender: ['', [Validators.required]],
-    status: ['Y'],
-    colone: [''],
-    coltwo: [''],
-    societyid: [''],
-    age: [''],
-    profile: [''],
-    residentid: [''],
-    streetname: [''],
-    streetno: [''],
-    postalcode: [''],
-    city: ['',[Validators.required, Validators.minLength(3)]],
-    province: ['',[Validators.required, Validators.minLength(3)]],
-    country: ['',[Validators.required]],
-  });
-}
-  get firstname() { return this.dailystaffForm.get('firstname');}
-  get lastname() { return this.dailystaffForm.get('lastname');}
-  get username() { return this.dailystaffForm.get('username');}
+    })
+  }
+  createForm() {
+    this.dailystaffForm = this.fb.group({
+      id: [''],
+      firstname: ['', [Validators.required, Validators.minLength(3)]],
+      lastname: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, emailValidator()]],
+      contactno: ['', [Validators.required]],
+      alternatecontact: ['', [Validators.required]],
+      picture: [''],
+      gender: ['', [Validators.required]],
+      status: ['Y'],
+      colone: [''],
+      coltwo: [''],
+      societyid: [''],
+      age: [''],
+      profile: [''],
+      residentid: [''],
+      streetname: [''],
+      streetno: [''],
+      postalcode: [''],
+      city: ['', [Validators.required, Validators.minLength(3)]],
+      province: ['', [Validators.required, Validators.minLength(3)]],
+      country: ['', [Validators.required]],
+    });
+  }
+  get firstname() { return this.dailystaffForm.get('firstname'); }
+  get lastname() { return this.dailystaffForm.get('lastname'); }
+  get username() { return this.dailystaffForm.get('username'); }
   get email() { return this.dailystaffForm.get('email'); }
   get contactno() { return this.dailystaffForm.get('contactno'); }
   get alternatecontact() { return this.dailystaffForm.get('alternatecontact'); }
@@ -147,7 +147,7 @@ createForm(){
 
 
 
-  
+
 
 
   onSelect(country: string) {
@@ -160,16 +160,16 @@ createForm(){
     //.isLoadingResults = true;
     this.dailystaffService.saveDailyStaff(this.dailystaff).subscribe(data => {
       this.isLoadingResults = false;
-      if(data!=null){
+      if (data != null) {
         let savedDailyStaff = data;
         if (savedDailyStaff != null && this.selectedFile != null) {
           this.dailystaffService.uploadImage(savedDailyStaff.id, this.selectedFile).subscribe(data => {
 
           });
         }
-        if(this.isUpdate){
+        if (this.isUpdate) {
           this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
-        }else{
+        } else {
           this.toasterService.openSuccessSnackBar('Successfully Added', '', 2000);
         }
         this.isLoadingResults = false;
@@ -180,34 +180,34 @@ createForm(){
       console.log("dailystaff err", err);
     })
   }
-  prepareSaveDailyStaff() : DailyStaff{
+  prepareSaveDailyStaff(): DailyStaff {
     const formModel = this.dailystaffForm.value;
 
-    const savedDailyStaff : DailyStaff = {
-    id: formModel.id as number,
-    firstname: formModel.firstname  as string,
-    lastname:  formModel.lastname as string,
-    email:  formModel.email as string,
-    contactno:  formModel.contactno as string,
-    alternatecontact:  formModel.alternatecontact as string,
-    picture:  formModel.picture as string,
-    gender:  formModel.gender as string,
-    status:  formModel.status as string,
-    colone:  formModel.colone as string,
-    coltwo:  formModel.coltwo as string,
-    profile: formModel.profile as string,
-    age: formModel.age as string,
-    residentid: formModel.residentid as string,
-    streetname: formModel.streetname as string,
-    streetno: formModel.streetno as string,
-    postalcode: formModel.postalcode as string,
-    province: formModel.province as string,
-    city: formModel.city as string,
-    country: formModel.country as string,
-    societyid: this.societyId as number,
+    const savedDailyStaff: DailyStaff = {
+      id: formModel.id as number,
+      firstname: formModel.firstname as string,
+      lastname: formModel.lastname as string,
+      email: formModel.email as string,
+      contactno: formModel.contactno as string,
+      alternatecontact: formModel.alternatecontact as string,
+      picture: formModel.picture as string,
+      gender: formModel.gender as string,
+      status: formModel.status as string,
+      colone: formModel.colone as string,
+      coltwo: formModel.coltwo as string,
+      profile: formModel.profile as string,
+      age: formModel.age as string,
+      residentid: formModel.residentid as string,
+      streetname: formModel.streetname as string,
+      streetno: formModel.streetno as string,
+      postalcode: formModel.postalcode as string,
+      province: formModel.province as string,
+      city: formModel.city as string,
+      country: formModel.country as string,
+      societyid: this.societyId as number,
     }
     return savedDailyStaff;
-  }  
+  }
   uploadFile(event, file: ElementRef) {
     if (event.target.files && event.target.files[0]) {
       let files1 = event.target.files[0];
