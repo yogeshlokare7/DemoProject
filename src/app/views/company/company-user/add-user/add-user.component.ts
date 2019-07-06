@@ -83,8 +83,9 @@ export class AddUserComponent implements OnInit {
     this.isLoadingResults = true;
     this.securityuserService.getSecurityuserByUserId(id).subscribe(data=>{
       this.user = data;
-      this.setFormValue(this.user);
+      console.log("user", this.user);
       this.isLoadingResults = false;
+      this.setFormValue(this.user);
     }, err=>{
       this.isLoadingResults =false;
     })
@@ -109,7 +110,7 @@ export class AddUserComponent implements OnInit {
       coltwo : user.coltwo,
       apartment : user.apartment,
       societyid : user.societyid,
-      dob : user.dob,
+      dob : new Date(user.dob),
       postalcode : user.postalcode,
       city : user.city,
       province : user.province,
@@ -117,7 +118,6 @@ export class AddUserComponent implements OnInit {
       streetno : user.streetno,
       rating : user.rating,
       role : user.role,
-
     })
   }
 
@@ -128,7 +128,7 @@ export class AddUserComponent implements OnInit {
       firstname: ['', [Validators.required, Validators.minLength(3)]],
       lastname:['', [Validators.required]],
       username: ['', [Validators.required]],
-      email: ['', Validators.required, emailValidator()],
+      email: ['', [Validators.required, emailValidator()]],
       contactno: ['', Validators.required],
       password: ['12345678'],
       streetno: [''],
@@ -166,7 +166,6 @@ export class AddUserComponent implements OnInit {
   get dob() { return this.userForm.get('dob'); }
   get rating() { return this.userForm.get('rating'); }
   get status() { return this.userForm.get('status'); }
-  get loginallowed() { return this.userForm.get('loginallowed'); }
   get colone() { return this.userForm.get('colone'); }
   get coltwo() { return this.userForm.get('coltwo'); }
   get apartment() { return this.userForm.get('apartment'); }
@@ -198,7 +197,7 @@ export class AddUserComponent implements OnInit {
   onSubmit() {
     this.user = this.prepareSaveUser();
     console.log("user form", JSON.stringify(this.user));
-    //.isLoadingResults = true;
+    this.isLoadingResults = true;
     this.securityuserService.saveSecurityuser(this.user).subscribe(data => {
       this.isLoadingResults = false;
       if(data!=null){
@@ -213,8 +212,8 @@ export class AddUserComponent implements OnInit {
         }else{
           this.toasterService.openSuccessSnackBar('Successfully Added', '', 2000);
         }
-        this.isLoadingResults = false;
       }
+      this.isLoadingResults = false;
       this.goBack();
     }, (err: HttpErrorResponse) => {
       this.isLoadingResults = false;
