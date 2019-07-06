@@ -133,7 +133,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
-              <input matInput placeholder="Age" type="number" formControlName="age" required>
+              <input matInput placeholder="Age" type="number" formControlName="age" required  min="0">
               <mat-error *ngIf="age.invalid && (age.dirty || age.touched)" class="alert alert-danger">
                 <mat-error *ngIf="age.errors.required">
                   Age is required.
@@ -162,7 +162,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
-              <input matInput placeholder="Postalcode" type="text" formControlName="postalcode" required>
+              <input matInput placeholder="Postalcode" type="text" formControlName="postalcode" required maxlength="8">
               <mat-error *ngIf="postalcode.invalid && (postalcode.dirty || postalcode.touched)"
                 class="alert alert-danger">
                 <mat-error *ngIf="postalcode.errors.required">
