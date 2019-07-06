@@ -223,4 +223,30 @@ $primary-dark: darken( map-get($md-primary, 500), 8% );
     .mat-color-warn {
         color: #f44336;
     }
+
+    .mat--success {
+        background: #43a047;
+        color: #fff !important;
+    
+        .mat-snack-bar-container{
+          background: #43a047 !important;
+          color: rgb(129, 125, 125) !important;
+        }
+        .mat-simple-snackbar-action {
+          color: #fff !important;
+        }
+      }
+      .mat--errors {
+        background: #f44336 !important;
+        color: #fff !important;
+    
+        .mat-snack-bar-container {
+          background: #f44336 !important;
+          color: #fff !important;
+        }
+    
+        .mat-simple-snackbar-action {
+          color: #fff !important;
+        }
+      }
 }

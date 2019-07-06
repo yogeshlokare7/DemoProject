@@ -11,6 +11,7 @@ import { Company } from 'src/app/models/company';
 import { ListApi } from 'src/app/models/api/list-api';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { UserService } from 'src/app/services/user.service';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class CompanyUserComponent implements OnInit {
 
   constructor(public httpClient: HttpClient,
     public userService: UserService,
+    public toasterService:ToasterService,
     public dialog: MatDialog) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -67,7 +69,16 @@ export class CompanyUserComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.deleteUser(id);
+        this.isLoadingResults = true;
+        this.userService.deleteUser(id).subscribe(data=>{
+          this.isLoadingResults = false;
+          this.toasterService.openSuccessSnackBar('Successfully deleted', 'Ok', 2000)
+          this.refresh();
+        },
+        err=>{
+          this.isLoadingResults = false;
+          this.toasterService.openErrorSnackBar('Something went wrong. Please try again!', 'Ok', 2000)
+        })
       }
     });
   }
