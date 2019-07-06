@@ -57,7 +57,7 @@ export class ResidentsComponent implements OnInit {
 
   }
 
- deleteResident(id: number) {
+  deleteResidents(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
       data: {id: id}
@@ -65,7 +65,13 @@ export class ResidentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.residentService.deleteResidents(id);
+        this.isLoadingResults = true;
+        this.residentService.deleteResidents(id).subscribe(data=>{
+          this.isLoadingResults = false;
+          this.refresh();
+        }, err=>{
+          this.isLoadingResults = false;
+        });
       }
     });
   }

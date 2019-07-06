@@ -28,16 +28,11 @@ export class ResidentuserService {
     return this.httpClient.post<Residentuser>(this.api.RESIDENTUSER_LIST, residentuser);
   }
 
-  deleteResidents(id: number): void {
-    console.log(id);
+ 
+  deleteResidents(id: number): Observable< any> {
     const url = `${this.api.RESIDENTUSER_LIST}/${id}`
-    this.httpClient.delete(url).subscribe(data => {
-      this.toasteService.openSuccessSnackBar('Successfully deleted', 'OK', 1000);
-    },
-      (err: HttpErrorResponse) => {
-        this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-      }
-    );
+
+    return this.httpClient.delete(url);
   }
 
   uploadImage(id:number, selectedFile:File):Observable<any>{
