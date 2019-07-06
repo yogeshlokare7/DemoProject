@@ -30,6 +30,7 @@ import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { UserComponent } from './company-user/user/user.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     AddResidentComponent,
     DailyStaffComponent,
     AddDailyStaffComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
