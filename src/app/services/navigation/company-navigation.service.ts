@@ -124,9 +124,9 @@ export class CompanyNavigationService {
       state: 'society/daily-staff'
     },
     {
-      name: 'Manage Admin Users',
+      name: 'Manage App Users',
       type: 'link',
-      tooltip: 'Admin Users',
+      tooltip: 'App Users',
       icon: 'person',
       state: 'society/adminusers'
     }

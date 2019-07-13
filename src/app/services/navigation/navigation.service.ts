@@ -108,7 +108,7 @@ export class NavigationService {
     {
       name: 'MANAGE SOCIETY',
       type: 'link',
-      tooltip: 'Manage Company',
+      tooltip: 'Manage Society',
       icon: 'inbox',
       state: 'admin/society'
     },

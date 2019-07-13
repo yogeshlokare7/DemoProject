@@ -1,5 +1,3 @@
-import { Role } from './role';
-
 export class Securityuser { 
     id: number;
     firstname: string;
@@ -7,6 +5,7 @@ export class Securityuser {
     username: string;
     email: string;
     contactno: string;
+    alternatecontact:string;
     password: string;
     streetno: string;
     streetname: string;
@@ -25,6 +24,5 @@ export class Securityuser {
     coltwo: string;
     apartment: string;
     societyid: number;
-    role:Role;
 
 }

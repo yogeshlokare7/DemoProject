@@ -45,11 +45,11 @@ export class AddUserComponent implements OnInit {
   isLoadingResults: boolean = false;
   roles: Role[] = [];
   userRoles: Role[] = [];
-  maxDate  = new Date();
-  societyId  : number;
-  sub:any;
-  id : number;
-  isUpdate:boolean = false;
+  maxDate = new Date();
+  societyId: number;
+  sub: any;
+  id: number;
+  isUpdate: boolean = false;
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
@@ -63,11 +63,9 @@ export class AddUserComponent implements OnInit {
   ngOnInit() {
     this.countries = this._dataService.getCountries();
     this.createForm();
-    this.getRoles();
-    this.getSocietyList();
     this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
     let society = this.tokenservice.getSociety();
-    if(society.id != null){
+    if (society.id != null) {
       this.societyId = society.id;
     }
     this.sub = this.route.params.subscribe(params => {
@@ -79,58 +77,59 @@ export class AddUserComponent implements OnInit {
       }
     });
   }
-  getUserInfo(id:number){
+  getUserInfo(id: number) {
     this.isLoadingResults = true;
-    this.securityuserService.getSecurityuserByUserId(id).subscribe(data=>{
+    this.securityuserService.getSecurityuserByUserId(id).subscribe(data => {
       this.user = data;
       console.log("user", this.user);
       this.isLoadingResults = false;
       this.setFormValue(this.user);
-    }, err=>{
-      this.isLoadingResults =false;
+    }, err => {
+      this.isLoadingResults = false;
     })
   }
 
-  setFormValue(user :Securityuser){
+  setFormValue(user: Securityuser) {
     this.userForm.patchValue({
       id: user.id,
-      firstname : user.firstname,
-      lastname : user.lastname,
-      username : user.username,
-      email  : user.email,
-      contactno : user.contactno,
-      country : user.country,
-      password : user.password,
-      token : user.token,
-      picture : user.picture,
-      gender : user.gender,
-      status : user.status,
-      loginallowed : user.loginallowed,
-      colone : user.colone,
-      coltwo : user.coltwo,
-      apartment : user.apartment,
-      societyid : user.societyid,
-      dob : new Date(user.dob),
-      postalcode : user.postalcode,
-      city : user.city,
-      province : user.province,
-      streetname : user.streetname,
-      streetno : user.streetno,
-      rating : user.rating,
-      role : user.role,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      username: user.username,
+      email: user.email,
+      contactno: user.contactno,
+      alternatecontact: user.alternatecontact,
+      country: user.country,
+      password: user.password,
+      token: user.token,
+      picture: user.picture,
+      gender: user.gender,
+      status: user.status,
+      loginallowed: user.loginallowed,
+      colone: user.colone,
+      coltwo: user.coltwo,
+      apartment: user.apartment,
+      societyid: user.societyid,
+      dob: new Date(user.dob),
+      postalcode: user.postalcode,
+      city: user.city,
+      province: user.province,
+      streetname: user.streetname,
+      streetno: user.streetno,
+      rating: user.rating,
     })
   }
 
 
-  createForm(){
+  createForm() {
     this.userForm = this.fb.group({
       id: [''],
       firstname: ['', [Validators.required]],
-      lastname:['', [Validators.required]],
+      lastname: ['', [Validators.required]],
       username: ['', [Validators.required]],
       email: ['', [Validators.required, emailValidator()]],
       contactno: ['', Validators.required],
-      password: ['12345678'],
+      alternatecontact: [''],
+      password: [''],
       streetno: [''],
       streetname: [''],
       postalcode: [''],
@@ -148,47 +147,15 @@ export class AddUserComponent implements OnInit {
       coltwo: [''],
       apartment: [''],
       societyid: [''],
-      role: ['', [Validators.required]],
     });
   }
-  get firstname() { return this.userForm.get('firstname');}
-  get lastname() { return this.userForm.get('lastname');}
-  get username() { return this.userForm.get('username');}
+  get firstname() { return this.userForm.get('firstname'); }
+  get lastname() { return this.userForm.get('lastname'); }
+  get username() { return this.userForm.get('username'); }
   get email() { return this.userForm.get('email'); }
-  get contactNo() { return this.userForm.get('contactno'); }
-  get postalcode() { return this.userForm.get('postalcode'); }
-  get city() { return this.userForm.get('city'); }
-  get province() { return this.userForm.get('province'); }
-  get country() { return this.userForm.get('country'); }
-  get token() { return this.userForm.get('token'); }
-  get picture() { return this.userForm.get('picture'); }
+  get contactno() { return this.userForm.get('contactno'); }
   get gender() { return this.userForm.get('gender'); }
   get dob() { return this.userForm.get('dob'); }
-  get rating() { return this.userForm.get('rating'); }
-  get status() { return this.userForm.get('status'); }
-  get colone() { return this.userForm.get('colone'); }
-  get coltwo() { return this.userForm.get('coltwo'); }
-  get apartment() { return this.userForm.get('apartment'); }
-  get societyid() { return this.userForm.get('societyid'); }
-  get role() { return this.userForm.get('role'); }
-
-
-  getRoles() {
-    this.roleService.getRoles().subscribe(data => {
-      this.roles = data;
-      console.log("adding roles", this.roles);
-    }, err=>{
-
-    });
-  }
-
-  getSocietyList(){
-    this.companyService.getSocietyList().subscribe(data=>{
-      this.societies = data;
-    }, err=>{
-
-    })
-  }
 
   onSelect(country: string) {
     this.states = this._dataService.getStates().filter((item) => item.country == country);
@@ -200,16 +167,16 @@ export class AddUserComponent implements OnInit {
     this.isLoadingResults = true;
     this.securityuserService.saveSecurityuser(this.user).subscribe(data => {
       this.isLoadingResults = false;
-      if(data!=null){
+      if (data != null) {
         let savedResident = data;
         if (savedResident != null && this.selectedFile != null) {
           this.securityuserService.uploadImage(savedResident.id, this.selectedFile).subscribe(data => {
 
           });
         }
-        if(this.isUpdate){
+        if (this.isUpdate) {
           this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
-        }else{
+        } else {
           this.toasterService.openSuccessSnackBar('Successfully Added', '', 2000);
         }
       }
@@ -217,40 +184,43 @@ export class AddUserComponent implements OnInit {
       this.goBack();
     }, (err: HttpErrorResponse) => {
       this.isLoadingResults = false;
-      console.log("user err", err);
-    })
+      let errorData = err.error;
+      if(errorData!=null){
+        this.toasterService.openErrorSnackBar(errorData.message, 'ok', 3000);
+      }else{
+        this.toasterService.openErrorSnackBar('Something is wrong. Please try again!', 'ok', 3000);
+      }
+    });
   }
 
-  prepareSaveUser() : Securityuser{
+  prepareSaveUser(): Securityuser {
     const formModel = this.userForm.value;
-
-    let selectedRole = this.roles.find(y=>y.id == formModel.role);
-    const saveUser : Securityuser = {
-    id: formModel.id as number,
-    firstname: formModel.firstname  as string,
-    lastname:  formModel.lastname as string,
-    username:  formModel.username as string,
-    email:  formModel.email as string,
-    contactno:  formModel.contactno as string,
-    password:  formModel.password as string,
-    streetno:  formModel.streetno as string,
-    streetname:  formModel.streetname as string,
-    postalcode:  formModel.postalcode as string,
-    city:  formModel.city as string,
-    province:  formModel.province as string,
-    country:  formModel.country as string,
-    token:  formModel.token as string,
-    picture:  formModel.picture as string,
-    gender:  formModel.gender as string,
-    dob: formModel.dob as Date,
-    rating:  formModel.rating as string,
-    status:  formModel.status as string,
-    loginallowed: formModel.loginallowed as boolean,
-    colone:  formModel.colone as string,
-    coltwo:  formModel.coltwo as string,
-    apartment:  formModel.apartment as string,
-    societyid: this.societyId as number,
-    role: selectedRole as Role,
+    const saveUser: Securityuser = {
+      id: formModel.id as number,
+      firstname: formModel.firstname as string,
+      lastname: formModel.lastname as string,
+      username: formModel.username as string,
+      email: formModel.email as string,
+      contactno: formModel.contactno as string,
+      alternatecontact:  formModel.alternatecontact as string,
+      password: formModel.password as string,
+      streetno: formModel.streetno as string,
+      streetname: formModel.streetname as string,
+      postalcode: formModel.postalcode as string,
+      city: formModel.city as string,
+      province: formModel.province as string,
+      country: formModel.country as string,
+      token: formModel.token as string,
+      picture: formModel.picture as string,
+      gender: formModel.gender as string,
+      dob: formModel.dob as Date,
+      rating: formModel.rating as string,
+      status: formModel.status as string,
+      loginallowed: formModel.loginallowed as boolean,
+      colone: formModel.colone as string,
+      coltwo: formModel.coltwo as string,
+      apartment: formModel.apartment as string,
+      societyid: this.societyId as number,
     }
     return saveUser;
   }

@@ -30,27 +30,12 @@ export class RestApi {
 
     public readonly DAILYSTAFF_LIST = this.API_URL + '/api/dailystaff';
 
-
-
-
-
-
-
-
-
     //OLD URL - DONT TOUCH IT
     public readonly USER_IMAGE_URL = this.USER_URL + '/uploadImage';
     public readonly CHECKUSERBYUSERNAME_URL = this.USER_URL + '/checkUserByUsername';
     public readonly CHECKUSERBYEMAIL_URL = this.USER_URL + '/checkUserByEmail';
     public readonly CHECKUSERBYTOKEN_URL = this.USER_URL + '/checkUserByToken';
     public readonly SETPWD_URL = this.USER_URL + '/setpassword';
-
-
-
-
-
-
-
     //CUTOMER
     public readonly CUSTOMER_URL = this.API_URL + '/api/customer';
     public readonly VENDOR_URL = this.API_URL + '/api/vendor';
