@@ -10,6 +10,7 @@ import { RestApi } from '../models/api/rest-api';
 export class SecurityuserService {
 
   api  = new RestApi();
+  saveAdminUsers: any;
   constructor(private httpClient:HttpClient) { }
 
   getSecurityuserList() : Observable<Securityuser[]>{

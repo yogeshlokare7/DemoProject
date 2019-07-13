@@ -56,10 +56,10 @@
                 <input matInput placeholder="Last Name" type="text" pattern="[a-zA-Z]*" maxlength="15"
                   formControlName="lastname" required>
                 <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
-                  <mat-error *ngIf="lastname.errors['required']">
+                  <mat-error *ngIf="lastname.errors.required">
                     Last Name is required.
                   </mat-error>
-                  <mat-error *ngIf="firstname.errors['pattern']">
+                  <mat-error *ngIf="firstname.errors.pattern">
                     Last Name should not contain number or special characters.
                   </mat-error>
                 </mat-error>
@@ -67,11 +67,14 @@
             </div>
             <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
               <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-                <input matInput placeholder="Contact No" type="text" appPhoneMask minlength="3" maxlength="15"
+                <input matInput placeholder="Contact No" type="text" appPhoneMask minlength="3" maxlength="15" pattern="[0-9]*"
                   formControlName="contactno" required>
                 <mat-error *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)" class="alert alert-danger">
-                  <mat-error *ngIf="contactNo.errors['required']">
+                  <mat-error *ngIf="contactNo.errors.required">
                     Contact number is required.
+                  </mat-error>
+                  <mat-error *ngIf="contactno.errors.pattern">
+                    Contact number should not contain alphabet.
                   </mat-error>
                 </mat-error>
               </mat-form-field>
@@ -149,7 +152,7 @@
                     {{ obj.name }}
                   </mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field>  
             </div> -->
           </div>
         </div>

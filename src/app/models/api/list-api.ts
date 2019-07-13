@@ -11,6 +11,8 @@ export class ListApi{
     public readonly ROLE_LIST = this.myBaseUrl + '/api/role';
     public readonly RESIDENT_LIST = this.myBaseUrl + '/api/resident';
     public readonly DAILYSTAFF_LIST = this.myBaseUrl + '/api/dailystaff';
+    public readonly ADMINUSERS_LIST = this.myBaseUrl + '/api/admin-users';
+
 
     
 }

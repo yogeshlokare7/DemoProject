@@ -29,8 +29,8 @@ import { AddResidentComponent } from './residents/add-resident/add-resident.comp
 import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { UserComponent } from './company-user/user/user.component';
-import { SaveUserComponent } from './company-user/user/save-user/save-user.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { AddAdminComponent } from './admin-users/add-admin/add-admin.component';
 
 @NgModule({
   declarations: [
@@ -59,8 +59,8 @@ import { SaveUserComponent } from './company-user/user/save-user/save-user.compo
     DailyStaffComponent,
     AddDailyStaffComponent,
     ConfirmDialogComponent,
-    UserComponent,
-    SaveUserComponent
+    AdminUsersComponent,
+    AddAdminComponent,
   ],
   imports: [
     CommonModule,

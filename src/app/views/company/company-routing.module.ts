@@ -17,8 +17,8 @@ import { ResidentsComponent } from './residents/residents.component';
 import { AddResidentComponent } from './residents/add-resident/add-resident.component';
 import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
-import { UserComponent } from './company-user/user/user.component';
-import { SaveUserComponent } from './company-user/user/save-user/save-user.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { AddAdminComponent } from './admin-users/add-admin/add-admin.component';
 
 const routes: Routes = [
   {
@@ -46,19 +46,19 @@ const routes: Routes = [
     component: AddUserComponent,
     data: { title: 'Update User', breadcrumb: 'Update Users'}
   },
-  {
-    path: 'adminusers',
-    component: UserComponent,
-    data: { title: 'Users', breadcrumb: 'Users'}
-  },
+   {
+     path: 'adminusers',
+     component: AdminUsersComponent,
+     data: { title: 'Users', breadcrumb: 'Users'}
+   },
   {
     path: 'adminusers/add',
-    component: SaveUserComponent,
+    component: AddAdminComponent,
     data: { title: 'Add Admin User', breadcrumb: 'Add Admin Users'}
   },
   {
     path: 'adminusers/edit',
-    component: SaveUserComponent,
+    component: AddAdminComponent,
     data: { title: 'Update Admin User', breadcrumb: 'Update Admin Users'}
   },
   {
