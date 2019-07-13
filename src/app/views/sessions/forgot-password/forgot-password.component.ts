@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class ForgotPasswordComponent implements OnInit {
   userEmail:string;
+  successMessage:string;
   @ViewChild(MatProgressBar) progressBar: MatProgressBar;
   @ViewChild(MatButton) submitButton: MatButton;
   constructor(private loginService:LoginService) { }
@@ -25,6 +26,9 @@ export class ForgotPasswordComponent implements OnInit {
       this.submitButton.disabled = false;
       this.progressBar.mode = 'determinate';
       console.log("resp", data);
+      if(data!=null){
+        this.successMessage = "We've sent an email to";
+      }
     }, err=>{
 
     });
