@@ -15,8 +15,9 @@ export class AuthService {
     this.isAuthenticated = this.auth.isAuthenticated();
     if (this.isAuthenticated) {
       return true;
+    }else{
+      this.router.navigate(['/sessions/signin'], { queryParams: { returnUrl: state.url }});
+      return false;
     }
-    this.router.navigate(['/sessions/signin'], { queryParams: { returnUrl: state.url }});
-    return false;
   }
 }

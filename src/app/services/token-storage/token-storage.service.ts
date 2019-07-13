@@ -19,12 +19,12 @@ export class TokenStorageService {
   private roles: Array<string> = [];
   constructor() { }
 
-  isAuthenticated() : boolean{
-    // let token = this.getToken();
-    // let userId = this.getUserId();
-    // if(token != null && userId > 0){
-    //   return true;
-    // }
+  isAuthenticated(): boolean {
+    let token = this.getToken();
+    let userId = this.getUserId();
+    if (userId > 0) {
+      return true;
+    }
     return true;
   }
 
@@ -77,7 +77,7 @@ export class TokenStorageService {
     return +localStorage.getItem(COMPANY_ID);
   }
 
-  public saveCompany(company:Company) {
+  public saveCompany(company: Company) {
     window.localStorage.removeItem(COMPANY_KEY);
     window.localStorage.setItem(COMPANY_KEY, JSON.stringify(company));
   }
@@ -86,7 +86,7 @@ export class TokenStorageService {
     return JSON.parse(localStorage.getItem(COMPANY_KEY));
   }
 
-  public saveSociety(company:Society) {
+  public saveSociety(company: Society) {
     window.localStorage.removeItem(SOCIETY_KEY);
     window.localStorage.setItem(SOCIETY_KEY, JSON.stringify(company));
   }
@@ -94,7 +94,7 @@ export class TokenStorageService {
   public getSociety(): Society {
     return JSON.parse(localStorage.getItem(SOCIETY_KEY));
   }
-  
+
   public saveCompanyAddress(address: string) {
     window.localStorage.removeItem(COMPANY_ADDRESS);
     window.localStorage.setItem(COMPANY_ADDRESS, address);
