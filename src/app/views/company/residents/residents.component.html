@@ -10,7 +10,7 @@
       <div fxLayout="column">
         <div>
           <mat-form-field fxFlex="100" fxFlex.gt-xs="40" color="accent">
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search User">
+            <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchInput"> placeholder="Search User" name="search">
           </mat-form-field>
           <button mat-icon-button (click)="refresh()">
             <mat-icon matTooltip="Refresh" matTooltipPosition="right">refresh</mat-icon>
