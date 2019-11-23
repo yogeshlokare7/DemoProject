@@ -87,7 +87,7 @@ export class UserService {
   }
 
   saveUser(user:User) : Observable<User>{
-    return this.httpClient.post<User>(this.api.USER_URL, user);
+    return this.httpClient.post<User>(this.api.SOCIETYUSER_URL, user);
   }
 
   deleteUser(id: number): Observable<any> {
@@ -111,7 +111,7 @@ export class UserService {
 
   getUser(id: number): Observable<User> {
     console.log("user" + id);
-    const url = `${this.api.USER_URL}/${id}`;
+    const url = `${this.api.SOCIETYUSER_URL}/${id}`;
     return this.httpClient.get<User>(url);
   }
 
@@ -146,7 +146,7 @@ export class UserService {
   }
   
   uploadImage(id:number, selectedFile:File):Observable<any>{
-    const url = `${this.api.USER_FILE_URL}/${id}?type=user`;
+    const url = `${this.api.USER_FILE_URL}/${id}?type=societyuser`;
     if(selectedFile!=null){
       const fd = new FormData();
       fd.append('file', selectedFile, selectedFile.name);

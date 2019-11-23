@@ -19,6 +19,7 @@ export class RestApi {
 
     //TBSM - INSERT HERE
     public readonly SOCIETY_URL = this.API_URL + '/api/society';
+    public readonly SOCIETYUSER_URL = this.API_URL + '/api/societyuser';
     public readonly USER_URL = this.API_URL + '/api/user';
     public readonly USER_FILE_URL = this.API_URL + '/api/auth/upload';
 

@@ -120,7 +120,7 @@ export class AddDailyStaffComponent implements OnInit {
       streetname: [''],
       streetno: [''],
       postalcode: [''],
-      city: ['', [Validators.required, Validators.minLength(3)]],
+      city: ['', [Validators.required, Validators.pattern]],
       province: ['', [Validators.required, Validators.minLength(3)]],
       country: ['', [Validators.required]],
     });
