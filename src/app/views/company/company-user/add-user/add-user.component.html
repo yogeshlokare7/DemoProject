@@ -40,7 +40,7 @@
               </mat-form-field>
             </div>
             <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
-              <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
+              <mat-form-field fxFlex="100" fxFlex.gt-xs="35.50">
                 <input matInput placeholder="First Name" type="text" pattern="[a-zA-Z]*" maxlength="15"
                   formControlName="firstname" required>
                 <mat-error *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
@@ -52,7 +52,8 @@
                   </mat-error>
                 </mat-error>
               </mat-form-field>
-              <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
+                
+              <mat-form-field fxFlex="100" fxFlex.gt-xs="35.50">
                 <input matInput placeholder="Last Name" type="text" pattern="[a-zA-Z]*" maxlength="15"
                   formControlName="lastname" required>
                 <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
@@ -61,34 +62,6 @@
                   </mat-error>
                   <mat-error *ngIf="firstname.errors.pattern">
                     Last Name should not contain number or special characters.
-                  </mat-error>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
-              <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-                <input matInput placeholder="Contact No" type="text" appPhoneMask minlength="3" maxlength="15" pattern="[0-9]*"
-                  formControlName="contactno" required>
-                <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
-                  <mat-error *ngIf="contactno.errors.required">
-                    Contact number is required.
-                  </mat-error>
-                  <mat-error *ngIf="contactno.errors.pattern">
-                    Contact number should not contain alphabet.
-                  </mat-error>
-                </mat-error>
-              </mat-form-field>
-              <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-                <input matInput placeholder="Alternate Contact No" formControlName="alternatecontact" type="text" minlength="3" maxlength="15">
-              </mat-form-field>
-              <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-                <input matInput [matDatepicker]="picker1" placeholder="Date of Birth" [max]="maxDate"
-                  formControlName="dob" required>
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-                <mat-error *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="alert alert-danger">
-                  <mat-error *ngIf="dob.errors['required']">
-                    Please choose valid date.
                   </mat-error>
                 </mat-error>
               </mat-form-field>
@@ -105,8 +78,43 @@
                 </mat-error>
               </mat-form-field>
             </div>
+            <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+              <mat-form-field fxFlex="100" fxFlex.gt-xs="35.5">
+                <input matInput placeholder="Contact No" type="text" appPhoneMask minlength="3" maxlength="15" pattern="[0-9]*"
+                  formControlName="contactno" required>
+                <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
+                  <mat-error *ngIf="contactno.errors.required">
+                    Contact number is required.
+                  </mat-error>
+                  <mat-error *ngIf="contactno.errors.pattern">
+                    Contact number should not contain alphabet.
+                  </mat-error>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex="100" fxFlex.gt-xs="35.5">
+                <input matInput placeholder="Alternate Contact No" formControlName="alternatecontact" type="text" pattern="[0-9]*" minlength="3" maxlength="15">
+              </mat-form-field>
+              <mat-error *ngIf="alternatecontact.invalid && (alternatecontact.dirty || alternatecontact.touched)" class="alert alert-danger">
+              <mat-error *ngIf="alternatecontact.errors.pattern">
+                Alternate Contact number should not contain alphabet.
+              </mat-error>
+              </mat-error>
+              <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
+                <input matInput [matDatepicker]="picker1" placeholder="Date of Birth" [max]="maxDate"
+                  formControlName="dob" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-hint>Format: mm-dd-yyyy</mat-hint>
+                <mat-error *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="alert alert-danger">
+                  <mat-error *ngIf="dob.errors['required']">
+                    Please choose valid date.
+                  </mat-error>
+                </mat-error>
+              </mat-form-field>
+              
+            </div>
           </div>
-        </div>
+        </div> <br/>
         <div fxLayout="row" fxLayoutWrap="wrap">
           <div fxFlex="100" fxFlex.gt-md="60" ngClass.gt-md="pr-1">
             <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">

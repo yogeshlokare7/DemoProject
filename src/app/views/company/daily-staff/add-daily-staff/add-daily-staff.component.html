@@ -154,8 +154,8 @@
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Street Name" type="text" formControlName="streetname" required>
-              <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
-                <mat-error *ngIf="contactno.errors.required">
+              <mat-error *ngIf="streetname.invalid && (streetname.dirty || streetname.touched)" class="alert alert-danger">
+                <mat-error *ngIf="streetname.errors.required">
                   Street Name is required.
                 </mat-error>
               </mat-error>

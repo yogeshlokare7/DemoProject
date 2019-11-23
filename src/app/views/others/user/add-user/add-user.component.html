@@ -90,6 +90,7 @@
                 formControlName="dob" required>
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
+              <mat-hint>Format: mm-dd-yyyy</mat-hint>
               <mat-error *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="alert alert-danger">
                 <mat-error *ngIf="dob.errors.required">
                   Date of Birth is required.

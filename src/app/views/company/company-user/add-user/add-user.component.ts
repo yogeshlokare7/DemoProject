@@ -127,8 +127,8 @@ export class AddUserComponent implements OnInit {
       lastname: ['', [Validators.required]],
       username: ['', [Validators.required]],
       email: ['', [Validators.required, emailValidator()]],
-      contactno: ['', Validators.required],
-      alternatecontact: [''],
+      contactno: ['', [Validators.required]],
+      alternatecontact: ['',[Validators.pattern]],
       password: [''],
       streetno: [''],
       streetname: [''],
@@ -154,6 +154,7 @@ export class AddUserComponent implements OnInit {
   get username() { return this.userForm.get('username'); }
   get email() { return this.userForm.get('email'); }
   get contactno() { return this.userForm.get('contactno'); }
+  get alternatecontact() { return this.userForm.get('alternatecontact'); }
   get gender() { return this.userForm.get('gender'); }
   get dob() { return this.userForm.get('dob'); }
 
