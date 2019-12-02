@@ -26,16 +26,16 @@
       <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDisableClear
         matSortDirection="desc">
 
-        <ng-container matColumnDef="pic">
+        <!-- <ng-container matColumnDef="pic">
           <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <img mat-list-avatar class="avatar" [src]="(row.picture == null || row.picture == '') ? url : row.picture">
           </mat-cell>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="firstname">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.firstname}} {{row.lastname}}</mat-cell>
+          <mat-cell *matCellDef="let row" class="pointer" matTooltip="View and Update" style="color:#2699FB" [routerLink]="['view', {'id': row.id, 'view': true}]"><span class="underline">{{row.firstname}} {{row.lastname}}</span></mat-cell>
         </ng-container>
         <ng-container matColumnDef="email">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
@@ -61,9 +61,9 @@
             </button>
           </mat-header-cell>
           <mat-cell *matCellDef="let row; let i=index;">
-            <button mat-icon-button color="accent" matTooltip="Edit" [routerLink]="['update', {'id': row.id}]">
+            <!-- <button mat-icon-button color="accent" matTooltip="Edit" [routerLink]="['update', {'id': row.id}]">
               <mat-icon aria-label="Edit">edit</mat-icon>
-            </button>
+            </button> -->
             <button mat-icon-button color="accent" (click)="deleteUser(row.id)">
               <mat-icon aria-label="Delete" matTooltip="Delete">delete</mat-icon>
             </button>

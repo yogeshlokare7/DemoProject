@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 import { Role } from 'src/app/models/role';
 import { Society } from 'src/app/models/society';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { RoleService } from 'src/app/services/role.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { GenericTerm } from 'src/app/models/generic/generic-term';
@@ -27,7 +27,7 @@ import { emailValidator } from 'src/app/directives/email-validator.directive';
 
 })
 export class AddUserComponent implements OnInit {
-
+  Submit: string = "Submit";
   userForm: FormGroup;
   title: string = "Add";
   countries: string[];
@@ -50,33 +50,55 @@ export class AddUserComponent implements OnInit {
   sub: any;
   id: number;
   isUpdate: boolean = false;
+  isView: boolean = false;
   constructor(private fb: FormBuilder,
     private location: Location,
     private _dataService: CountryStateService,
     private companyService: CompanyService,
     private roleService: RoleService,
     private route: ActivatedRoute,
-    private tokenservice: TokenStorageService,
+    private tokenservice: TokenStorageService,   
     private toasterService: ToasterService,
+    private router: Router,
     private securityuserService: SecurityuserService) { }
 
   ngOnInit() {
     this.countries = this._dataService.getCountries();
     this.createForm();
     this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
+    console.log("aaaaa")
     let society = this.tokenservice.getSociety();
     if (society.id != null) {
+      console.log("bbbb")
       this.societyId = society.id;
-    }
+    }  
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
+      console.log("ccccc")
+      this.id = +params['id'];
+      let myview = params['view'];
+      console.log(myview, "-------------------------")
       if (this.id != null && this.id > 0) {
+        console.log("ddddd")
         this.getUserInfo(this.id);
-        this.title = 'Update';
-        this.isUpdate = true;
+        if (myview == "true") {
+          console.log("eeeee")
+          console.log(myview, "INSIDE");
+          this.title = 'Update';
+          this.Submit = 'Update';
+          this.isUpdate = false;
+          this.isView = true;
+        } else {
+          console.log("fffff")
+          this.title = 'Update';
+          this.Submit = 'Update';
+          this.isUpdate = true;
+          this.isView = false;
+        }
       }
+      
     });
   }
+
   getUserInfo(id: number) {
     this.isLoadingResults = true;
     this.securityuserService.getSecurityuserByUserId(id).subscribe(data => {
@@ -88,6 +110,21 @@ export class AddUserComponent implements OnInit {
       this.isLoadingResults = false;
     })
   }
+
+ 
+  chnageStatus() {
+    this.isView = !this.isView;
+    console.log("vuuuu", this.isView)
+    if (!this.isView) {
+      console.log("id", this.id);
+      this.title = "Update";
+      const url = `society/users/update;id=${this.id};view=false`;
+      this.router.navigateByUrl(url);
+    } else {
+      this.title = "View";
+    }
+  }
+
 
   setFormValue(user: Securityuser) {
     this.userForm.patchValue({

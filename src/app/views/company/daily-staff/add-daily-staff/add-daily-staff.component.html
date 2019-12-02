@@ -1,8 +1,12 @@
 <mat-card class="p-0">
   <mat-card-title class="">
-    <div class="card-title-text">{{title}} Staff</div>
+    <div *ngIf="!isView" class="card-title-text">{{title}} Staff</div>
     <mat-divider></mat-divider>
   </mat-card-title>
+  <mat-card-title class="">
+      <div *ngIf="isView" class="card-title-text">View Staff</div>
+      <mat-divider></mat-divider>
+    </mat-card-title>
   <mat-card-content>
     <div class="example-loading-shade" *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
@@ -14,7 +18,7 @@
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.5">
               <input matInput placeholder="First Name" type="text" pattern="[a-zA-Z][a-zA-Z ]+"
-                formControlName="firstname" required>
+                formControlName="firstname" required [readonly]="isView">
               <mat-error *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
                 <mat-error *ngIf="firstname.errors.required">
                   First name is required.
@@ -26,7 +30,7 @@
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
               <input matInput placeholder="Last Name" type="text" pattern="[a-zA-Z][a-zA-Z ]+"
-                formControlName="lastname" required>
+                formControlName="lastname" required [readonly]="isView">
               <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
                 <mat-error *ngIf="lastname.errors.required">
                   Last Name is required.
@@ -39,7 +43,8 @@
           </div>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
-              <mat-select placeholder="Profile" formControlName="profile" required>
+                <input *ngIf="isView" matInput type="text" formControlName="profile" required readonly>
+              <mat-select  *ngIf="!isView"  placeholder="Profile" formControlName="profile" required>
                 <mat-option value="D">Driver</mat-option>
                 <mat-option value="M">Manager</mat-option>
                 <mat-option value="S">Security</mat-option>
@@ -48,7 +53,6 @@
                 <mat-option value="E">Electrician</mat-option>
                 <mat-option value="O">Other</mat-option>
               </mat-select>
-
               <mat-error *ngIf="profile.invalid && (profile.dirty || profile.touched)" class="alert alert-danger">
                 <mat-error *ngIf="profile.errors.required">
                   Profile is required.
@@ -57,7 +61,7 @@
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.5">
               <input matInput placeholder="Email Id" type="text" minlength="5" maxlength="40" formControlName="email"
-                required>
+                required [readonly]="isView">
               <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
                 <mat-error *ngIf="email.errors.required">
                   Email ID is required.
@@ -72,7 +76,7 @@
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Contact No" type="text" minlength="3" maxlength="15" pattern="[0-9]*"
-                formControlName="contactno" required>
+                formControlName="contactno" required [readonly]="isView">
               <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
                 <mat-error *ngIf="contactno.errors.required">
                   Contact number is required.
@@ -86,7 +90,7 @@
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Alternate Contact No" type="text" minlength="3" maxlength="15"
-                pattern="[0-9]*" formControlName="alternatecontact" required>
+                pattern="[0-9]*" formControlName="alternatecontact" required [readonly]="isView">
               <mat-error *ngIf="alternatecontact.invalid && (alternatecontact.dirty || alternatecontact.touched)"
                 class="alert alert-danger">
                 <mat-error *ngIf="alternatecontact.errors.required">
@@ -99,7 +103,8 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
-              <mat-select placeholder="Select Gender" formControlName="gender" required>
+                <input *ngIf="isView" matInput type="text" formControlName="gender" required readonly>
+              <mat-select  *ngIf="!isView" placeholder="Select Gender" formControlName="gender" required>
                 <mat-option value="M">Male</mat-option>
                 <mat-option value="F">Female</mat-option>
                 <mat-option value="O">Other</mat-option>
@@ -114,7 +119,7 @@
 
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <input matInput placeholder="Society ID" type="number" formControlName="societyid" required>
+              <input matInput placeholder="Society ID" type="number" formControlName="societyid" required [readonly]="isView">
               <mat-error *ngIf="societyid.invalid && (societyid.dirty || societyid.touched)" class="alert alert-danger">
                 <mat-error *ngIf="societyid.errors.required">
                   Society ID is required.
@@ -123,7 +128,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <input matInput placeholder="Resident ID" type="number" formControlName="residentid" required>
+              <input matInput placeholder="Resident ID" type="number" formControlName="residentid" required [readonly]="isView">
               <mat-error *ngIf="residentid.invalid && (residentid.dirty || residentid.touched)"
                 class="alert alert-danger">
                 <mat-error *ngIf="residentid.errors.required">
@@ -133,7 +138,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
-              <input matInput placeholder="Age" type="number" formControlName="age" required  min="0">
+              <input matInput placeholder="Age" type="number" formControlName="age" required  min="0" [readonly]="isView">
               <mat-error *ngIf="age.invalid && (age.dirty || age.touched)" class="alert alert-danger">
                 <mat-error *ngIf="age.errors.required">
                   Age is required.
@@ -144,7 +149,7 @@
           <label>Address</label>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <input matInput placeholder="Street Number" type="text" formControlName="streetno" required>
+              <input matInput placeholder="Street Number" type="text" formControlName="streetno" required [readonly]="isView">
               <mat-error *ngIf="streetno.invalid && (streetno.dirty || streetno.touched)" class="alert alert-danger">
                 <mat-error *ngIf="streetno.errors.required">
                   Street Number is required.
@@ -153,7 +158,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <input matInput placeholder="Street Name" type="text" formControlName="streetname" required>
+              <input matInput placeholder="Street Name" type="text" formControlName="streetname" required [readonly]="isView">
               <mat-error *ngIf="streetname.invalid && (streetname.dirty || streetname.touched)" class="alert alert-danger">
                 <mat-error *ngIf="streetname.errors.required">
                   Street Name is required.
@@ -162,7 +167,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
-              <input matInput placeholder="Postalcode" type="text" formControlName="postalcode" required maxlength="8">
+              <input matInput placeholder="Postalcode" type="text" formControlName="postalcode" required maxlength="8" [readonly]="isView">
               <mat-error *ngIf="postalcode.invalid && (postalcode.dirty || postalcode.touched)"
                 class="alert alert-danger">
                 <mat-error *ngIf="postalcode.errors.required">
@@ -173,14 +178,15 @@
           </div>
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
-              <input matInput placeholder="City" type="text" formControlName="city" required>
+              <input matInput placeholder="City" type="text" formControlName="city" required [readonly]="isView"> 
               <mat-error *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
                 <mat-error *ngIf="city.errors.required">
                   Please select City. </mat-error>
               </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="23">
-              <mat-select placeholder="Select Country" name="country" formControlName="country"
+                <input *ngIf="isView" matInput type="text" formControlName="country" required readonly>
+              <mat-select *ngIf="!isView" placeholder="Select Country" name="country" formControlName="country"
                 (selectionChange)="onSelect($event.value)">
                 <mat-option>None</mat-option>
                 <mat-option *ngFor="let obj of countries" [value]="obj">
@@ -260,8 +266,8 @@
       <br>
       <div>
         <button mat-raised-button color="accent" type="button" (click)="goBack()" class="mr-1">Back</button>
-        <button mat-raised-button color="primary" (click)="onSubmit()"
-          [disabled]="dailystaffForm.invalid">Submit</button>
+        <button mat-raised-button *ngIf="!isView" color="primary" (click)="onSubmit()" [disabled]="dailystaffForm.invalid">Update</button>
+        <button mat-raised-button *ngIf="isView" type="button" color="primary" (click)="changeStatus()">Update</button>
       </div>
     </form>
   </mat-card-content>

@@ -1,8 +1,12 @@
 <mat-card class="p-0">
   <mat-card-title class="">
-    <div class="card-title-text">{{title}} User</div>
+    <div class="card-title-text" *ngIf="!isView">{{title}} User</div>
     <mat-divider></mat-divider>
   </mat-card-title>
+  <mat-card-title class="">
+      <div class="card-title-text" *ngIf="isView">View User</div>
+      <mat-divider></mat-divider>
+    </mat-card-title>
   <mat-card-content>
     <div class="example-loading-shade" *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
@@ -14,7 +18,7 @@
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.5">
               <input matInput placeholder="Username" type="text" minlength="3" maxlength="30" formControlName="username"
-                required>
+                required [readonly]="isView" >
               <mat-error *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
                 <mat-error *ngIf="username.errors.required">
                   Username is required.
@@ -26,7 +30,7 @@
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.5">
               <input matInput placeholder="Email Id" type="text" minlength="5" maxlength="40" formControlName="email"
-                required>
+                required [readonly]="isView" >
               <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
                 <mat-error *ngIf="email.errors.required">
                   Email id is required.
@@ -40,7 +44,7 @@
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
               <input matInput placeholder="First Name" type="text" minlength="3" maxlength="15"
-                pattern="[a-zA-Z][a-zA-Z ]+" formControlName="firstname" required>
+                pattern="[a-zA-Z][a-zA-Z ]+" formControlName="firstname" required [readonly]="isView" >
               <mat-error *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
                 <mat-error *ngIf="firstname.errors.required">
                   First Name is required.
@@ -52,7 +56,7 @@
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="48.50">
               <input matInput placeholder="Last Name" type="text" minlength="3" maxlength="15"
-                pattern="[a-zA-Z][a-zA-Z ]+" formControlName="lastname" required>
+                pattern="[a-zA-Z][a-zA-Z ]+" formControlName="lastname" required [readonly]="isView" >
               <mat-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
                 <mat-error *ngIf="lastname.errors.required">
                   Last Name is required.
@@ -66,7 +70,7 @@
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Contact No" type="text" minlength="3" maxlength="13" pattern="[0-9]*"
-                formControlName="contactno" required>
+                formControlName="contactno" required [readonly]="isView" >
               <mat-error *ngIf="contactno.invalid && (contactno.dirty || contactno.touched)" class="alert alert-danger">
                 <mat-error *ngIf="contactno.errors.required">
                   Contact number is required.
@@ -78,7 +82,7 @@
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Alternate Contact No" type="text" minlength="3" maxlength="15"
-                pattern="[0-9]*" formControlName="alternatecontact" required>
+                pattern="[0-9]*" formControlName="alternatecontact" required [readonly]="isView" >
               <mat-error *ngIf="alternatecontact.invalid && (alternatecontact.dirty || alternatecontact.touched)"
                 class="alert alert-danger">
                 <mat-error *ngIf="alternatecontact.errors.required">
@@ -91,7 +95,8 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
-              <mat-select placeholder="Select Gender" formControlName="gender" required>
+                <input matInput *ngIf="isView" formControlName="gender" required [readonly]="isView" >
+              <mat-select *ngIf="!isView" placeholder="Select Gender" formControlName="gender" required>
                 <mat-option value="M">Male</mat-option>
                 <mat-option value="F">Female</mat-option>
                 <mat-option value="O">Other</mat-option>
@@ -106,7 +111,7 @@
           <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Wing Name/No" type="text" maxlength="30" formControlName="apartment"
-                required>
+                required [readonly]="isView" >
               <mat-error *ngIf="apartment.invalid && (apartment.dirty || apartment.touched)" class="alert alert-danger">
                 <mat-error *ngIf="apartment.errors.required">
                   Please select Wing Name/No.
@@ -115,7 +120,7 @@
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="35">
               <input matInput placeholder="Floor Number" type="text" maxlength="80" formControlName="floornumber"
-                required>
+                required [readonly]="isView" >
               <mat-error *ngIf="floornumber.invalid && (floornumber.dirty || floornumber.touched)"
                 class="alert alert-danger">
                 <mat-error *ngIf="floornumber.errors.required">
@@ -125,7 +130,7 @@
             </mat-form-field>
             <mat-form-field fxFlex="100" fxFlex.gt-xs="25">
               <input matInput placeholder="Flat Number" type="text" maxlength="80" formControlName="flatnumber"
-                required>
+                required [readonly]="isView" >
               <mat-error *ngIf="flatnumber.invalid && (flatnumber.dirty || flatnumber.touched)"
                 class="alert alert-danger">
                 <mat-error *ngIf="flatnumber.errors.required">
@@ -173,7 +178,8 @@
       <br>
       <div>
         <button mat-raised-button color="accent" type="button" (click)="goBack()" class="mr-1">Back</button>
-        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="residentForm.invalid">Submit</button>
+        <button mat-raised-button *ngIf="!isView" color="primary" (click)="onSubmit()">Update</button>
+        <button mat-raised-button *ngIf="isView" type="button" color="primary" (click)="changeStatus()">Update</button>
       </div>
     </form>
   </mat-card-content>

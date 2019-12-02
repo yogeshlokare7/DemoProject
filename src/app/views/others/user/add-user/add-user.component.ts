@@ -200,7 +200,7 @@ export class AddUserComponent implements OnInit {
           });
         }
         if(this.isUpdate){
-          this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
+          this.toasterService.openSuccessSnackBar('Successfully d', '', 2000);
         }else{
           this.toasterService.openSuccessSnackBar('Successfully Added', '', 2000);
         }

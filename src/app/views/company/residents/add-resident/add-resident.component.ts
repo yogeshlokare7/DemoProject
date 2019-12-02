@@ -6,7 +6,7 @@ import { GenericTerm } from 'src/app/models/generic/generic-term';
 import { Role } from 'src/app/models/role';
 import { CountryStateService } from 'src/app/services/country-state.service';
 import { RoleService } from 'src/app/services/role.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 import { SecurityuserService } from 'src/app/services/securityuser.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -16,13 +16,14 @@ import { ResidentuserService } from 'src/app/services/token-storage/residentuser
 import { emailValidator } from 'src/app/directives/email-validator.directive';
 import { ToasterService } from 'src/app/services/toaster.service';
 
+
 @Component({
   selector: 'app-add-resident',
   templateUrl: './add-resident.component.html',
   styleUrls: ['./add-resident.component.css']
 })
 export class AddResidentComponent implements OnInit {
-
+  Submit: string = "Submit";
 residentForm: FormGroup;
 title: string = "Add";
 contries: string[];
@@ -38,9 +39,11 @@ generic = new GenericTerm();
 isLoadingResults: boolean = false;
 maxDate = new Date();
 societyId: number = 0;
-isUpdate:boolean = false;
+
 id:number;
 sub:any;
+isUpdate: boolean = false;
+isView: boolean = false;
 
 
 constructor(private fb: FormBuilder,
@@ -49,6 +52,7 @@ constructor(private fb: FormBuilder,
   private route: ActivatedRoute,
   private tokenservice: TokenStorageService,
   private toasterService:ToasterService,
+  private router: Router,
   private residentService: ResidentuserService) {}
 
   ngOnInit() {
@@ -60,14 +64,32 @@ constructor(private fb: FormBuilder,
       this.societyId = society.id;
     }
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
+      console.log("ccccc")
+      this.id = +params['id'];
+      let myview = params['view'];
+      console.log(myview, "-------------------------")
       if (this.id != null && this.id > 0) {
+        console.log("ddddd")
         this.getResidentInfo(this.id);
-        this.title = 'Update';
-        this.isUpdate = true;
+        if (myview == "true") {
+          console.log("eeeee")
+          console.log(myview, "INSIDE");
+          this.title = 'Update';
+          this.Submit = 'Update';
+          this.isUpdate = false;
+          this.isView = true;
+        } else {
+          console.log("fffff")
+          this.title = 'Update';
+          this.Submit = 'Update';
+          this.isUpdate = true;
+          this.isView = false;
+        }
       }
     });
   } 
+
+  
 
   getResidentInfo(id:number){
     this.isLoadingResults = true;
@@ -145,6 +167,19 @@ constructor(private fb: FormBuilder,
 
   onSelect(country: string) {
     this.states = this._dataService.getStates().filter((item) => item.country == country);
+  }
+
+  changeStatus() {
+    this.isView = !this.isView;
+    console.log("vuuuu", this.isView)
+    if (!this.isView) {
+      console.log("id", this.id);
+      this.title = "Update";
+      const url = `society/residents/update;id=${this.id};view=false`;
+      this.router.navigateByUrl(url);
+    } else {
+      this.title = "View";
+    }
   }
 
   onSubmit() {

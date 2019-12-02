@@ -6,7 +6,7 @@ import { DailyStaffService } from 'src/app/services/daily-staff.service';
 import { DailyStaff } from 'src/app/models/daily-staff';
 import { Location } from '@angular/common';
 import { CountryStateService } from 'src/app/services/country-state.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 import { ToasterService } from 'src/app/services/toaster.service';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
@@ -34,9 +34,11 @@ export class AddDailyStaffComponent implements OnInit {
   isLoadingResults: boolean = false;
   maxDate = new Date();
   societyId: number = 0;
-  isUpdate: boolean = false;
   id: number;
   sub: any;
+  isUpdate: boolean = false;
+  isView: boolean = false;
+  Submit: string = "Submit";
 
 
   constructor(private fb: FormBuilder,
@@ -45,6 +47,7 @@ export class AddDailyStaffComponent implements OnInit {
     private route: ActivatedRoute,
     private tokenservice: TokenStorageService,
     private toasterService: ToasterService,
+    private router: Router,
     private dailystaffService: DailyStaffService) { }
 
   ngOnInit() {
@@ -56,14 +59,32 @@ export class AddDailyStaffComponent implements OnInit {
       this.societyId = society.id;
     }
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
+      console.log("ccccc")
+      this.id = +params['id'];
+      let myview = params['view'];
+      console.log(myview, "-------------------------")
       if (this.id != null && this.id > 0) {
+        console.log("ddddd")
         this.getDailyStaffInfo(this.id);
-        this.title = 'Update';
-        this.isUpdate = true;
+        if (myview == "true") {
+          console.log("eeeee")
+          console.log(myview, "INSIDE");
+          this.title = 'Update';
+          this.Submit = 'Update';
+          this.isUpdate = false;
+          this.isView = true;
+        } else {
+          console.log("fffff")
+          this.title = 'Update';
+          this.Submit = 'Update';
+          this.isUpdate = true;
+          this.isView = false;
+        }
       }
     });
   }
+
+  
   getDailyStaffInfo(id: number) {
     this.isLoadingResults = true;
     this.dailystaffService.getDailyStaffByUserId(id).subscribe(data => {
@@ -143,11 +164,18 @@ export class AddDailyStaffComponent implements OnInit {
   get province() { return this.dailystaffForm.get('province'); }
   get country() { return this.dailystaffForm.get('country'); }
 
-
-
-
-
-
+  changeStatus() {
+    this.isView = !this.isView;
+    console.log("vuuuu", this.isView)
+    if (!this.isView) {
+      console.log("id", this.id);
+      this.title = "Update";
+      const url = `society/daily-staff/update;id=${this.id};view=false`;
+      this.router.navigateByUrl(url);
+    } else {
+      this.title = "View";
+    }
+  }
 
 
   onSelect(country: string) {
