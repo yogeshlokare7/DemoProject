@@ -62,3 +62,14 @@
   border-radius: 50%;
   padding:5px;
 }
+
+
+.pointer {
+  cursor: pointer;
+}
+
+.underline {
+  border-bottom: 1px solid #2699FB; 
+  text-decoration-style: solid;
+  text-decoration-color: #2699FB;
+}

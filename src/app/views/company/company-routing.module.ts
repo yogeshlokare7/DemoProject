@@ -35,16 +35,22 @@ const routes: Routes = [
     path: 'users',
     component: CompanyUserComponent,
     data: { title: 'Users', breadcrumb: 'Users'}
+   
   },
   {
     path: 'users/add',
     component: AddUserComponent,
-    data: { title: 'Add User', breadcrumb: 'Add Users'}
+    data: { title: 'Add User',  breadcrumb: 'Manage Security Users/ Add User',Submit: 'Submit'}
+  },
+  {
+    path: 'users/view',
+    component: AddUserComponent,
+    data: { title: 'View User',  breadcrumb: 'Manage Security Users/ View User',Submit: 'Submit'}
   },
   {
     path: 'users/update',
     component: AddUserComponent,
-    data: { title: 'Update User', breadcrumb: 'Update Users'}
+    data: { title: 'Update User',  breadcrumb: 'Manage Security Users/ Update User',Submit: 'Submit'}
   },
    {
      path: 'adminusers',
@@ -72,14 +78,19 @@ const routes: Routes = [
     data: { title: 'Daily Staff', breadcrumb: 'Daily Staff'}
   },
   {
-    path: 'daily-staff/update',
-    component: AddDailyStaffComponent,
-    data: { title: 'update Daily Staff', breadcrumb: 'update Daily Staff'}
-  },
-  {
     path: 'daily-staff/add',
     component: AddDailyStaffComponent,
-    data: { title: 'Add Daily Staff', breadcrumb: 'Add Daily Staff'}
+    data: { title: 'Add Daily Staff',  breadcrumb: 'Manage Daily Staff / Add Daily Staff',Submit: 'Submit'}
+  },
+  {
+    path:'daily-staff/view',
+    component: AddDailyStaffComponent,
+    data: { title: 'View Daily Staff',  breadcrumb: 'Manage Daily Staff/ View Daily Staff',Submit: 'Submit'}
+  },
+  {
+    path:'daily-staff/update',
+    component: AddDailyStaffComponent,
+    data: { title: 'Update Daily Staff',  breadcrumb: 'Manage Daily Staff/ Update Daily Staff',Submit: 'Submit'}
   },
   {
     path: 'products',
@@ -129,12 +140,17 @@ const routes: Routes = [
   {
     path: 'residents/add',
     component: AddResidentComponent,
-    data: { title: 'Add Resident', breadcrumb: 'Add Resident'}
+    data: { title: 'Add Residents',  breadcrumb: 'Manage Residents / Add Residents',Submit: 'Submit'}
   },
   {
-    path: 'residents/update',
+    path:'residents/view',
     component: AddResidentComponent,
-    data: { title: 'Update Resident', breadcrumb: 'Update Resident'}
+    data: { title: 'View Residents',  breadcrumb: 'Manage Residents/ View Residents',Submit: 'Submit'}
+  },
+  {
+    path:'residents/update',
+    component: AddResidentComponent,
+    data: { title: 'Update Residents',  breadcrumb: 'Manage Residents/ Update Residents',Submit: 'Submit'}
   },
   {
     path: 'residents/delete',

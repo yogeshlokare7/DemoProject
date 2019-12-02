@@ -19,7 +19,7 @@ import { ResidentuserService } from 'src/app/services/token-storage/residentuser
 })
 export class ResidentsComponent implements OnInit {
 
-  displayedColumns = ['pic','firstname', 'email', 'contactno', 'status', 'actions'];
+  displayedColumns = ['firstname', 'email', 'contactno', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: User[] = [];
 

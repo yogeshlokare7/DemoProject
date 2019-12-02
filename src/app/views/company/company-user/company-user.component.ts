@@ -22,7 +22,7 @@ import { ToasterService } from 'src/app/services/toaster.service';
 
 export class CompanyUserComponent implements OnInit {
 
-  displayedColumns = ['pic','firstname', 'email', 'contactno', 'status', 'actions'];
+  displayedColumns = ['firstname', 'email', 'contactno', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: User[] = [];
 

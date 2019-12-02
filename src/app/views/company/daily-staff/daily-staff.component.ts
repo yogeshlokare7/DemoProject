@@ -16,7 +16,7 @@ import { DailyStaffService } from 'src/app/services/daily-staff.service';
   styleUrls: ['./daily-staff.component.css']
 })
 export class DailyStaffComponent implements OnInit {
-  displayedColumns = ['pic','firstname', 'email', 'gender', 'contactno', 'status', 'actions'];
+  displayedColumns = ['firstname', 'email', 'gender', 'contactno', 'status', 'actions'];
   exampleDatabase: PaginationDao | null;
   data: DailyStaff[] = [];
 
