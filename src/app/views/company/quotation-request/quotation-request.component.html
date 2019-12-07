@@ -1,0 +1,76 @@
+<mat-card class="default">
+  <!-- <mat-card-header>
+    <mat-card-title *ngIf="!isView"><strong>{{title}} Quotation</strong></mat-card-title>
+  </mat-card-header> -->
+  <mat-card-header>
+    <mat-card-title ><strong>Quotation Request</strong></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="mb-0 px-1">
+    <form [formGroup]="userForm">
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex="100" fxFlex.gt-md="100" ngClass.gt-md="pr-1">
+            <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+                <mat-form-field fxFlex="100" fxFlex.gt-xs="23" class="mr-5">
+                    <mat-select formControlName="planId" placeholder="Please select Plan"
+                      (selectionChange)="onSelectPlan($event.value, i)" required>
+                      <mat-option>None</mat-option>
+                      <mat-option *ngFor="let obj of discountList" [value]="obj.id">
+                        {{obj.planName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+          <mat-card-header>
+            <mat-card-title class="ml-0"><strong>Add Assets</strong></mat-card-title>
+          </mat-card-header>
+          <div fxLayoutAlign.gt-xs="start start" fxLayout.xs="column">
+            <mat-form-field fxFlex="100" fxFlex.gt-xs="23" class="mr-1">
+              <mat-select formControlName="AssetId" placeholder="Please Select Asset"
+                (selectionChange)="onSelectAsset($event.value)" required>
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let obj of assetRates" [value]="obj.id">
+                  {{obj.assetsName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="accent" type="button" (click)="addCreds()">Add Asset</button>
+          </div>
+          <div formArrayName="credentials" *ngFor="let creds of credentials.controls;  let i = index">
+            <ng-container [formGroupName]="i">
+              <div fxLayoutAlign.gt-xs="space-between start" fxLayout.xs="column">
+                <mat-form-field fxFlex="100" fxFlex.gt-xs="23" class="mr-5">
+                  <input matInput placeholder="Asset Name" type="text" formControlName="assetName" [readonly]="isView">
+                </mat-form-field>
+                <mat-form-field fxFlex="100" fxFlex.gt-xs="23" class="mr-5">
+                  <input matInput placeholder="Quantity" (keyup)="onChangeQuantity(i)" formControlName="quantity"
+                    [readonly]="isView">
+                </mat-form-field>
+                <mat-form-field fxFlex="100" fxFlex.gt-xs="23" class="mr-5">
+                  <mat-select formControlName="planId" placeholder="Term in Months"
+                    (selectionChange)="onSelectPlan($event.value, i)" required>
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let obj of discountList" [value]="obj.id">
+                      {{obj.planName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <button mat-icon-button color="accent" (click)="removeCredentials(i)">
+                  <mat-icon aria-label="Delete" matTooltip="Delete">delete</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+         
+          
+          <div>
+            <button mat-raised-button color="accent" type="button" (click)="goBack()" class="mr-1">Back</button>
+            <button mat-raised-button color="primary" class="mr-1" type="button"(click)="chnageStatus()">Approve</button>
+           
+           
+          </div>
+        </div>
+      </div>
+      <br />
+    </form>
+  </mat-card-content>
+</mat-card>

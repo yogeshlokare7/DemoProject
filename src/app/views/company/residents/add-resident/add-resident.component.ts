@@ -89,8 +89,6 @@ constructor(private fb: FormBuilder,
     });
   } 
 
-  
-
   getResidentInfo(id:number){
     this.isLoadingResults = true;
     this.residentService.getResidentuserByUserId(id).subscribe(data=>{

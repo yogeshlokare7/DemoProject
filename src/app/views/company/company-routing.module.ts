@@ -19,6 +19,8 @@ import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AddAdminComponent } from './admin-users/add-admin/add-admin.component';
+import { CurrentPlanComponent } from './current-plan/current-plan.component';
+import { QuotationRequestComponent } from './quotation-request/quotation-request.component';
 
 const routes: Routes = [
   {
@@ -92,6 +94,17 @@ const routes: Routes = [
     component: AddDailyStaffComponent,
     data: { title: 'Update Daily Staff',  breadcrumb: 'Manage Daily Staff/ Update Daily Staff',Submit: 'Submit'}
   },
+  {
+    path: 'currentplan',
+    component: CurrentPlanComponent,
+    data: { title: 'Current plan', breadcrumb: 'Manage Current Plan'}
+  },
+  {
+    path: 'quotationrequest',
+    component: QuotationRequestComponent,
+    data: { title: 'Quotation Request', breadcrumb: 'Manage Quotation Request'}
+  },
+ 
   {
     path: 'products',
     component: ProductsComponent,

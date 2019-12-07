@@ -34,6 +34,7 @@ export class LoginService {
     const url = `${this.api.UPDATEPWD_URL}/${id}`;
     let httpHeaders = new HttpHeaders()
       .set('Content-Type', 'application/json');
+      
     let httpParams = new HttpParams()
       .set('password', pwd);
     console.log(httpParams.toString());

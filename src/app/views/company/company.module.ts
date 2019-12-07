@@ -31,6 +31,9 @@ import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AddAdminComponent } from './admin-users/add-admin/add-admin.component';
+import { CurrentPlanComponent } from './current-plan/current-plan.component';
+import { QuotationRequestComponent } from './quotation-request/quotation-request.component';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +64,8 @@ import { AddAdminComponent } from './admin-users/add-admin/add-admin.component';
     ConfirmDialogComponent,
     AdminUsersComponent,
     AddAdminComponent,
+    CurrentPlanComponent,
+    QuotationRequestComponent,
   ],
   imports: [
     CommonModule,

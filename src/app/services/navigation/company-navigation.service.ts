@@ -78,6 +78,20 @@ export class CompanyNavigationService {
       icon: 'person',
       state: 'society/adminusers'
     },
+    {
+      name: 'Manage Current Plan',
+      type: 'link',
+      tooltip: 'Currernt Paln',
+      icon: 'person',
+      state: 'society/currentplan'
+    },
+    {
+      name: 'Manage Quotation Request',
+      type: 'link',
+      tooltip: 'Quotation Request',
+      icon: 'person',
+      state: 'society/quotationrequest'
+    },
     // {
     //   name: 'Manage Admins',
     //   type: 'link',
@@ -129,7 +143,21 @@ export class CompanyNavigationService {
       tooltip: 'App Users',
       icon: 'person',
       state: 'society/adminusers'
-    }
+    },
+    {
+      name: 'Manage Current Plan',
+      type: 'link',
+      tooltip: 'Currernt Paln',
+      icon: 'person',
+      state: 'society/currentplan'
+    },
+    {
+      name: 'Quotation Request',
+      type: 'link',
+      tooltip: 'Quotation Request',
+      icon: 'person',
+      state: 'society/quotationrequest'
+    },
   ]
 
   iconTypeMenuTitle:string = 'Frequently Accessed';
