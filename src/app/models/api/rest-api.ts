@@ -9,6 +9,12 @@ export class RestApi {
     public readonly UPDATEPWD_URL = this.SOCIETY_BASE + '/update';
     public readonly FORGOT_URL = this.SOCIETY_BASE + '/forgot';
 
+    public readonly AUTH_URL = this.API_URL + '/api/auth';
+    public readonly USERPICTURE_URL = this.AUTH_URL + '/userpicture?filename=';
+    public readonly SOCIETYUSERPIC_URL = this.AUTH_URL + '/societyuserpicture?filename=';
+    public readonly RESIDENTPIC_URL = this.AUTH_URL + '/residentpicture?filename=';
+    public readonly SOCIETYPIC_URL = this.AUTH_URL + '/societypicture?filename=';
+
     //Dashboard Counterss
     public readonly DASHBOARD_URL = this.API_URL + '/api/dashboard';
     public readonly COUNTER_URL = this.DASHBOARD_URL + '/societycounters';
