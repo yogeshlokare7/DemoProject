@@ -4,23 +4,22 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CompanyUserComponent } from './company-user/company-user.component';
 import { CustomersComponent } from './customers/customers.component';
-import { VendorsComponent } from './vendors/vendors.component';
 import { ProductsComponent } from './products/products.component';
 import { ItemsComponent } from './items/items.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { PackagesComponent } from './packages/packages.component';
 import { InvoicesComponent } from './invoices/invoices.component';
-import { AddUserComponent } from './company-user/add-user/add-user.component';
 import { RowMaterialComponent } from './row-material/row-material.component';
 import { ResidentsComponent } from './residents/residents.component';
 import { AddResidentComponent } from './residents/add-resident/add-resident.component';
 import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
-import { AdminUsersComponent } from './admin-users/admin-users.component';
-import { AddAdminComponent } from './admin-users/add-admin/add-admin.component';
 import { CurrentPlanComponent } from './current-plan/current-plan.component';
 import { QuotationRequestComponent } from './quotation-request/quotation-request.component';
+import { UserComponent } from './user/user.component';
+import { AddSecurityUserComponent } from './company-user/add-user/add-user.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
 
 const routes: Routes = [
   {
@@ -41,33 +40,18 @@ const routes: Routes = [
   },
   {
     path: 'security-users/add',
-    component: AddUserComponent,
+    component: AddSecurityUserComponent,
     data: { title: 'Add User', breadcrumb: 'Manage Security Users/ Add User', Submit: 'Submit' }
   },
   {
     path: 'security-users/view',
-    component: AddUserComponent,
+    component: AddSecurityUserComponent,
     data: { title: 'View User', breadcrumb: 'Manage Security Users/ View User', Submit: 'Submit' }
   },
   {
     path: 'security-users/update',
-    component: AddUserComponent,
+    component: AddSecurityUserComponent,
     data: { title: 'Update User', breadcrumb: 'Manage Security Users/ Update User', Submit: 'Submit' }
-  },
-  {
-    path: 'adminusers',
-    component: AdminUsersComponent,
-    data: { title: 'Users', breadcrumb: 'Users' }
-  },
-  {
-    path: 'adminusers/add',
-    component: AddAdminComponent,
-    data: { title: 'Add Admin User', breadcrumb: 'Add Admin Users' }
-  },
-  {
-    path: 'adminusers/edit',
-    component: AddAdminComponent,
-    data: { title: 'Update Admin User', breadcrumb: 'Update Admin Users' }
   },
   {
     path: 'customers',
@@ -166,11 +150,20 @@ const routes: Routes = [
     data: { title: 'Update Residents', breadcrumb: 'Manage Residents/ Update Residents', Submit: 'Submit' }
   },
   {
-    path: 'residents/delete',
-    component: AddResidentComponent,
-    data: { title: 'Delete Users', breadcrumb: 'Delete Users' }
+    path: 'app-users',
+    component: UserComponent,
+    data: { title: 'Users', breadcrumb: 'Users'}
   },
-
+  {
+    path: 'app-users/add',
+    component: AddUserComponent,
+    data: { title: 'Add USer', breadcrumb: 'Save user' }
+  },
+  {
+    path: 'app-users/edit',
+    component: AddUserComponent,
+    data: { title: 'Edit user', breadcrumb: 'Update user' }
+  }
 ];
 
 @NgModule({

@@ -26,7 +26,7 @@ import { emailValidator } from 'src/app/directives/email-validator.directive';
   styleUrls: ['./add-user.component.css']
 
 })
-export class AddUserComponent implements OnInit {
+export class AddSecurityUserComponent implements OnInit {
   Submit: string = "Submit";
   userForm: FormGroup;
   title: string = "Add";

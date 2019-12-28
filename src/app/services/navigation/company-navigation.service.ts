@@ -76,7 +76,7 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'Admin Users',
       icon: 'person',
-      state: 'society/adminusers'
+      state: 'society/app-users'
     },
     {
       name: 'Manage Current Plan',
@@ -142,7 +142,7 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'App Users',
       icon: 'person',
-      state: 'society/adminusers'
+      state: 'society/app-users'
     },
     {
       name: 'Manage Current Plan',

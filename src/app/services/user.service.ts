@@ -20,8 +20,8 @@ export class UserService {
   dialogData: any;
 
   constructor(private httpClient: HttpClient, private toasterService: ToasterService) {
-  
-   }
+
+  }
 
   get data(): User[] {
     return this.dataChange.value;
@@ -72,7 +72,7 @@ export class UserService {
   addUser(user: User, selectedFile: File): void {
     this.httpClient.post(this.api.USER_URL, user).subscribe(data => {
       this.dialogData = data;
-      if (this.dialogData !== null && this.dialogData.id > 0 ) {
+      if (this.dialogData !== null && this.dialogData.id > 0) {
         this.uploadImage(this.dialogData.id, selectedFile);
       }
       if (user.id != null && user.id > 0) {
@@ -86,7 +86,7 @@ export class UserService {
       });
   }
 
-  saveUser(user:User) : Observable<User>{
+  saveUser(user: User): Observable<User> {
     return this.httpClient.post<User>(this.api.SOCIETYUSER_URL, user);
   }
 
@@ -110,17 +110,16 @@ export class UserService {
   // }
 
   getUser(id: number): Observable<User> {
-    console.log("user" + id);
     const url = `${this.api.SOCIETYUSER_URL}/${id}`;
     return this.httpClient.get<User>(url);
   }
 
-  update(id:number, profile: string): Observable<User> {
+  update(id: number, profile: string): Observable<User> {
     const url = `${this.api.UPDATEPWD_URL}/${id}`;
     let httpHeaders = new HttpHeaders()
-    .set('Content-Type', 'application/json');
-  let httpParams = new HttpParams()
-    .set('password', profile);
+      .set('Content-Type', 'application/json');
+    let httpParams = new HttpParams()
+      .set('password', profile);
 
     return this.httpClient.get<User>(url, {
       headers: httpHeaders,
@@ -140,18 +139,16 @@ export class UserService {
       responseType: 'json'
     });
   }
-  
+
   addNewPassword(user: User): Observable<User> {
     return this.httpClient.post<User>(this.api.SETPWD_URL, user);
   }
-  
-  uploadImage(id:number, selectedFile:File):Observable<any>{
+
+  uploadImage(id: number, selectedFile: File): Observable<any> {
     const url = `${this.api.USER_FILE_URL}/${id}?type=societyuser`;
-    if(selectedFile!=null){
-      const fd = new FormData();
-      fd.append('file', selectedFile, selectedFile.name);
-      return this.httpClient.post<any>(url, fd);
-    }
+    const fd = new FormData();
+    fd.append('file', selectedFile, selectedFile.name);
+    return this.httpClient.post<any>(url, fd);
   }
 
 }

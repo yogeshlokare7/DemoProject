@@ -20,7 +20,6 @@ import { AddCustomerComponent } from './customers/add-customer/add-customer.comp
 import { AddVendorComponent } from './vendors/add-vendor/add-vendor.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { CreateSalesOrderComponent } from './sales-order/create-sales-order/create-sales-order.component';
-import { AddUserComponent } from './company-user/add-user/add-user.component';
 import { AddRowMaterialComponent } from './row-material/add-rowmaterial/add-rowmaterial.component';
 import { CreatePurchaseOrderComponent } from './purchase-order/create-purchase-order/create-purchase-order.component';
 import { AddInvoiceComponent } from './invoices/add-invoice/add-invoice.component';
@@ -29,10 +28,11 @@ import { AddResidentComponent } from './residents/add-resident/add-resident.comp
 import { DailyStaffComponent } from './daily-staff/daily-staff.component';
 import { AddDailyStaffComponent } from './daily-staff/add-daily-staff/add-daily-staff.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { AdminUsersComponent } from './admin-users/admin-users.component';
-import { AddAdminComponent } from './admin-users/add-admin/add-admin.component';
 import { CurrentPlanComponent } from './current-plan/current-plan.component';
 import { QuotationRequestComponent } from './quotation-request/quotation-request.component';
+import { UserComponent } from './user/user.component';
+import { AddSecurityUserComponent } from './company-user/add-user/add-user.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
 
 
 @NgModule({
@@ -52,7 +52,7 @@ import { QuotationRequestComponent } from './quotation-request/quotation-request
     AddVendorComponent,
     AddProductComponent,
     CreateSalesOrderComponent,
-    AddUserComponent,
+    AddSecurityUserComponent,
     AddRowMaterialComponent,
     CreatePurchaseOrderComponent,
     AddItemComponent,
@@ -62,8 +62,8 @@ import { QuotationRequestComponent } from './quotation-request/quotation-request
     DailyStaffComponent,
     AddDailyStaffComponent,
     ConfirmDialogComponent,
-    AdminUsersComponent,
-    AddAdminComponent,
+    UserComponent,
+    AddUserComponent,
     CurrentPlanComponent,
     QuotationRequestComponent,
   ],
@@ -79,7 +79,6 @@ import { QuotationRequestComponent } from './quotation-request/quotation-request
     AddCustomerComponent,
     AddVendorComponent,
     AddProductComponent,
-    AddUserComponent,
     AddRowMaterialComponent,
     AddItemComponent,
     ConfirmDialogComponent
