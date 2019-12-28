@@ -26,13 +26,6 @@
       <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDisableClear
         matSortDirection="desc">
 
-        <!-- <ng-container matColumnDef="pic">
-          <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <img mat-list-avatar class="avatar" [src]="(row.picture == null || row.picture == '') ? url : row.picture">
-          </mat-cell>
-        </ng-container> -->
-
         <ng-container matColumnDef="firstname">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
           <mat-cell *matCellDef="let row"class="pointer" matTooltip="View and Update" style="color:#2699FB" [routerLink]="['view', {'id': row.id, 'view': true}]"><span class="underline">{{row.firstname}} {{row.lastname}}</span></mat-cell>

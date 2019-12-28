@@ -35,7 +35,7 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'Manage User',
       icon: 'chat',
-      state: 'society/users'
+      state: 'society/security-users'
     }
   ]
   separatorMenu:IMenuItem[] = [
@@ -55,7 +55,7 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'Users',
       icon: 'person',
-      state: 'society/users'
+      state: 'society/security-users'
     },
     {
       name: 'Manage Residents',
@@ -121,7 +121,7 @@ export class CompanyNavigationService {
       type: 'link',
       tooltip: 'Users',
       icon: 'person',
-      state: 'society/users'
+      state: 'society/security-users'
     },
     {
       name: 'Manage Residents',

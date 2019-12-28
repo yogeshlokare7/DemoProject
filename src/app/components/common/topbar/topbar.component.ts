@@ -14,7 +14,7 @@ import { RestApi } from 'src/app/models/api/rest-api';
 })
 export class TopbarComponent implements OnInit {
   baseUrl = environment.baseUrl;
-  pictureUrl: string = `assets//images//account.jpg`;
+  pictureUrl: string = `assets//images//myuser.png`;
   companyId: number;
   profilePic: any;
   picture: any;

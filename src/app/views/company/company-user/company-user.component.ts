@@ -1,17 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource, MatDialog } from '@angular/material';
-import {merge, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import { merge, of as observableOf } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { PaginationDao } from '../../../models/pagination-dao';
-import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../../models/user';
-import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
-import { Company } from 'src/app/models/company';
 import { ListApi } from 'src/app/models/api/list-api';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { UserService } from 'src/app/services/user.service';
 import { ToasterService } from 'src/app/services/toaster.service';
+import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 
 
 @Component({
@@ -27,24 +25,31 @@ export class CompanyUserComponent implements OnInit {
   data: User[] = [];
 
 
-  dataSource:any;
+  dataSource: any;
   api = new ListApi;
   resultsLength = 0;
   pageSize = 5;
   isLoadingResults = true;
   isRateLimitReached = false;
   url = 'assets/images/myuser.png';
-
+  societyId: number = 0;
   constructor(public httpClient: HttpClient,
     public userService: UserService,
-    public toasterService:ToasterService,
-    public dialog: MatDialog) { }
+    public toasterService: ToasterService,
+    public tokenStorageService: TokenStorageService,
+    public dialog: MatDialog) {
+    let society = this.tokenStorageService.getSociety();
+    if (society) {
+      this.societyId = society.id;
+    }
+  }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit() {
+
     this.loadData();
 
   }
@@ -58,7 +63,7 @@ export class CompanyUserComponent implements OnInit {
   }
 
   view(id: number) {
-    
+
 
   }
   // deleteUser(id: number) {
@@ -76,21 +81,21 @@ export class CompanyUserComponent implements OnInit {
   deleteUser(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
-      data: {id: id}
+      data: { id: id }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.isLoadingResults = true;
-        this.userService.deleteUser(id).subscribe(data=>{
+        this.userService.deleteUser(id).subscribe(data => {
           this.isLoadingResults = false;
           this.toasterService.openSuccessSnackBar('Successfully deleted', 'Ok', 2000)
           this.refresh();
         },
-        err=>{
-          this.isLoadingResults = false;
-          this.toasterService.openErrorSnackBar('Something went wrong. Please try again!', 'Ok', 2000)
-        })
+          err => {
+            this.isLoadingResults = false;
+            this.toasterService.openErrorSnackBar('Something went wrong. Please try again!', 'Ok', 2000)
+          })
       }
     });
   }
@@ -105,7 +110,7 @@ export class CompanyUserComponent implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getListByCompanyId(`${this.api.SECURITYUSER_LIST}`,
+          return this.exampleDatabase!.getListByCompanyId(`${this.api.SECURITYUSER_LIST}/societypage/${this.societyId}`,
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

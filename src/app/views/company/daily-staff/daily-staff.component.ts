@@ -4,10 +4,11 @@ import { PaginationDao } from '../../../models/pagination-dao';
 import { DailyStaff } from '../../../models/daily-staff';
 import { ListApi } from 'src/app/models/api/list-api';
 import { HttpClient } from '@angular/common/http';
-import {merge, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import { merge, of as observableOf } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { DailyStaffService } from 'src/app/services/daily-staff.service';
+import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 
 
 @Component({
@@ -20,21 +21,28 @@ export class DailyStaffComponent implements OnInit {
   exampleDatabase: PaginationDao | null;
   data: DailyStaff[] = [];
 
-  dataSource:any;
+  dataSource: any;
   api = new ListApi;
   resultsLength = 0;
   pageSize = 5;
   isLoadingResults = true;
   isRateLimitReached = false;
   url = 'assets/images/myuser.png';
-
-  constructor(public httpClient: HttpClient,
-    public dailystaffService: DailyStaffService,
-    public dialog: MatDialog) { }
+  societyId: number = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<any>;
+
+  constructor(public httpClient: HttpClient,
+    public dailystaffService: DailyStaffService,
+    public tokenStorageService: TokenStorageService,
+    public dialog: MatDialog) {
+    let society = this.tokenStorageService.getSociety();
+    if (society) {
+      this.societyId = society.id;
+    }
+  }
 
   ngOnInit() {
     this.loadData();
@@ -54,16 +62,16 @@ export class DailyStaffComponent implements OnInit {
   deleteDailyStaff(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
-      data: {id: id}
+      data: { id: id }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.isLoadingResults = true;
-        this.dailystaffService.deleteDailyStaff(id).subscribe(data=>{
+        this.dailystaffService.deleteDailyStaff(id).subscribe(data => {
           this.isLoadingResults = false;
           this.refresh();
-        }, err=>{
+        }, err => {
           this.isLoadingResults = false;
         });
       }
@@ -79,7 +87,7 @@ export class DailyStaffComponent implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getListByCompanyId(`${this.api.DAILYSTAFF_LIST}`,
+          return this.exampleDatabase!.getListByCompanyId(`${this.api.DAILYSTAFF_LIST}/societypage/${this.societyId}`,
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {
@@ -101,5 +109,4 @@ export class DailyStaffComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.data);
       });
   }
-
 }

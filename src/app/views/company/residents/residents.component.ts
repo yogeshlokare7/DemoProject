@@ -1,16 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource, MatDialog } from '@angular/material';
-import {merge, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import { merge, of as observableOf } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { PaginationDao } from '../../../models/pagination-dao';
-import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../../models/user';
-import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
-import { Company } from 'src/app/models/company';
 import { ListApi } from 'src/app/models/api/list-api';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ResidentuserService } from 'src/app/services/token-storage/residentuser.service';
+import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 
 @Component({
   selector: 'app-residents',
@@ -23,7 +21,7 @@ export class ResidentsComponent implements OnInit {
   exampleDatabase: PaginationDao | null;
   data: User[] = [];
 
-  dataSource:any;
+  dataSource: any;
   api = new ListApi;
   resultsLength = 0;
   pageSize = 5;
@@ -31,11 +29,18 @@ export class ResidentsComponent implements OnInit {
 
   isRateLimitReached = false;
   url = 'assets/images/myuser.png';
-  searchInput:any;
+  searchInput: any;
+  societyId: number = 0; 
 
-  constructor(public httpClient: HttpClient, 
-    public residentService:ResidentuserService,
-    public dialog: MatDialog) { }
+  constructor(public httpClient: HttpClient,
+    public residentService: ResidentuserService,
+    public tokenStorageService: TokenStorageService,
+    public dialog: MatDialog) {
+    let society = this.tokenStorageService.getSociety();
+    if (society) {
+      this.societyId = society.id;
+    }
+  }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -61,16 +66,16 @@ export class ResidentsComponent implements OnInit {
   deleteResidents(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
-      data: {id: id}
+      data: { id: id }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.isLoadingResults = true;
-        this.residentService.deleteResidents(id).subscribe(data=>{
+        this.residentService.deleteResidents(id).subscribe(data => {
           this.isLoadingResults = false;
           this.refresh();
-        }, err=>{
+        }, err => {
           this.isLoadingResults = false;
         });
       }
@@ -87,7 +92,7 @@ export class ResidentsComponent implements OnInit {
         switchMap(() => {
           this.isLoadingResults = true;
 
-          return this.exampleDatabase!.getListByCompanyId(`${this.api.RESIDENT_LIST}`,
+          return this.exampleDatabase!.getListByCompanyId(`${this.api.RESIDENT_LIST}/societypage/${this.societyId}`,
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

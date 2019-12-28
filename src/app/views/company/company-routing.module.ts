@@ -34,23 +34,23 @@ const routes: Routes = [
     data: { title: 'Home', breadcrumb: 'Home' }
   },
   {
-    path: 'users',
+    path: 'security-users',
     component: CompanyUserComponent,
     data: { title: 'Users', breadcrumb: 'Users' }
 
   },
   {
-    path: 'users/add',
+    path: 'security-users/add',
     component: AddUserComponent,
     data: { title: 'Add User', breadcrumb: 'Manage Security Users/ Add User', Submit: 'Submit' }
   },
   {
-    path: 'users/view',
+    path: 'security-users/view',
     component: AddUserComponent,
     data: { title: 'View User', breadcrumb: 'Manage Security Users/ View User', Submit: 'Submit' }
   },
   {
-    path: 'users/update',
+    path: 'security-users/update',
     component: AddUserComponent,
     data: { title: 'Update User', breadcrumb: 'Manage Security Users/ Update User', Submit: 'Submit' }
   },

@@ -20,11 +20,7 @@ export class TokenStorageService {
    }
 
   isAuthenticated(): boolean {
-    if (localStorage.getItem(SOCIETY_USER)) {
-      return true;
-    } else {
-      return false;
-    };
+    return this.loggedIn;
   }
 
   signOut() {

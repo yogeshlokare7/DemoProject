@@ -118,7 +118,7 @@ export class AddUserComponent implements OnInit {
     if (!this.isView) {
       console.log("id", this.id);
       this.title = "Update";
-      const url = `society/users/update;id=${this.id};view=false`;
+      const url = `society/security-users/update;id=${this.id};view=false`;
       this.router.navigateByUrl(url);
     } else {
       this.title = "View";
