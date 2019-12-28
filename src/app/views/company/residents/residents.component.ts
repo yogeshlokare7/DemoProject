@@ -31,6 +31,7 @@ export class ResidentsComponent implements OnInit {
 
   isRateLimitReached = false;
   url = 'assets/images/myuser.png';
+  searchInput:any;
 
   constructor(public httpClient: HttpClient, 
     public residentService:ResidentuserService,

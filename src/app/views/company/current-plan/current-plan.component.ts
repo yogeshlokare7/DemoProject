@@ -40,6 +40,10 @@ export class CurrentPlanComponent implements OnInit {
   
   }
 
+  goBack(){
+    this.location.back();
+  }
+
   
  
 

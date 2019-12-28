@@ -42,7 +42,8 @@ export class QuotationRequestComponent implements OnInit {
   isView: boolean = false;
   adddiscount :boolean = false;
   addTaxes = false;
-  
+  assetRates : any[] = [];
+  discountList :any[] = [];
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -140,6 +141,14 @@ export class QuotationRequestComponent implements OnInit {
   goBack() {
     const url = `/home/billing-details`;
     this.router.navigateByUrl(url);
+  }
+
+  onSelectAsset(ev:any){
+
+  }
+
+  onSelectPlan(ev:any){
+
   }
 
 }
