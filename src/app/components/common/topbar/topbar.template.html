@@ -17,8 +17,8 @@
   </div>-->
   
   <span fxFlex>
-    <h1 position="center" class="text-center">{{company.societyName}}</h1>
-    <!-- <h6 position="center" class="text-center" style="font-size: 12px;">{{company.addressOne}} {{company.addressTwo}} {{company.city}} {{company.state}} {{company.country}} - {{company.postalCode}}</h6> -->
+    <h1 position="center" class="text-center">{{society.societyName}}</h1>
+    <!-- <h6 position="center" class="text-center" style="font-size: 12px;">{{society.addressOne}} {{society.addressTwo}} {{society.city}} {{society.state}} {{society.country}} - {{society.postalCode}}</h6> -->
   </span>
   <!-- Language Switcher -->
   <!-- <mat-select placeholder="" id="langToggle" [style.width]="'auto'" name="currentLang" [(ngModel)]="currentLang"
@@ -46,7 +46,8 @@
   </button>
   <!-- Top left user menu -->
   <button mat-icon-button [matMenuTriggerFor]="accountMenu" class="topbar-button-right img-button">
-    <img [src]="pictureUrl" alt="">
+    <img  *ngIf="picture == null || picture == ''" src="{{pictureUrl}}" alt="">
+    <img *ngIf="picture != null && picture != ''" src="{{profilePic}}{{picture}}">
   </button>
   <mat-menu #accountMenu="matMenu">
     <button mat-menu-item [routerLink]="['/profile/overview']">

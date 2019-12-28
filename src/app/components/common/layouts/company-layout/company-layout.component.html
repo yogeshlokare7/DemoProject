@@ -4,7 +4,8 @@
     <div id="scroll-area" class="navigation-hold" fxLayout="column">
       <!-- Company Logo -->
       <div class="branding default-bg">
-        <img [src]="pictureUrl" alt="" *ngIf="themeService.activatedThemeName.indexOf('dark') === -1">
+        <img  *ngIf="picture == null || picture == ''" src="{{pictureUrl}}" alt="">
+        <img *ngIf="picture != null && picture != ''" src="{{societyPic}}{{picture}}">
       </div>
       <!-- Navigation -->
       <app-company-navigation></app-company-navigation>

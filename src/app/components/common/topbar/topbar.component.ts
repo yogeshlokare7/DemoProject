@@ -4,10 +4,9 @@ import { ThemeService } from '../../../services/theme/theme.service';
 import { environment } from 'src/environments/environment';
 import { CompanyService } from '../../../services/company.service';
 import { TokenStorageService } from '../../../services/token-storage/token-storage.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Company } from 'src/app/models/company';
 import { Society } from 'src/app/models/society';
 import { Router } from '@angular/router';
+import { RestApi } from 'src/app/models/api/rest-api';
 
 @Component({
   selector: 'topbar',
@@ -17,7 +16,8 @@ export class TopbarComponent implements OnInit {
   baseUrl = environment.baseUrl;
   pictureUrl: string = `assets//images//account.jpg`;
   companyId: number;
-  company: Society;
+  profilePic: any;
+  picture: any;
 
   @Input() sidenav;
   @Input() notificPanel;
@@ -31,18 +31,20 @@ export class TopbarComponent implements OnInit {
     code: 'es',
   }]
   egretThemes;
+  api = new RestApi();
+  user :any;
+  society :Society;
 
   constructor(private themeService: ThemeService,
     private tokenService: TokenStorageService,
-    private router:Router,
+    private router: Router,
     public companyService: CompanyService) {
-    this.companyId = this.tokenService.getUserId();
-    this.company = this.tokenService.getSociety();
-    let roles = this.tokenService.getRole();
-    // if (!roles.includes("Tejovat Admin")) {
-    //   this.pictureUrl = `assets//images//account2.jpg`;
-    // }
-    console.log("company", this.company);
+    this.profilePic = this.api.SOCIETYUSERPIC_URL;
+    this.user = this.tokenService.getUserInfo();
+    if(this.user){
+      this.picture = this.user.picture;
+      this.society = this.user.societyid;
+    }
   }
 
   ngOnInit() {

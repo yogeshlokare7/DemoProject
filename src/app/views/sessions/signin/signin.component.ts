@@ -20,16 +20,14 @@ export class SigninComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string;
   private loginInfo: AuthLoginInfo;
-  loggedIn:boolean;
+  loggedIn: boolean;
 
-  constructor(private authService :LoginService,
+  constructor(private authService: LoginService,
     private router: Router,
-    private tokenStorage:TokenStorageService) { }
+    private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
-    //.isValidUser();
     this.signinForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -40,7 +38,7 @@ export class SigninComponent implements OnInit {
     this.loggedIn = this.tokenStorage.isAuthenticated();
     if (this.loggedIn) {
       this.navigatePage();
-    } 
+    }
   }
 
   signin() {
@@ -51,21 +49,19 @@ export class SigninComponent implements OnInit {
       signinData.username,
       signinData.password);
 
-    this.authService.signin(this.loginInfo).subscribe( data => {
-        this.tokenStorage.saveUsername(data.username);
-        //this.tokenStorage.saveRole(data.role.name);
-        this.tokenStorage.saveUserId(data.id);
-        //this.tokenStorage.saveCompanyId(data.societyid.id);
-        this.tokenStorage.saveSociety(data.societyid);
+    this.authService.signin(this.loginInfo).subscribe(data => {
+      console.log("data", JSON.stringify(data));
+      this.tokenStorage.saveUserInfo(data);
+      this.tokenStorage.saveUsername(data.username);
+      this.tokenStorage.saveSociety(data.societyid);
 
-        this.submitButton.disabled =false;
-        this.progressBar.mode = 'determinate';
+      this.submitButton.disabled = false;
+      this.progressBar.mode = 'determinate';
 
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getRole();
-        this.navigatePage();
-      },
+      this.isLoginFailed = false;
+      this.isLoggedIn = true;
+      this.navigatePage();
+    },
       error => {
         console.log(error);
         this.errorMessage = error;
@@ -75,12 +71,7 @@ export class SigninComponent implements OnInit {
   }
 
   navigatePage() {
-    //this.roles = this.tokenStorage.getRole();
-    // if(this.roles.includes("Tejovat Admin")){
-    //   this.router.navigateByUrl("/admin/dashboard");
-    // }else{
-      this.router.navigateByUrl("/society/dashboard");
-    //}
+    this.router.navigateByUrl("/society/dashboard");
   }
 
 }

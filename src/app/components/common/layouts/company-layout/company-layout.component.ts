@@ -16,7 +16,8 @@ import * as Ps from 'perfect-scrollbar';
 import { CompanyService } from 'src/app/services/company.service';
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 import { environment } from 'src/environments/environment';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Society } from 'src/app/models/society';
+import { RestApi } from 'src/app/models/api/rest-api';
 
 @Component({
   selector: 'app-company-layout',
@@ -32,6 +33,10 @@ export class CompanyLayoutComponent implements OnInit {
   baseUrl = environment.baseUrl;
   pictureUrl :string  = `assets//images//apt.png`;
   companyId :number;
+  society : Society;
+  picture : any;
+  societyPic:any;
+  api = new RestApi();
 
   constructor(
     private router: Router,
@@ -40,21 +45,12 @@ export class CompanyLayoutComponent implements OnInit {
     private tokenService:TokenStorageService,
     public companyService: CompanyService
   ) {
-    this.companyId = this.tokenService.getCompanyId();
-    // if(this.companyId != null || this.companyId > 0){
-    //   this.companyService.checkCompanyLogo(this.companyId, "company").subscribe(data=>{
-    //     if(data.available){
-    //       this.pictureUrl = `${this.baseUrl}/api/auth/others/files/company_${this.companyId}.png`;
-    //     }else{
-    //       this.pictureUrl = `${this.baseUrl}/api/auth/others/files/company_default.png`;
-    //     }
-    //   }, (error:HttpErrorResponse)=>{
-    //     console.log("error", error);
-    //   })
-    // }else{
-    //   this.pictureUrl = `${this.baseUrl}/api/auth/others/files/company_default.png`;
-    // }
-    // Close sidenav after route change in mobile
+    this.societyPic = this.api.SOCIETYPIC_URL;
+    this.society = this.tokenService.getSociety();
+    
+    if(this.society){
+      this.picture = this.society.picture;
+    }
     router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((routeChange: NavigationEnd) => {
       if(this.isNavOver()) {
         this.sideNave.close()

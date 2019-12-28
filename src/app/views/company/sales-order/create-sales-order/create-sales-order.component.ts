@@ -41,7 +41,7 @@ export class CreateSalesOrderComponent implements OnInit {
   orderDate = new Date();
   minDate = new Date();
   id:number;
-  cmpId : number;
+  societyId : number;
 
   constructor(private salesOrdersService: SalesOrdersService,
     private customerService: CustomerService,
@@ -51,7 +51,10 @@ export class CreateSalesOrderComponent implements OnInit {
     private tokenService: TokenStorageService,
     private dialog: MatDialog,
     private location: Location) {
-      this.cmpId = this.tokenService.getCompanyId();
+      let society = this.tokenService.getSociety();
+      if(society){
+        this.societyId = society.id;
+      }
   }
 
   ngOnInit() {
@@ -135,7 +138,7 @@ export class CreateSalesOrderComponent implements OnInit {
   }
 
   getCustomers(): void {
-    this.customerService.getCustomerList(this.cmpId).subscribe(result => {
+    this.customerService.getCustomerList(this.societyId).subscribe(result => {
       this.customers = result;
     }, err=> {
 

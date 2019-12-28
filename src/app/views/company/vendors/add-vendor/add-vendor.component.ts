@@ -20,7 +20,7 @@ export class AddVendorComponent implements OnInit {
   shipstates:State[];
   title: string = "Add";
   options: string[] =  ['Mr.', 'Mrs.', 'Ms', 'Miss', 'Dr.']
-  cmpId: number;
+  societyId: number;
   constructor(
     public dialogRef: MatDialogRef<AddVendorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -33,7 +33,10 @@ export class AddVendorComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.cmpId = this.tokenService.getCompanyId();
+    let society = this.tokenService.getSociety();
+    if(society){
+      this.societyId = society.id;
+    }
     this.countries = this.countryService.getCountries();
     this.createForm();
     this.setCompanyInForm();
@@ -48,7 +51,7 @@ export class AddVendorComponent implements OnInit {
 
   setCompanyInForm(){
     this.vendorForm.patchValue({
-      companyId: this.cmpId
+      companyId: this.societyId
     });
   }
 

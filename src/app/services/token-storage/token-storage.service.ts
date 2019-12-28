@@ -3,29 +3,28 @@ import { Company } from 'src/app/models/company';
 import { Society } from 'src/app/models/society';
 
 const TOKEN_KEY = 'AuthToken';
-const USER_ID = '1';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
-const COMPANY_KEY = 'TBSM';
 const SOCIETY_KEY = 'SOCIETY';
-const COMPANY_ID = '';
-const COMPANY_ADDRESS = '';
-const ROLE_KEY = "ROLE"
+const SOCIETY_USER = 'SOCIETY_USER';
+const ROLE_KEY = "ROLE";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenStorageService {
   private roles: Array<string> = [];
-  constructor() { }
+  loggedIn : boolean = false;
+  constructor() {
+    this.loggedIn = !!localStorage.getItem(SOCIETY_USER);
+   }
 
   isAuthenticated(): boolean {
-    let token = this.getToken();
-    let userId = this.getUserId();
-    if (userId > 0) {
+    if (localStorage.getItem(SOCIETY_USER)) {
       return true;
-    }
-    return true;
+    } else {
+      return false;
+    };
   }
 
   signOut() {
@@ -50,15 +49,6 @@ export class TokenStorageService {
     return localStorage.getItem(ROLE_KEY);
   }
 
-  public saveUserId(userId: number) {
-    window.localStorage.removeItem(USER_ID);
-    window.localStorage.setItem(USER_ID, userId.toString());
-  }
-
-  public getUserId(): number {
-    return +localStorage.getItem(USER_ID);
-  }
-
   public saveUsername(username: string) {
     window.localStorage.removeItem(USERNAME_KEY);
     window.localStorage.setItem(USERNAME_KEY, username);
@@ -66,24 +56,6 @@ export class TokenStorageService {
 
   public getUsername(): string {
     return localStorage.getItem(USERNAME_KEY);
-  }
-
-  public saveCompanyId(companyId: number) {
-    window.localStorage.removeItem(COMPANY_ID);
-    window.localStorage.setItem(COMPANY_ID, companyId.toString());
-  }
-
-  public getCompanyId(): number {
-    return +localStorage.getItem(COMPANY_ID);
-  }
-
-  public saveCompany(company: Company) {
-    window.localStorage.removeItem(COMPANY_KEY);
-    window.localStorage.setItem(COMPANY_KEY, JSON.stringify(company));
-  }
-
-  public getCompany(): Company {
-    return JSON.parse(localStorage.getItem(COMPANY_KEY));
   }
 
   public saveSociety(company: Society) {
@@ -95,13 +67,13 @@ export class TokenStorageService {
     return JSON.parse(localStorage.getItem(SOCIETY_KEY));
   }
 
-  public saveCompanyAddress(address: string) {
-    window.localStorage.removeItem(COMPANY_ADDRESS);
-    window.localStorage.setItem(COMPANY_ADDRESS, address);
+  public saveUserInfo(user: any) {
+    window.localStorage.removeItem(SOCIETY_USER);
+    window.localStorage.setItem(SOCIETY_USER, JSON.stringify(user));
   }
 
-  public getCompanyAddress(): string {
-    return localStorage.getItem(COMPANY_ADDRESS);
+  public getUserInfo(): any {
+    return JSON.parse(localStorage.getItem(SOCIETY_USER));
   }
 
   public saveAuthorities(authorities: string[]) {

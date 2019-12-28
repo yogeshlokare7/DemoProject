@@ -36,7 +36,7 @@ export class ProductsComponent implements OnInit {
   pageSize = 5;
   isLoadingResults = true;
   isRateLimitReached = false;
-  cmpId :number;
+  societyId :number;
 
   constructor(public httpClient: HttpClient,
     private tokenService:TokenStorageService,
@@ -48,7 +48,10 @@ export class ProductsComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit() {
-    this.cmpId = this.tokenService.getCompanyId();
+    let society = this.tokenService.getSociety();
+    if(society){
+      this.societyId = society.id;
+    }
     this.loadData();
   }
 
@@ -69,7 +72,7 @@ export class ProductsComponent implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getListByCompanyId(`${this.api}/api/product/list/${this.cmpId}`,
+          return this.exampleDatabase!.getListByCompanyId(`${this.api}/api/product/list/${this.societyId}`,
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

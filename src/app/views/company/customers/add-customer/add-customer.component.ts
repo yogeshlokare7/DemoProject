@@ -21,7 +21,7 @@ export class AddCustomerComponent implements OnInit {
   shipstates:State[];
   title: string = "Add";
   options: string[] =  ['Mr.', 'Mrs.', 'Ms', 'Miss', 'Dr.']
-  cmpId: number;
+  societyId: number = 0;
   constructor(
     public dialogRef: MatDialogRef<AddCustomerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -32,7 +32,10 @@ export class AddCustomerComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.cmpId = this.tokenService.getCompanyId();
+    let society = this.tokenService.getSociety();
+    if(society){
+      this.societyId = society.id;
+    }
     this.countries = this.countryService.getCountries();
     this.createForm();
     this.setCompanyInForm();
@@ -46,7 +49,7 @@ export class AddCustomerComponent implements OnInit {
 
   setCompanyInForm(){
     this.customerForm.patchValue({
-      companyId: this.cmpId
+      companyId: this.societyId
     });
   }
 

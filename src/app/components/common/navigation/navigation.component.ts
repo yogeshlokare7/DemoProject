@@ -10,6 +10,7 @@ export class NavigationComponent {
   iconTypeMenuTitle:string;
   menuItems:any[];
 
+
   constructor(private navService: NavigationService) {}
   
   ngOnInit() {

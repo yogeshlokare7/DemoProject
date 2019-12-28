@@ -39,7 +39,6 @@ export class AdminLayoutComponent implements OnInit {
     private tokenService:TokenStorageService,
     public companyService: CompanyService
   ) {
-    this.companyId = this.tokenService.getCompanyId();
     /*if(this.companyId != null || this.companyId > 0){
       this.companyService.checkCompanyLogo(this.companyId, "company").subscribe(data=>{
         if(data.available){
