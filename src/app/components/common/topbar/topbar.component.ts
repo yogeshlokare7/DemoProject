@@ -17,11 +17,13 @@ export class TopbarComponent implements OnInit {
   pictureUrl: string = `assets//images//myuser.png`;
   companyId: number;
   profilePic: any;
-  picture: any;
+  @Input() picture: any;
 
   @Input() sidenav;
   @Input() notificPanel;
+
   @Output() onLangChange = new EventEmitter<any>();
+  @Output() messageToEmit = new EventEmitter<string>();
   currentLang = 'en';
   availableLangs = [{
     name: 'English',
@@ -62,15 +64,19 @@ export class TopbarComponent implements OnInit {
   toggleSidenav() {
     this.sidenav.toggle();
   }
+
   toggleCollapse() {
     let appBody = document.body;
     domHelper.toggleClass(appBody, 'collapsed-menu');
     domHelper.removeClass(document.getElementsByClassName('has-submenu'), 'open');
   }
 
-
   logout() {
     this.tokenService.signOut();
     this.router.navigateByUrl('/sessions/signin');
+  }
+
+  openProfile(){
+    this.messageToEmit.emit('profile');
   }
 }

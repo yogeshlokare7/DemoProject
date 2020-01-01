@@ -50,18 +50,18 @@
     <img *ngIf="picture != null && picture != ''" src="{{profilePic}}{{picture}}">
   </button>
   <mat-menu #accountMenu="matMenu">
-    <button mat-menu-item [routerLink]="['/profile/overview']">
+    <button mat-menu-item (click)="openProfile()">
       <mat-icon>account_box</mat-icon>
-      <span>Profile</span>
+      <span>My Profile</span>
     </button>
-    <button mat-menu-item [routerLink]="['/profile/settings']">
+    <!-- <button mat-menu-item [routerLink]="['/profile/settings']">
       <mat-icon>settings</mat-icon>
       <span>Account Settings</span>
-    </button>
+    </button>-->
     <button mat-menu-item>
       <mat-icon>notifications_off</mat-icon>
       <span>Disable alerts</span>
-    </button>
+    </button> 
     <button mat-menu-item (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       <span>Sign out</span>

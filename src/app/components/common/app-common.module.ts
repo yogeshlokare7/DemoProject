@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -19,7 +19,8 @@ import {
   MatRadioModule,
   MatCheckboxModule,
   MatCardModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatInputModule
 } from '@angular/material';
 
 import { TopbarComponent } from './topbar/topbar.component';
@@ -33,11 +34,13 @@ import { ThemeService } from '../../services/theme/theme.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CompanyLayoutComponent } from './layouts/company-layout/company-layout.component';
 import { CompanyNavigationComponent } from './company-navigation/company-navigation.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     RouterModule,
     FlexLayoutModule,
@@ -55,6 +58,7 @@ import { CompanyNavigationComponent } from './company-navigation/company-navigat
     MatRadioModule,
     MatCheckboxModule,
     MatCardModule,
+    MatInputModule,
     MatProgressSpinnerModule,
     CommonDirectivesModule,
     TranslateModule
@@ -65,7 +69,7 @@ import { CompanyNavigationComponent } from './company-navigation/company-navigat
     TopbarComponent, 
     NavigationComponent, 
     NotificationsComponent, 
-    BreadcrumbComponent, CompanyLayoutComponent, CompanyNavigationComponent
+    BreadcrumbComponent, CompanyLayoutComponent, CompanyNavigationComponent, ProfileComponent
   ],
   providers: [ThemeService],
   exports: []

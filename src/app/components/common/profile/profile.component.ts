@@ -1,24 +1,22 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { ActivatedRoute } from '@angular/router';
-import { CountryStateService } from 'src/app/services/country-state.service';
-import { Society } from 'src/app/models/society';
-import { Location } from '@angular/common';
-import { User } from 'src/app/models/user';
+import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { GenericTerm } from 'src/app/models/generic/generic-term';
+import { Society } from 'src/app/models/society';
+import { RestApi } from 'src/app/models/api/rest-api';
 import { ToasterService } from 'src/app/services/toaster.service';
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
-import { RestApi } from 'src/app/models/api/rest-api';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class AddUserComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
+  @Output() messageToEmit = new EventEmitter<string>();
   userForm: FormGroup;
   title: string = "Add";
   user: User;
@@ -35,42 +33,22 @@ export class AddUserComponent implements OnInit {
   society: Society;
   maxSize: number = 2097152;
   api = new RestApi();
-  constructor(private fb: FormBuilder,
-    private location: Location,
-    private route: ActivatedRoute,
-    private toasterService: ToasterService,
+  
+  constructor(private toasterService: ToasterService,
     private tokenStorageService: TokenStorageService,
+    private fb: FormBuilder,
     private userService: UserService) {
-    this.society = this.tokenStorageService.getSociety();
-    if (this.society) {
-      this.societyId = this.society.id;
-    }
-  }
+   }
 
   ngOnInit() {
     this.createForm();
-    this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
-      if (this.id != null && this.id > 0) {
-        this.getUserInfo(this.id);
-        this.title = 'Update';
-        this.isUpdate = true;
-      }
-    });
-    this.url = "data:image/png;base64," + this.generic.IMAGEDATA + "";
-  }
-
-  getUserInfo(userid: number) {
-    this.isLoadingResults = true;
-    this.userService.getUser(userid).subscribe(data => {
-      this.user = data;
-      if(data){
-        this.setFormValue(this.user);
-      }
-      this.isLoadingResults = false;
-    }, err => {
-      this.isLoadingResults = false;
-    })
+    this.user = this.tokenStorageService.getUserInfo();
+    this.society = this.tokenStorageService.getSociety();
+    console.log("user", this.user);
+    if (this.user) {
+      this.societyId = this.society.id;
+      this.setFormValue(this.user);
+    }
   }
 
   createForm() {
@@ -93,7 +71,6 @@ export class AddUserComponent implements OnInit {
   get contactNo() { return this.userForm.get('contactno'); }
   get gender() { return this.userForm.get('gender'); }
   get status() { return this.userForm.get('status'); }
-  get societyid() { return this.userForm.get('societyid'); }
 
   setFormValue(user: User) {
     this.userForm.patchValue({
@@ -119,26 +96,34 @@ export class AddUserComponent implements OnInit {
     console.log("user form", JSON.stringify(this.user));
     this.isLoadingResults = true;
     this.userService.saveUser(this.user).subscribe(data => {
-      this.isLoadingResults = false;
       if (data != null) {
         let savedUser = data;
+        this.user = data;
         if (savedUser != null && this.selectedFile != null) {
           this.userService.uploadImage(savedUser.id, this.selectedFile).subscribe(data => {
-
+            if(data){
+              this.messageToEmit.emit(data.filename);
+              this.isLoadingResults = false;
+            }else{
+              this.messageToEmit.emit(this.user.picture);
+              this.isLoadingResults = false;
+            }
+          }, err=>{
+            this.isLoadingResults = false;
           });
+        }else{
+          this.messageToEmit.emit(this.user.picture);
+          this.isLoadingResults = false;
         }
-        if (this.isUpdate) {
-          this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
-        } else {
-          this.toasterService.openSuccessSnackBar('Successfully Added', '', 2000);
-        }
+        this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
+      }else{
         this.isLoadingResults = false;
       }
-      this.goBack();
     }, (err: HttpErrorResponse) => {
       this.isLoadingResults = false;
+      this.messageToEmit.emit(this.user.picture);
       console.log("user err", err);
-    })
+    });
   }
 
   prepareSaveUser(): User {
@@ -198,7 +183,7 @@ export class AddUserComponent implements OnInit {
     }
   }
 
-  goBack() {
-    this.location.back();
+  goBack(){
+    this.messageToEmit.emit(this.user.picture);
   }
 }

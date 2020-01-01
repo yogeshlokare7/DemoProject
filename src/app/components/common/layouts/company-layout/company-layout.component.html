@@ -1,6 +1,6 @@
 <mat-sidenav-container class="app-side-nav-container mat-drawer-transition">
   <!-- Main side navigation -->
-  <mat-sidenav #sidenav [opened]="!isNavOver()" [mode]="isNavOver() ? 'over' : 'side'" class="sidebar-panel">
+  <mat-sidenav #sidenav (click)="show()" [opened]="!isNavOver()" [mode]="isNavOver() ? 'over' : 'side'" class="sidebar-panel">
     <div id="scroll-area" class="navigation-hold" fxLayout="column">
       <!-- Company Logo -->
       <div class="branding default-bg">
@@ -14,7 +14,7 @@
 
   <!-- Top Bar -->
   <!-- Listens language change event -->
-  <topbar [sidenav]="sidenav" [notificPanel]="notificationPanel" (onLangChange)="translate.use($event)"></topbar>
+  <topbar [sidenav]="sidenav" [notificPanel]="notificationPanel" (onLangChange)="translate.use($event)" (messageToEmit)="getMessage($event)" [picture]="userpic"></topbar>
   <app-breadcrumb #breadcrumb></app-breadcrumb>
   <!-- App content -->
   <div class="rightside-content-hold">
@@ -24,7 +24,8 @@
         <div class="double-bounce2 mat-bg-primary"></div>
       </div>
     </div>
-    <router-outlet></router-outlet>
+    <app-profile *ngIf="showProfile" (messageToEmit)="getProfileMessage($event)"></app-profile>
+    <router-outlet  *ngIf="!showProfile" ></router-outlet>
   </div>
   
   <!-- Notificaation bar -->
