@@ -7,7 +7,9 @@ import {
   MatInputModule,
   MatCardModule,
   MatCheckboxModule,
-  MatIconModule
+  MatIconModule,
+  MatSpinner,
+  MatProgressSpinnerModule
  } from '@angular/material';
 
 import { SessionsRoutingModule } from './sessions-routing.module';
@@ -31,6 +33,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatCheckboxModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule,
     SessionsRoutingModule
   ]

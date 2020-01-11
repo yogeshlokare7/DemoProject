@@ -3,6 +3,9 @@
     <mat-progress-bar mode="determinate" class="session-progress"></mat-progress-bar>
     <mat-card>
       <mat-card-content>
+          <div class="example-loading-shade" *ngIf="isLoadingResults">
+              <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            </div>
         <div class="text-center pb-1">
           <img src="assets/png_logo.png" style="height: 72px" alt="" class="mb-5">
           <div class="mat-h2 mt-5">Society Login</div>

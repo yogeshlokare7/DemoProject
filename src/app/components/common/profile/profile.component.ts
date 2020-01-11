@@ -103,17 +103,22 @@ export class ProfileComponent implements OnInit {
           this.userService.uploadImage(savedUser.id, this.selectedFile).subscribe(data => {
             if(data){
               this.messageToEmit.emit(data.filename);
+              this.user.picture = data.filename;
               this.isLoadingResults = false;
+              this.tokenStorageService.saveUserInfo(this.user);
             }else{
               this.messageToEmit.emit(this.user.picture);
               this.isLoadingResults = false;
+              this.tokenStorageService.saveUserInfo(this.user);
             }
           }, err=>{
             this.isLoadingResults = false;
+            this.tokenStorageService.saveUserInfo(this.user);
           });
         }else{
           this.messageToEmit.emit(this.user.picture);
           this.isLoadingResults = false;
+          this.tokenStorageService.saveUserInfo(this.user);
         }
         this.toasterService.openSuccessSnackBar('Successfully Updated', '', 2000);
       }else{

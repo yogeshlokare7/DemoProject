@@ -5,7 +5,6 @@ import { AuthLoginInfo } from '../../../models/login-info';
 import { LoginService } from '../../../services/login/login.service';
 import { TokenStorageService } from '../../../services/token-storage/token-storage.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -22,6 +21,7 @@ export class SigninComponent implements OnInit {
   errorMessage = '';
   private loginInfo: AuthLoginInfo;
   loggedIn: boolean;
+  isLoadingResults: boolean = false;
 
   constructor(private authService: LoginService,
     private router: Router,
@@ -48,16 +48,13 @@ export class SigninComponent implements OnInit {
     this.loginInfo = new AuthLoginInfo(
       signinData.username,
       signinData.password);
-
+    this.isLoadingResults = true;
     this.authService.signin(this.loginInfo).subscribe(data => {
-      console.log("data", JSON.stringify(data));
       this.tokenStorage.saveUserInfo(data);
       this.tokenStorage.saveUsername(data.username);
       this.tokenStorage.saveSociety(data.societyid);
-
       this.submitButton.disabled = false;
       this.progressBar.mode = 'determinate';
-
       this.isLoginFailed = false;
       this.isLoggedIn = true;
       this.navigatePage();
@@ -66,11 +63,13 @@ export class SigninComponent implements OnInit {
         console.log(error);
         this.errorMessage = error;
         this.isLoginFailed = true;
+        this.isLoadingResults = false;
       }
     );
   }
 
   navigatePage() {
+    this.isLoadingResults = false;
     this.router.navigateByUrl("/society/dashboard");
   }
 
